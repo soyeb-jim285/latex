@@ -1,0 +1,773 @@
+% !TEX program = xelatex
+
+\documentclass[a4paper,12pt]{article}
+\setcounter{secnumdepth}{0}
+\usepackage{polyglossia}
+\usepackage{hyperref} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\setchemfig{atom sep=4ex}
+\usepackage{xfrac}
+\usepackage{framed}
+\usepackage[alpine,misc]{ifsym}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage[
+  top=1.5cm,
+  bottom=1.5cm,
+  left=2cm,
+  right=2cm,
+  headheight=17pt, % as per the warning by fancyhdr
+  includehead,includefoot,
+  heightrounded, % to avoid spurious underfull messages
+]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{cellspace}
+\setlength\cellspacetoplimit{4pt}
+\setlength\cellspacebottomlimit{4pt}
+\usepackage{makecell}
+\setcellgapes{6pt}
+
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{quotes,angles}
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{array}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usetikzlibrary{calc}
+\pagestyle{fancy}
+\fancyheadoffset{0cm}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0pt}
+    \newgeometry{top=2cm}
+}
+
+\setmainlanguage[numerals=Kalpurush]{bengali}
+\setotherlanguage{english}
+\newfontfamily\englishfont{Times New Roman}
+\newfontfamily\bengalifont[Script=Bengali,BoldFont={Kalpurush},BoldFeatures={FakeBold=2.5},ItalicFont={Kalpurush}, ItalicFeatures={FakeSlant=0.3}]{Kalpurush}
+
+\newcommand{\dd}{\displaystyle}
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\tm}{\item}
+\newcommand{\drg}{^{\circ}}
+\newcommand{\eng}{\textenglish}
+\renewcommand{\baselinestretch}{1.3} 
+\newcommand*{\perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\comb}[2]{{}^{#1}C_{#2}}%
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\setlength{\parskip}{0.5em}
+\setlength\parindent{0pt}
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+\setlength{\tabcolsep}{0in}
+
+
+\title {উচ্চতর গণিত}
+\author{সোয়েব পারভেজ জীম}
+\date{01 April 2020}
+
+\begin{document}
+
+\maketitle
+
+\hypersetup{hidelinks}
+
+\begingroup
+    \renewcommand{\baselinestretch}{1}
+    \tableofcontents
+\endgroup
+
+
+\thispagestyle{empty}
+\addtocounter{page}{-2}
+\clearpage\mbox{}\thispagestyle{empty}\clearpage
+
+\section{১ম পত্র}
+\subsection{১ম অধ্যায়ঃ ম্যাট্রিক্স ও নির্ণায়ক}
+
+\textbf{বর্গ ম্যাট্রিক্সঃ} যে ম্যাট্রিক্সের সারি ও কলামের সংখ্যা সমান তাকে ম্যাট্রিক্স বলে। 
+
+\textbf{কর্ণ ম্যাট্রিক্সঃ} মূখ্য কর্ণের ভূক্তিগুলো অশূন্য এবং বাকি ভূক্তিগুলো শূন্য হলে তাকে কর্ণ ম্যাট্রিক্স বলে। 
+
+\textbf{স্কেলার ম্যাট্রিক্সঃ} কর্ণ ম্যাট্রিক্সের অশূন্য ভূক্তিগুলো সমান হলে, তাকে স্কেলার ম্যাট্রিক্স বলে।
+
+\textbf{অভেদক ম্যাট্রিক্সঃ} কর্ণ ম্যাট্রিক্সের অশূন্য ভূক্তিগুলো $1$ হলে, তাকে অভেদক ম্যাট্রিক্স বলে। \\*
+উদাহরণঃ $I_3 = \begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & 1\\
+    \end{bmatrix}$
+
+\textbf{শূন্য ম্যাট্রিক্সঃ} যে ম্যাট্রিক্সের সকল ভুক্তি শূন্য তাকে শূন্য ম্যাট্রিক্স বলে। 
+
+\textbf{ত্রিভূজাকার ম্যাট্রিক্সঃ} প্রধান কর্ণের উপরে বা নিচে সকল ভূক্তি $0$ এবং বাকি ভূক্তি অশূন্য হলে তাকে ত্রিভূক ম্যাট্রিক্স বলে। 
+
+\textbf{ট্রান্সপোজ ম্যাট্রিক্সঃ} ম্যাট্রিক্সের কলামকে সারিতে বা সারিকে কলামে পরিণত করলে যে ম্যাট্রিক্স পাওয়া যায় তাকে ট্রান্সপোজ ম্যাট্রিক্স বলে। উদাহরণঃ $A=\begin{bmatrix}
+    1 & 0 & 0\\
+    1 & 0 & 1\\
+    1 & 1 & 0\\
+    \end{bmatrix}$ হলে, $A^T= \begin{bmatrix}
+        1 & 1 & 1\\
+        0 & 0 & 1\\
+        0 & 1 & 0\\
+        \end{bmatrix}$
+
+\textbf{প্রতিসম ম্যাট্রিক্সঃ} বর্গ ম্যাট্রিক্স ও ট্রান্সপোজ ম্যাট্রিক্স সমান হলে তাকে প্রতিসম ম্যাট্রিক্স বলে। 
+
+\textbf{অপ্রতিসম ম্যাট্রিক্সঃ} বর্গ ম্যাট্রিক্স, ট্রান্সপোজ ম্যাট্রিক্সের ঋণাত্মক বিপরীত অর্থাৎ $A=-A^T$ হলে তাকে অপ্রতিসম ম্যাট্রিক্স বলে।
+
+\textbf{সমঘাতি ম্যাট্রিক্সঃ} যদি $A^2=A\cdot A= A$ হয় তাহলে। যেমনঃ $A= \begin{bmatrix}
+    1 & 0 \\
+    0 & 1 \\
+    \end{bmatrix}$ হলে $A^2 = \begin{bmatrix}
+        1 & 0 \\
+        0 & 1 \\
+        \end{bmatrix}$ তাই এরা সমঘাতি। 
+
+\textbf{শূন্যঘাতি ম্যাট্রিক্সঃ} ক্ষুদ্রতম স্বাভাবিক সংখ্যা $n$ এর জন্য একটি বর্গ ম্যাট্রিক্স $A$ শূন্যঘাতি বলে যদি $A^n$ শূন্য ম্যাট্রিক্স হয়। যেমনঃ $A=\begin{bmatrix}
+    1 & -1 \\
+    1 & -1 \\
+    \end{bmatrix}$
+    হলে, $A^2 = \begin{bmatrix}
+        0 & 0 \\
+        0 & 0 \\
+        \end{bmatrix}$ তাই $A$ শূন্যঘাতি ম্যাট্রিক্স এবং শূন্যঘাতি সূচক $2$। 
+    
+\textbf{ব্যতিক্রমী ম্যাট্রিক্সঃ} যে ম্যাট্রিক্সের নির্ণায়কের মান শূন্য তাকে ব্যতিক্রমী ম্যাট্রিক্স বলে। 
+
+\textbf{অনুবন্ধী ম্যাট্রিক্সঃ} কোনো বর্গ ম্যাট্রিক্স $A$ এর নির্ণায়ক $A$ এর সহগুনক দ্বারা গঠিত ম্যাট্রিক্সের ট্রান্সপোজ ম্যাট্রিক্সকে অনুবন্ধী ম্যাট্রিক্স বলে। 
+
+\textbf{বিপরীত ম্যাট্রিক্সঃ} যদি দুটি ম্যাট্রিক্স $A$ ও $B$ এর ক্ষেত্রে, $AB=BA=I_n$ হয় তাহলে তাদের একে অপরের বিপরীত ম্যাট্রিক্স বলে।
+
+\textbf{অনুরাশি ও সহগুণকঃ} কোনো ম্যাট্রিক্সের কোনো ভুক্তি যে সারিতে ও কলামে আছে তা বাদে বাকি ভুক্তিগুলো নিয়ে তৈরী নির্ণায়ক হল অনুরাশি এবং যথাযত চিহ্ন যুক্ত অনুরাশিকে সহগুণক বলে।\\*
+যেমনঃ $\begin{bmatrix}
+    1 & 2 & 3\\
+    4 & 5 & 6\\
+    7 & 8 & 9
+    \end{bmatrix}$ এর $2$ এর অনুরাশি $\begin{vmatrix}
+        4 & 6\\
+        7 & 9\\
+        \end{vmatrix}$ এবং সহগুনক হবে $-\begin{vmatrix}
+            4 & 6\\
+            7 & 9\\
+            \end{vmatrix}$
+
+\textbf{ম্যাট্রিক্স গুণনঃ}\footnote{$A$ ম্যট্রিক্সের কলাম সংখ্যা যদি $B$ ম্যাট্রিক্সের সমান হয়।} $AB=\begin{bmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}
+    \end{bmatrix}
+    \begin{bmatrix}
+        b_{11} & b_{12} \\
+        b_{21} & b_{22} \\
+        b_{31} & b_{32}
+    \end{bmatrix}=    
+    \begin{bmatrix}
+        a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} & a_{11}b_{12}+a_{12}b_{22}+a{13}b_{32} \\
+        a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} & a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32} 
+    \end{bmatrix}$ 
+
+\textbf{বিপরীত ম্যাট্রিক্স নির্ণয়ঃ} $A^{-1}=\dfrac{Adj(A)}{|A|}$ যেমনঃ কোনো ম্যাট্রিক্স $A=\begin{bmatrix}
+    0 & 2 & 3\\
+    1 & -2 & 4\\
+    2 & 0 & 5\\
+    \end{bmatrix}$ হলে, $|A|=\begin{vmatrix}
+        0 & 2 & 3\\
+        1 & -2 & 4\\
+        2 & 0 & 5\\
+        \end{vmatrix}=18$
+আবার $A$ এর সহগুনকগুলো নিম্নরূপঃ
+\begin{alignat*}{9}
+    &A_{11} &&= -2\times 5 &&= -10; && A_{12} &&= -(5\times 1 -4\times 2)&&= 3; \qquad&& A_{13} &&=0-(-2\times 2) &&=4;\\
+    &A_{21} &&= -(2\times 5) &&= -10; && A_{22} &&= 0-3\times 2&&=6; && A_{23}  &&= -(0-2\times 2) &&=4;  \\
+    &A_{31} &&= 2\times 4 -(-2\times 3) &&=14; \qquad && A_{32} &&= -(0-3\times 1)&&=3;  && A_{33} &&= 0-2\times 1 &&= -2;
+\end{alignat*}
+তাহলে, $A^{-1}=\dfrac{Adj(A)}{|A|}=\dfrac{1}{18} \begin{bmatrix}
+    -10 & -10 & 14\\
+    3 & -6 & 3\\
+    4 & 4 & -2\\
+    \end{bmatrix}$
+
+\textbf{নির্ণায়কের সাহায্যে সমীকরণ সমাধানঃ} নিম্নে তিনটি সমীকরন দেওয়া হলঃ
+\begin{align*}
+    3x-y+5z&=-2\\
+-4x+y+7z&=10\\
+2x+4y-z&=3
+\end{align*}
+
+এগুলোকে ম্যাট্রিক্সে পরিণত করলে,
+$\begin{bmatrix}
+    3 & -1 & 5\\
+    -4 & 1 & 7\\
+    2 & 4 & -1
+\end{bmatrix} \begin{bmatrix}
+    x \\
+    y \\
+    z 
+    \end{bmatrix}=\begin{bmatrix}
+        -2 \\
+        10 \\
+        3 
+        \end{bmatrix}$
+
+$|A|=-187$ তাহলে \eng{Cramer's rule} ব্যবহার করে,\\*
+$x=\dfrac{|A_x|}{|A|}=\dfrac{\begin{vmatrix}
+    -2 & -1 & 5\\
+    10 & 1 & 7\\
+    3 & 4 & -1
+\end{vmatrix}}{-187} = -\dfrac{212}{187}$\\*
+$y=\dfrac{|A_y|}{|A|}=\dfrac{\begin{vmatrix}
+    3 & -2 & 5\\
+    -4 & 10 & 7\\
+    2 & 3 & -1
+\end{vmatrix}}{-187} = \dfrac{273}{187}$\\*
+$z=\dfrac{|A_z|}{|A|}=\dfrac{\begin{vmatrix}
+    3 & -1 & -2\\
+    -4 & 1 & 10\\
+    2 & 4 & 3
+\end{vmatrix}}{-187} = \dfrac{107}{187}$
+
+\subsection{২য় অধ্যায়ঃ ভেক্টর}
+\begin{enumerate}[ wide=0em, label=\textenglish{\textbf{ \arabic* .}}, itemsep=0pt, parsep=1ex]
+    \item ভেক্টরের লব্ধি $R=\sqrt{P^2+Q^2+2PQ \cos\alpha }$
+
+    \item  লব্ধি $R$ ও কোনো ভেক্টর $P$ এর মধ্যবর্তী কোণ $\theta ={{\mathrm{tan}}^{-1} \left(\dfrac{Q \sin \alpha }{P+Q \cos\alpha }\right)\ }$
+        
+    \item  $\overrightarrow{P}$ ও $\overrightarrow{Q}$ এর লব্ধি $\overrightarrow{R}$ হলে, 
+    \[\dfrac{P}{{\mathrm{sin} \beta \ }}=\dfrac{Q}{{\mathrm{sin} \alpha \ }}=\dfrac{R}{{\mathrm{sin} \left(\alpha +\beta \right)\ }}\] 
+
+    \item  $A=A_x\hat{i}+A_y\hat{j}+A_z\hat{k}$ হলে $\left|A\right|=\sqrt{A^2_x+A^2_y+A^2_z}\ $ 
+
+    \item  ডট গুনণ $\overrightarrow{A}\cdot \overrightarrow{B}=AB{\mathrm{cos} \theta }=A_xb_x+A_yb_y+A_zB_z$
+
+    \item  দুই ভেক্টরের মাঝের কোণ $\theta ={{\mathrm{cos}}^{-1} \left(\dfrac{\overrightarrow{A}\cdot \overrightarrow{B}}{AB}\right)\ }$
+    
+    \item  ক্রস গুণন $\overrightarrow{A}\times \overrightarrow{B}=AB{\mathrm{sin} \theta \ }\ \hat{n}=\left| \begin{array}{ccc}
+    \hat{i} & \hat{j} & \hat{k} \\ 
+    A_x & A_y & A_z \\ 
+    B_x & B_y & B_z \end{array}
+    \right|$
+
+    \item  লম্ব একক ভেক্টর $\hat{n}=\dfrac{\overrightarrow{A}\times \overrightarrow{B}}{\left|AB\right|}\ $
+
+    \item  $\dfrac{d}{dt}\left(\overrightarrow{A}\cdot \overrightarrow{B}\right)=\overrightarrow{A}\cdot \dfrac{d\overrightarrow{B}}{dt}+\overrightarrow{B}\cdot \dfrac{d\overrightarrow{A}}{dt}$
+
+    \item  নদীর প্রস্থ $d$ স্রোতের বেগ $u$ নৌকার বেগ $v$ এবং তাদের মধ্যবর্তী কোণ $\alpha $ হলে, 
+    \begin{enumerate}
+        \item  নদী পারাপারের প্রয়োজনীয় সময় $t=\dfrac{d}{v \sin\alpha }$
+
+        \item  সর্বনিম্ন সময়ের ক্ষেত্রে $t_{{\mathrm{min}}}=\dfrac{d}{v}$
+
+        \item  আড়াআড়িভাবে যেতে সময় $t=\dfrac{d}{\sqrt{v^2-u^2}}$ এবং কোণ $\alpha ={{\mathrm{cos}}^{\mathrm{-}\mathrm{1}} -\dfrac{u}{v}\ }$
+
+        \item  বিপরীত বিন্দু হতে $x$ দূরত্বে যাত্রা শুরু করলে, $x=\left(u+v{\mathrm{cos} \alpha }\right)t=\dfrac{d\left(u+v{\mathrm{cos} \alpha }\right)}{v{\mathrm{cos} \alpha \ }}$
+    \end{enumerate}
+
+    \item  তিনটি ভেক্টর একই তলে হবে যদি $\overrightarrow{A}\left(\overrightarrow{B}\times \overrightarrow{C}\right)=0$
+\end{enumerate}
+
+\subsection{৩য় অধ্যায়ঃ সরল রেখা}
+
+\textbf{রুপান্তরঃ} কার্তেসীয় থেকে পোলারে, $r=\sqrt{x^2+y^2}; \ \theta = \tan \dfrac{y}{x}$ পোলার থেকে কার্তেসীয়তে, $x=r \cos \theta; \ y=r\sin \theta$
+
+\textbf{নির্দিষ্ট অনুপাতে বিভাজনঃ} \begin{enumerate}[ wide=0em, label=\textenglish{\textbf{ \arabic* .}}, itemsep=0pt, parsep=1ex]
+    \tm $(x,y)$ বিন্দুটি $(x_1,y_1)$ ও $(x_2,y_2)$ বিন্দুর সংযোজক রেখাংশকে $m:n$ অনুপাতে অন্তবিভক্ত করলে, 
+    \[x= \frac{mx_2+nx_1}{m+n} \qquad y = \frac{my_2+ny_1}{m+n}\]
+    \tm $(x,y)$ বিন্দুটি $(x_1,y_1)$ ও $(x_2,y_2)$ বিন্দুর সংযোজক রেখাংশকে $m:n$ অনুপাতে বহিঃবিভক্ত করলে, 
+    \[x= \frac{mx_2-nx_1}{m-n} \qquad y = \frac{my_2-ny_1}{m-n}\] 
+\end{enumerate}
+
+\textbf{স্থানাঙ্ক থেকে অনুপাত নির্ণয়ঃ}  $\dfrac{m}{n}=\dfrac{x-x_1}{x_2-x}=\dfrac{y-y_1}{y_2-y}$ 
+
+\textbf{ভরকেন্দ্র নির্ণয়ঃ} ত্রিভূজের তিনটি শীর্ষবিন্দু $(x_1,y_1); \ (x_2,y_2); \ (x_3,y_3)$ হলে তাদের ভরকেন্দ্র, \[x=\frac{x_1+x_2+x_3}{3} \qquad y=\frac{y_1+y_2+y_3}{3}\]
+
+\textbf{বহুভূজের ক্ষেত্রফলঃ} কোনো বহুভুজের শীর্ষবিন্দু $(x_1,y_1); \ (x_2,y_2); \ (x_3,y_3) \cdots (x_n, y_n)$ হলে তাদের ক্ষেত্রফল $=\dfrac{1}{2} \begin{vmatrix}
+    x_1 & x_2 & x_3 & \cdots & x_n & x_1\\
+    y_1 & y_2 & y_3 & \cdots & y_n & y_1
+\end{vmatrix}$
+
+\textbf{ঢালঃ} $m=\tan \theta = \dfrac{y_1-y_2}{x_1-x_2}$
+
+\textbf{সরল রেখার সমীকরণঃ} একটি বিন্দু এবং ঢালা দেওয়া থাকলে সেই বিন্দুগামী সরলরেখা $(y-y_1)=m(x-x_1)$
+
+দুইটি বিন্দু গামী সরল রেখার সমীকরণ, $\dfrac{x-x_1}{x_1-x_2}=\dfrac{y-y_1}{y_1-y_2}$
+
+ঢাল খন্ডাংশ আকারে সমীকরণঃ ঢাল $m$ হলে সমীকরণ, $y=mx+c$
+
+দ্বিখণ্ডাংশ আকারে সমীকরণঃ সরল রেখাটি $x$ অক্ষকে $a$ অংশে এবং $y$ অক্ষকে $b$ অংশে ভাগ করলে, সমীকরণ $\dfrac{x}{a}+\dfrac{y}{b}=1$
+
+লম্বছেদক আকারে সমীকরণঃ যদি মূলবিন্দু থেকে সরলরেখার লম্ব দূরত্ব $p$ এবং লম্বরেখার $x$ অক্ষের সাথে $\alpha$ কোণ উৎপন্ন করলে সমীকরণ $x\cos \alpha + y\sin \alpha=p$
+
+\textbf{সমরেখঃ} তিনটি বিন্দু সমরেখ হবে যদি $\begin{vmatrix}
+    x_1 & y_1 & 1 \\
+    x_2 & y_2 & 1 \\
+    x_3 & y_3 & 1 
+\end{vmatrix}=0$
+
+\textbf{ছেদবিন্দুঃ} $a_1x+b_1y+c_1=0$ এবং $a_2x+b_2y+c_2=0$ এর ছেদবিন্দুর স্থানাঙ্ক $\lt( \dfrac{b_1c_2-b_2c_1}{a_1b_2-a_2b_1}, \dfrac{a_2c_1-a_1c_2}{a_1b_2-a_2b_1}\rt)$
+
+\textbf{ছেদবিন্দুগামী ৩য় রেখাঃ} $a_1x+b_1y+c_1=0$ এবং $a_2x+b_2y+c_2=0$ দুইটি রেখার ছেদবিন্দুগামী আরেকটি রেখার সমীকরণ, $(a_1x+b_1y+c_1)+k(a_2x+b_2y+c_2)=0$
+
+\textbf{মধ্যবর্তী কোণঃ} দুইটি সরলরেখা $y=m_1x+c_1$ এবং $y=m_2x+c_2$ এর মধ্যবর্তী কোণ হবে, $\theta= \pm \tan^{-1} \lt( \dfrac{m_1-m_2}{1+m_1m_2}\rt)$\footnote{$+$ এর জন্য সূক্ষকোণ এবং $-$ এর জন্য হবে স্থূলকোণ}\\*
+দুইটি সরলরেখা $a_1x+b_1y+c_1=0$ এবং $a_2x+b_2y+c_2=0$ এর মধ্যবর্তী কোণ হবে, $\theta = \pm \tan^{-1} \lt( \dfrac{a_2b_1-a_1b_2}{a_1a_2+b_1b_2}\rt)$
+
+\textbf{সমান্তরাল রেখাঃ} কোনো রেখা $ax+by+c=0$ এর সমান্তরাল রেখা হবে $ax+by+c_1=0$ 
+
+\textbf{লম্বরেখাঃ} কোনো রেখা $ax+by+c=0$ এর লম্ব রেখা হবে, $bx-ay+c_1=0$ 
+
+\textbf{সমবিন্দু} তিনটি সরলরেখা $a_1x+b_1y+c_1=0$, $a_2x+b_2y+c_2=0$ ও $a_3x+b_3y+c_3=0$ সমবিন্দু হবে যদি, $\begin{vmatrix}
+    a_1 & b_1 & c_1\\
+    a_2 & b_2 & c_2\\
+    a_3 & b_3 & c_3
+\end{vmatrix}=0$
+
+\textbf{বিন্দু থেকে লম্ব দূরত্বঃ} যদি কোনো বিন্দু $P(x_1,y_1)$ হতে একটি রেখা $ax+by+c=0$ এর লম্বদূরত্ব, $d=\dfrac{ax_1+by_1+c}{\sqrt{a^2+b^2}}$  
+
+\textbf{সমান্তরাল রেখার লম্ব দূরত্বঃ} দুইটি সরল রেখা $ax+by+c_1=0$ ও $ax+by+c_2=0$ হলে তাদের লম্বদূরত্ব $d=\dfrac{|c_1-c_2|}{\sqrt{a^2+b^2}}$ 
+
+\textbf{কোণ সমদ্বিখণ্ডকঃ} দুইটি সরল রেখা $a_1x+b_1y+c_1=0$ ও $a_2x+b_2y+c_2=0$ হলে তাদের কোণের সমদ্বিখণ্ডক হবে $\dfrac{a_1x+by_1+c_1}{\sqrt{{a_1}^2+{b_1}^2}}=\pm \dfrac{a_2x+by_2+c_2}{\sqrt{{a_2}^2+{b_2}^2}}$\footnote{$+$ হবে যদি কোণটি মূলবিন্দুর দিকে হবে। $-$হবে যদি কোণটি মূলবিন্দুর দিকে হবে না।} 
+
+\textbf{অন্তঃকেন্দ্রঃ} ত্রিভূজের তিনটি শীর্ষবিন্দু $(x_1,y_1); \ (x_2,y_2); \ (x_3,y_3)$ হলে তাদের অন্তঃকেন্দ্র হবে \[x=\dfrac{ax_1+bx_2+cx_3}{a+b+c}; \qquad
+y=\dfrac{ay_1+by_2+cy_3}{a+b+c}\]
+
+\textbf{অন্তঃ ব্যাসার্ধঃ} ত্রিভূজের তিনটি শীর্ষবিন্দু $(x_1,y_1); \ (x_2,y_2); \ (x_3,y_3)$ হলে ত্রিভূজের অন্তঃব্যাসার্ধ হবে, 
+\[r=\dfrac{|(x_1-x_2)(y_2-y_3)-(x_2-x_3)(y_1-y_2)|}{a+b+c}\]
+
+\subsection{৪র্থ অধ্যায়ঃ বৃত্ত} 
+
+\textbf{কেন্দ্র ও ব্যাসার্ধঃ} বৃত্তের কেন্দ্র $(h,k)$ এবং ব্যাসার্ধ $r$ হলে বৃত্তের সমীকরণ $(x-h)^2+(y-k)^2=r^2$ আবার সমীকরণ $x^2+y^2+2gx+2fy+c=0$ হলে কেন্দ্র $(-g,-f)$ এবং ব্যাসার্ধ $r=\sqrt{g^2+f^2-c}$। 
+
+\textbf{বিন্দুর অবস্থানঃ} কোনো বিন্দু $P(x_1,y_1)$ বৃত্তের ভেতরে, উপরে ও বাইরে থাকবে যথাক্রমে যদি $x^2+y^2+2gx+2fy+c<0; =0, >0$ হয়। 
+
+\textbf{অক্ষের খণ্ডাংশঃ} বৃত্তটি $x$ অক্ষের ছেদাংশ $2\sqrt{g^2-c}=\sqrt{r^2-k^2}$ এবং $y$ অক্ষের ছেদাংশ $2\sqrt{f^2-c}=\sqrt{r^2-h^2}$। যদি $g^2=c$ হয় তাহলে $x$ অক্ষে স্পর্শক এবং $f^2=c$ হয় তাহলে $y$ অক্ষে স্পর্শক। 
+
+\textbf{ব্যাস হতে বৃত্তঃ} যদি $(x_1,y_1)$ এবং $x_2,y_2$ এর সংযোজক সরল রেখাকে ব্যাস ধরে অংকিত বৃত্তের সমীকরণ, $(x-x_1)(x-x_2)+(y-y_1)(y-y_2)=0$
+
+\textbf{সরলরেখা ও বৃত্তের ছেদবিন্দুগামী বৃত্তঃ} যদি একটি সরল রেখা $lx+my+n=0$ এবং একটি বৃত্ত $x^2+y^2+2gx+2fy+c=0$ হয় তাহলে তাদের ছেদবিন্দুগামী বৃত্তের সমীকরণ, $x^2+y^2+2gx+2fy+c+k(lx+my+n)=0$।\\* $(x_1,y_1)$ এবং $(x_2,y_2)$ বিন্দুগামী কোনো সরলরেখার $(x_1,y_1)$ এবং $(x_2,y_2)$ বিন্দুগামী বৃত্তের সমীকরণ, $(x-x_1)(x-x_2)+(y-y_1)(y-y_2)+k\lt\{ (x-x_1)(y_1-y_2)-(y-y_1)(x_1-x_2) \rt\}=0$
+
+\textbf{দুটি বৃত্তের ছেদবিন্দুগামী বৃত্তঃ} দুইটি বৃত্তের সমীকরণ ${x_1}^2+{y_1}^2+2g_1x+2f_1y+c_1=0$ এবং ${x_2}^2+{y_2}^2+2g_2x+2f_2y+c_2=0$ হলে তাদের ছেদবিন্দুগামি বৃত্তের সমীকরণ, ${x_1}^2+{y_1}^2+2g_1x+2f_1y+c_1+k({x_2}^2+{y_2}^2+2g_2x+2f_2y+c_2)=0$
+
+\textbf{পরস্পর স্পর্শকঃ} দুইটি এর কেন্দ্র $C_1$ ও $C_2$ হয়, বৃত্ত দুটি অন্তঃস্পর্শক করলে, $C_1C_2=|r_1-r_2|$ এবং বহিঃপর্শক করলে, $C_1C_2=r_1+r_2$। 
+
+\textbf{পোলার বৃত্তঃ} $(r_1, \theta_1)$ কেন্দ্র ও $a$ ব্যাসার্ধ বিশিষ্ট বৃত্তের পোলার সমীকরণ, $a^2=r^2+{r_1}^2-2rr_1\cos (\theta-\theta_1)$
+
+\textbf{বৃত্তের উপরের বিন্দুতে স্পর্শকঃ} কোনো বৃত্ত $x^2+y^2+2gx+2fy+c=0$ এর উপরের কোনো বিন্দু $P(x_1, y_1)$ বিন্দুতে অঙ্কিত স্পর্শকের সমীকরণ, $xx_1+yy_1+2g \lt( \dfrac{x+x_1}{2}\rt)+2f \lt( \dfrac{y+y_1}{2}\rt) + c=0$
+
+\textbf{বৃত্তের উপরের বিন্দুতে স্পর্শকের দৈর্ঘ্যঃ} কোনো বৃত্ত $x^2+y^2+2gx+2fy+c=0$ এর উপরের কোনো বিন্দু $P(x_1, y_1)$ বিন্দুতে অঙ্কিত স্পর্শকের দৈর্ঘ্য, $\sqrt{{x_1}^2+{y_1}^2+2gx_1+2fy_1+c}$
+
+\textbf{স্পর্শকঃ} কোনো বৃত্ত $x^2+y^2+2gx+2fy+c=0$ এর বাইরের কোনো বিন্দু $P(x_1,y_1)$ থেকে স্পর্শক আঁকা হলে স্পর্শকের সমীকরণ, $(xx_1+yy_1+g(x+x_1)+f(y+y_1)+c)^2=(x^2+y^2+2gx+2fy+c)({x_1}^2+{y_1}^2+2gx_1+2fy_1+c)$। কোনো বৃত্ত $x^2+y^2=r^2$ এর স্পর্শকের সমীকরণ, $y=mx\pm r\sqrt{m^2+1}$ এবং স্পর্শবিন্দুর স্থানাঙ্ক $\lt( \dfrac{-mr}{\sqrt{1+m^2}}, \dfrac{r}{\sqrt{1+m^2}}\rt)$
+
+\textbf{অভিলম্বঃ} কোনো বৃত্ত $x^2+y^2+2gx+2fy+c=0$ এর উপরের কোনো বিন্দু $P(x_1, y_1)$ বিন্দুতে অভিলম্বের সমীকরণ, $(y_1+f)x-(x_1+g)y+gy_1-fx_1=0$ 
+
+\textbf{স্পর্শ জ্যাঃ} কোনো বৃত্ত $x^2+y^2+2gx+2fy+c=0$ এর বাইরের কোনো বিন্দু $P(x_1,y_1)$ হলে অঙ্কিত স্পর্শ জ্যা এর সমীকরণ, $xx_1+yy_1+g(x+x_1)+f(y+y_1)+c=0$
+
+\textbf{সাধারণ জ্যাঃ} দুটি বৃত্ত $S_1 \equiv x^2+y^2+2g_1x+2f_1y+c_1=0$ ও $S_2 \equiv x^2+y^2+2g_1x+2f_1y+c_1=0$ হলে তাদের সাধারণ জ্যা, $S_1-S_2=0$
+
+\subsection{৫ম অধ্যায়ঃ বিন্যাস ও সমাবেশ}
+
+\begin{enumerate}[ wide=0em, label=\textenglish{\textbf{ \arabic* .}}, itemsep=0pt, parsep=1ex]
+
+    \tm $n$ সংখ্যক জিনিসকে $r$ সংখ্যক একবারে নিয়ে(পুনরাবৃত্তি সম্ভব) মোট বিন্যাস $n^r$
+
+    \tm $n$ সংখ্যক জিনিসকে প্রতিবারে $r$ জিনিস নিয়ে একবার ব্যবহার করে মোট সাজানো যায় $\perm{n}{r}=\dfrac{n!}{(n-r)!}$ 
+
+    \tm $n$ সংখ্যক জিনিসের মাঝে $r_1$ সংখ্যাক একপ্রকার, $r_2$ সংখ্যক দ্বিতীয় প্রকার, $\cdots$ এবং $r_n$ সংখ্যক হল $n^{\text{\eng{th}}}$ প্রকার হলে মোট বিন্যাস সম্ভব $\dfrac{n!}{r_1!\times r_2! \times \cdots \times r_n!}$
+
+    \tm $n$ সংখ্যক জিনিসের সবগুলি একত্রে নিয়ে চক্রাকারে সাজানো যায় $(n-1)!$। যদি চক্রকে উপরে এবং নিচ থেকে অথবা উল্টিয়ে দেখা যায় তাহলে এর বিন্যাস হবে $\dfrac{(n-1)!}{2}$
+    
+    \tm $n$ সংখ্যক অংককে প্রত্যেক সংখ্যায় একবার মাত্র ব্যবহার করে গঠিত সংখ্যাগুলোর সমষ্টি $=\text{অংকগুলোর সমষ্টি}\times (n-1)! \times n \times (10^0+10^1+10^2+ \cdots + 10^n)$
+
+    \tm $n$ সংখ্যক জিনিসকে প্রতিবারে $r$ জিনিস নিয়ে একবার ব্যবহার করে মোট বাছাই করা যায় $\comb{n}{r}=\dfrac{n!}{r!(n-r)!}$ 
+
+    \tm $\comb{n}{r}=\comb{n}{n-r}$
+
+    \tm $\comb{n}{r}+\comb{n}{r-1}=\comb{n+1}{r}$
+
+    \tm $p$ সংখ্যক নির্দিষ্ট বস্তু সর্বদাই অন্তর্ভুক্ত করে $n$ সংখ্যক ভিন্ন ভিন্ন বস্তু থেকে প্রতিবার $r \ge p$ সংখ্যক বস্তু নিয়ে গঠিত সমাবেশ সংখ্যা $=\comb{n-p}{r-p}$ 
+
+    \tm $p$ সংখ্যক বস্তু সর্বদাই অন্তর্ভুক্ত না করে $n$ সংখ্যক ভিন্ন ভিন্ন বস্তু থেকে প্রতিবার $r$ সংখ্যক বস্তু নয়ে গঠিত সমাবেশ সংখ্যা $=\comb{n-p}{r}$
+
+    \tm $n$ সংখ্যক জিনিস থেকে প্রত্যেকবার অন্তত একটি জিনিস নিয়ে গঠিত সমাবেশ সংখ্যা $\comb{n}{1}+\comb{n}{2}+\comb{n}{3}+\cdots+ \comb{n}{n}=2^n-1$
+
+    \tm $r_1$ সংখ্যাক একপ্রকার, $r_2$ সংখ্যক দ্বিতীয় প্রকার, $\cdots$, $r_n$ সংখ্যক হল $n^{\text{\eng{th}}}$ প্রকার এবং $k$ সংখ্যক ভিন্ন ভিন্ন হলে যেকোনো সংখ্যক নিয়ে মোট সমাবেশ সংখ্যা $=(r_1+1)(r_2+1)\cdots (r_n+1) 2^k-1$ 
+
+    \tm $r_1$ সংখ্যাক একপ্রকার, $r_2$ সংখ্যক দ্বিতীয় প্রকার, $\cdots$ এবং $r_n$ সংখ্যক হল $n^{\text{\eng{th}}}$ প্রকার হলে প্রত্যেকটি থেকে অন্তত একটি নিয়ে মোট সমাবেশ $\displaystyle \sum_{i=1}^{n} \comb{r_1}{i} \times \sum_{i=1}^{n} \comb{r_2}{i} \times \cdots \times \sum_{i=1}^{n} \comb{r_n}{i}=(2^{r_1}-1)(2^{r_2}-1)\cdots(2^{r_n}-1)$। 
+
+    \tm $p+q$ সংখ্যক জিনিসকে দুইটি দলে বিভিক্ত করতে হবে যেন একদলে $p$ সংখ্যক ও অন্য দলে $q$ সংখ্যক জিনিস থাকে, তাহলে মোট সমাবেশ সংখ্যা $= \comb{p+q}{p}\times 1=\dfrac{(p+q)!}{p!q!}$
+
+\end{enumerate}
+
+\subsection{৬ষ্ঠ ও ৭ম অধ্যায়ঃ ত্রিকোণমিতিক অনুপাত}
+\textbf{পিথাগোরিয়ান ত্রিকোণমিতিক সূত্রঃ}
+\begin{align*}
+    \sin^2 \theta + \cos ^2 \theta &= 1\\
+    \sec^2 \theta - \tan ^2 \theta &= 1\\
+    \csc^2 \theta - \cot^2 \theta &= 1
+\end{align*}
+
+\textbf{যৌগিক কোণের ত্রিকোণমিতিক সূত্রঃ} 
+\begin{align*}
+    \sin (A+B) &= \sin A \cdot \cos B + \cos A \cdot \sin B \\ 
+    \sin (A-B) &= \sin A \cdot \cos B - \cos A \cdot \sin B \\
+    \cos (A+B) &= \cos A \cdot \cos B - \sin A \cdot \sin B \\
+    \cos (A+B) &= \cos A \cdot \cos B + \sin A \cdot \sin B \\
+    \tan (A+B) &= \dfrac{\tan A + \tan B}{1-\tan A \cdot \tan B}\\
+    \tan (A-B) &= \dfrac{\tan A - \tan B}{1+\tan A \cdot \tan B}
+\end{align*} 
+
+\textbf{গুণ থেকে যোগ সূত্রঃ} \label{1}
+\begin{align*}
+    \sin (A+B)\sin(A-B) &= \sin^2 A -\sin^2 B = \cos^2 B- \cos^2 A\\
+    \cos (A+B)\cos(A-B) &= \cos^2 A -\sin^2 B = \cos^2 B- \sin^2 A\\
+    2\sin A \cos B &= \sin (A+B) + \sin (A-B)\\
+    2\cos A \sin B &= \sin (A+B) - \sin (A-B)\\
+    2\cos A \cos B &= \cos (A-B) + \cos (A+B)\\
+    2\sin A \sin B &= \cos (A-B) - \cos (A+B)
+\end{align*} 
+
+\textbf{যোগ থেকে গুণের সূত্রঃ}
+\begin{align*}
+    \sin C + \sin D &= 2\sin \lt(\dfrac{C+D}{2} \rt) \cos \lt( \dfrac{C-D}{2}\rt)\\
+    \sin C - \sin D &= 2\sin \lt(\dfrac{C-D}{2} \rt) \cos \lt( \dfrac{C+D}{2}\rt)\\
+    \cos C + \cos D &= 2\cos \lt(\dfrac{C+D}{2} \rt) \cos \lt( \dfrac{C-D}{2}\rt)\\
+    \cos C - \cos D &= 2\sin \lt(\dfrac{C+D}{2} \rt) \sin \lt( \dfrac{D-C}{2}\rt)
+\end{align*} 
+
+\textbf{দ্বিগুণ কোণ সূত্রঃ}
+\begin{align*}
+    \sin 2A &= 2\sin A \cdot \cos A = \dfrac{2\tan A}{1+ \tan^2 A}\\
+    \cos 2A &= \cos^2A-\sin^2A= 2\cos^2A-1 = 1-2\sin^2A\\
+    &= \dfrac{1-\tan^2A}{1+\tan^A}\\
+    \tan 2A &= \dfrac{2\tan A}{1-\tan^2A}\\
+    \cot 2A &= \dfrac{\cot^2A-1}{2\cot A}
+\end{align*} 
+
+\textbf{তিনগুণ কোণ সূত্রঃ}
+\begin{align*}
+    \sin 3A &= 3\sin A-4\sin^3A\\
+    \cos 3A &= 4\cos^3A-3\cos A\\
+    \tan 3A &= \dfrac{3\tan A-\tan^3A}{1-3\tan^2A}
+\end{align*} 
+
+\textbf{দ্বিঘাত থেকে একঘাতে রূপান্তরঃ}\label{3}
+\begin{align*}
+    2\sin^2 A &= 1-\cos 2A\\
+    2\cos^2 A &= 1+\cos 2A\\
+    \tan^2A &= \dfrac{1-\cos 2A}{1+ \cos 2A}
+\end{align*} 
+
+\subsection{৯ম অধ্যায়ঃ অন্তরীকরণ}
+
+\textbf{লিমিটঃ} লিমিটে ব্যবহৃত কিছু কার্যকরী সূত্র- 
+\begin{align*}
+    \lim_{x \to 0} \dfrac{\sin x}{x} &=1\\
+    \lim_{x \to 0} \dfrac{\tan x}{x} &=1\\
+    \lim_{x \to 0} \dfrac{e^x-1}{x} &=1\\
+    \lim_{x \to 0} \dfrac{\ln(1+x)}{x} &=1\\
+    \lim_{x \to 0} \dfrac{(1+x)^n-1}{x} &=n\\
+    \lim_{x \to 0} \dfrac{x^n-a^n}{x-a} &=na^{n-1}\\
+    \lim_{x \to 0} (1+\dfrac{1}{x})^x &=e
+\end{align*} 
+
+\textbf{কিছু কার্যকরী সিরিজঃ}
+\begin{align*}
+    e^x &=\sum_{i=0}^{\infty} \dfrac{x^i}{i!} = \frac{x^0}{0!}+\frac{x^1}{1!}+\dfrac{x^2}{2!}+ \cdots \infty\\
+    a^x &= \sum_{i=0}^{\infty} \dfrac{( x \ln a)^i}{i!}=\dfrac{( x \ln a)^0}{0!}+\dfrac{x \ln a}{1!}+\dfrac{ (x \ln a)^2}{2!}+\dfrac{ (x \ln a)^3}{3!}+\cdots \infty\\
+    \ln(1+x) &= \sum_{i=1}^{\infty} (-1)^{1+i}\dfrac{x^i}{i} = x-\dfrac{x^2}{2}+\dfrac{x^3}{3}-\cdots \infty
+\end{align*}
+\textbf{\eng{Taylor Series:}} $\dd \sum_{n=0}^{\infty} \dfrac{f^n(a)}{n!}(x-a)^n=f(a)+f'(a)(x-a)+\dfrac{f''(a)}{2!}(x-a)^2+\dfrac{f'''(a)}{3!}(x-a)^3+ \cdots $
+
+\textbf{\eng{Maclaurin Series:}}\footnote{\eng{Taylor Series} এর $a=0$ নিলেই \eng{Maclaurin Series} পাওয়া যায়।} $\dd \sum_{i=0}^{\infty} \dfrac{f^n(0)}{n!}(x)^n=f(0)+f'(0)x+\dfrac{f''(0)}{2!}x^2+\dfrac{f'''(0)}{3!}x^3+\cdots$
+
+\textbf{প্রতিস্থাপনঃ}
+
+\begin{enumerate}[ wide=0em, label=\textenglish{\textbf{ \arabic* .}}, itemsep=0pt, parsep=1ex]
+    \tm $1-x^2$ বা $\sqrt{1-x^2}$ থাকলে $x=\sin \theta \text{ বা } \cos x$ ধরতে হবে। 
+
+    \tm $1+x^2$ বা $\sqrt{1+x^2}$ থাকলে $x=\tan \theta $ ধরতে হবে। 
+
+    \tm $a^2+x^2$ বা $\sqrt{a^2+x^2}$ থাকলে $x=a \tan \theta $ ধরতে হবে। 
+
+    \tm $x^2-1$ বা $\sqrt{x^2-1}$ থাকলে $x=\sec \theta $ ধরতে হবে। 
+
+    \tm $\dfrac{1+x}{1-x}$ বা $\dfrac{1-x}{1+x}$ থাকলে $x=\cos \theta \text{ বা } \tan \theta$ ধরতে হবে। 
+
+    \tm $\sqrt{\dfrac{1+x}{1-x}}$ বা $\sqrt{\dfrac{1-x}{1+x}}$ থাকলে $x=\cos \theta $ ধরতে হবে। 
+\end{enumerate}
+
+\textbf{অন্তরজ সূত্রঃ}
+
+\begin{multicols}{2}
+
+     $\dfrac{d}{dx} x^n = nx^{n-1}$ \\
+     $\dfrac{d}{dx} \ln x = \dfrac{1}{x}$ \\
+     $\dfrac{d}{dx} e^{mx} = me^{mx}$ \\
+     $\dfrac{d}{dx} a^x = a^x \cdot \ln a$ \\
+     $\dfrac{d}{dx} (f(x) \pm g(x)) = f'(x) \pm g'(x)$ \\
+     $\dfrac{d}{dx} (f(x) \cdot g(x)) = f(x)g'(x) + g(x)f'(x)$ \\
+     $\dfrac{d}{dx} \lt(\dfrac{f(x)}{g(x)}\rt) = \dfrac{g(x)f'(x)-f(x)g'(x)}{(g(x))^2}$ \\
+     $\dfrac{d}{dx} f(g(x))=f'(g(x))\cdot g'(x)$ \\
+     $\dfrac{d}{dx} \sin x = \cos x$ \\
+     $\dfrac{d}{dx} \cos x = - \sin x $\\
+     $\dfrac{d}{dx} \tan x = \sec^2x$ \\
+     $\dfrac{d}{dx} \cot x = -\csc^2x$ \\
+     $\dfrac{d}{dx} \sec x = \sec x \tan x$ \\
+     $\dfrac{d}{dx} \csc x = - \csc x \cot x$ \\
+     $\dfrac{d}{dx} \sin ^{-1} x = \dfrac{1}{\sqrt{1-x^2}}$ \\
+     $\dfrac{d}{dx} \cos ^{-1} x = -\dfrac{1}{\sqrt{1-x^2}}$ \\
+     $\dfrac{d}{dx} \tan ^{-1} x = \dfrac{1}{1+x^2}$ \\
+     $\dfrac{d}{dx} \cot ^{-1} x = -\dfrac{1}{1+x^2}$\\
+     $\dfrac{d}{dx} \sec ^{-1} x = \dfrac{1}{|x|\sqrt{x^2-1}}$  \\
+     $\dfrac{d}{dx} \csc ^{-1} x = -\dfrac{1}{|x|\sqrt{x^2-1}}$ 
+\end{multicols}
+\subsection{১০ম অধ্যায়ঃ যোগজীকরণ}\footnotetext{\eng{intigration part} টা রনিভাইয়ের শিট থেকে নেওয়া।}
+\begin{enumerate}[ wide=0em, label=\textenglish{\textbf{ Type: \arabic*.}}, itemsep=0pt, parsep=1ex]
+    \tm সরাসরি সূত্রের সাহায্যে, 
+        \begin{multicols}{2}
+            $\dd \int dx = x+C$\\
+            $\dd \int x^n \ dx = \dfrac{x^{n+1}}{n+1} + C$\\
+            $\dd \int \dfrac{1}{x} \ dx = \ln|x| +C$\\
+            $\dd \int e^x \ dx = e^x + c$ \\
+            $\dd \int a^x \ dx = \dfrac{1}{\ln a} a^x + c$ \\
+            $\dd \int \ln x \ dx = x \ln x -x + c$ \\
+            $\dd \int \sin x \ dx = -\cos x + c$ \\
+            $\dd \int \cos x \ dx = \sin x + c$ \\
+            $\dd \int \tan x \ dx = -\ln|\cos x| + c$ \\
+            $\dd \int \cot x \ dx = \ln |\sin x| + c$
+            \begin{flalign*}
+                \dd \int \sec x \ dx &= \ln |\sec x+\tan x|  &\\
+                &= \ln \lt| \tan \lt( \dfrac{\pi}{4}+\dfrac{x}{2}\rt)\rt| &
+            \end{flalign*}
+            \begin{flalign*}
+                \dd \int \csc x \ dx &= -\ln |\csc x+\cot x|  &\\
+                &= \ln \lt| \tan \dfrac{x}{2}\rt| &
+            \end{flalign*}
+            $\dd \int \sec^2 x \ dx = \tan x + c$\\
+            $\dd \int \csc^2 x \ dx = -\cot x + c$\\
+            $\dd \int \sec x \tan x \ dx = \sec x + c$\\
+            $\dd \int \csc x \cot x \ dx = -\csc x + c$\\
+            $\dd \int \dfrac{1}{\sqrt{a^2-x^2}} \ dx = \sin ^{-1} \dfrac{x}{a} +C$\\
+            $\dd \int \dfrac{1}{a^2+x^2} \ dx = \dfrac{1}{a} \tan ^{-1} \dfrac{x}{a} +C$\\
+            $\dd \int \dfrac{1}{x\sqrt{x^2-a^2}} \ dx = \dfrac{1}{a} \sec ^{-1} \dfrac{|x|}{a} +C$
+        \end{multicols}
+    \tm $\dd \int \dfrac{f'(x)}{f(x)}dx=\ln|f(x)|+C$ এবং $\dd \int \dfrac{f'(x)}{\sqrt{f(x)}}dx=2\sqrt{2f(x)}+C$
+    \tm $\dd \int \dfrac{\text{একঘাত}}{\text{একঘাত}}, \int \dfrac{\text{একঘাত}}{\sqrt{\text{একঘাত}}}$ ফর্মের ক্ষেত্রে বেলেন্স করে লিখতে হবে। 
+    \tm $\dd \int \dfrac{dx}{a^2+b^2x^2}, \int \dfrac{dx}{a^2-b^2x^2}, \int \dfrac{dx}{\sqrt{a^2-b^2x^2}}$ থাকলে নিচের সূত্রগুলো ব্যবহার করতে হবে। \label{2}
+    \begin{multicols}{2}
+        $\dd \int \dfrac{dx}{a^2+x^2} = \dfrac{1}{a} \tan ^{-1} \dfrac{x}{a}+C$\\
+        $\dd \int \dfrac{dx}{a^2-x^2} = \dfrac{1}{2a} \ln \lt| \dfrac{a+x}{a-x} \rt|+C$\\
+        $\dd \int \dfrac{dx}{x^2-a^2} = \dfrac{1}{2a} \ln \lt| \dfrac{x-a}{x+a} \rt|+C$\\
+        $\dd \int \dfrac{dx}{\sqrt{a^2-x^2}} = \sin^{-1} \dfrac{x}{a} + C$\\
+        $\dd \int \dfrac{dx}{\sqrt{x^2-a^2}} = \ln \lt| x+ \sqrt{x^2-a^2}\rt| + C$\\
+        $\dd \int \dfrac{dx}{\sqrt{a^2+x^2}} = \ln \lt| x+ \sqrt{x^2+a^2}\rt| + C$\\
+        $\dd \int \sqrt{a^2-x^2}  dx = \dfrac{1}{2}x\sqrt{a^2-x^2} + \dfrac{1}{2}s^2 \sin^{-1} \lt( \dfrac{x}{a}\rt)$\\
+        $\dd \int \sqrt{x^2-a^2}  dx = \dfrac{1}{2} x\sqrt{x^2-a^2}-\dfrac{1}{2} a^2 \ln \lt(x+\sqrt{x^2-a^2}\rt)$ \\
+        $\dd \int \sqrt{x^2+a^2}  dx = \dfrac{1}{2} x\sqrt{x^2+a^2}+\dfrac{1}{2} a^2 \ln \lt(x+\sqrt{x^2+a^2}\rt)$ 
+    \end{multicols}
+    \tm $\dd \int \dfrac{dx}{ax^2+bx+c}, \int \dfrac{dx}{\sqrt{ax^2+bx+c}}$ আকারের ক্ষেত্রে $ax^2+bx+c$ কে $a\lt\{\lt(x+\dfrac{b}{2a}\rt)^2+\dfrac{4ac-b^2}{4a^2}\rt\}$ আকারে অর্থাৎ দুটি বর্গের যোগফল বা বিয়োগফল আকারে প্রকাশ করতে হবে। অতঃপর \ref{2} এর নিয়ম অনুসরণ করতে হবে। 
+    \tm $\dd \int \dfrac{dx}{\sqrt{(ax+b)}\sqrt{ax+c}}$ আকারের ক্ষেত্রে হরের অনুবন্ধী রাশি লব ও হরকে গূন করতে হবে। 
+    \tm $\dd \int (ax+b)\sqrt{cx+d} \ dx, \int \dfrac{ax+b}{\sqrt{cx+d}} \ dx, \int \dfrac{dx}{(ax+b)\sqrt{cx+d}}$ আকারের, যেখানে $a,b,c,d$ যেকোন ধ্রুবসংখ্যা হলে $cx+d=z^2$ ধরে করতে হবে। 
+    \tm $\dd \int \dfrac{dx}{(px+q)\sqrt{ax^2+bx+c}}$ আকারের যেখানে $a,b,c,p,q$ যেকোন ধ্রুবসংখ্যা হলে $px+q=\dfrac{1}{z}$ ধরতে হবে। \footnote{যদি $ax^2+bx+c=(px+q)^2-1$ হয় তাহলে $\dd \int \dfrac{dx}{(px+q)\sqrt{ax^2+bx+c}}=\sec^{-1}(px+q)+c$}
+    \tm $\dd \int \dfrac{dx}{(ax^2+b)\sqrt{cx^2+d}} $ আকারের, যেখানে $a,b,c,d$ যেকোন ধ্রুবসংখ্যা হলে $cx^2+d=x^2z^2$ ধরতে হবে। 
+    \tm $\dd \int \dfrac{\text{একঘাত}}{\text{দ্বিঘাত}}, \int \dfrac{\text{একঘাত}}{\sqrt{\text{দ্বিঘাত}}}$ ফর্মের ক্ষেত্রে হরকে অন্তকীকরণ করে লবে লিখে ব্যলেন্স করতে হবে। 
+    \tm $\dd \int \sqrt{\dfrac{a-x}{a+x}} \ dx$ আকারের ক্ষেত্রে লবকে বর্গমূল মুক্ত করতে হবে। 
+    \tm $\dd \int \sin (ax+b) \ dx, \int \cos (ax+b) \ dx$ আকারের সমাকলনের ক্ষেত্রে $ax+b=z$ ধরতে হবে। 
+    \tm $\dd \int \sin px \sin qx \ dx, \int \sin px \cos qx \ dx,\int \cos px \cos qx \ dx $ থাওলে \hyperref[1]{গুণের ত্রিকোণমিতিক সূত্র} ব্যবহার করতে হবে।
+    \tm $\dd \int \sin^2(ax+b) \ dx, \int \cos^2(ax+b) \ dx$ আকারের ক্ষেত্রে \hyperref[3]{দ্বিঘাতের ত্রিকোণমিতিক সূত্র} ব্যবহার করতে হবে। 
+    \tm $\dd \int \sin^mx \ dx $ এ $m$ যদি জোড় হয় তাহলে $2\sin^2x$ আকারে পরিণত করে $2\sin^2x=1-\cos 2x$ সূত্র ব্যবহার করতে হবে। আর $m$ যদি বিজোড় হয় তাহলে $\cos x =z$ ধরে $\sin^mx$ কে $\lt( \sin^2x\rt)^{\frac{m-1}{2}}.\sin x$ আকারে প্রকাশ করতে হবে। 
+    \tm $\dd \int \cos^mx \ dx$এ $m$ যদি জোড় হয় তাহলে $2\cos^2x$ আকারে পরিণত করে $2\cos^2x=1+\cos 2x$ সূত্র ব্যবহার করতে হবে। আর $m$ যদি বিজোড় হয় তাহলে $\sin x =z$ ধরতে হবে। 
+    \tm $\dd \int \sin^m \cos^n \ dx$ আকারের ক্ষেত্রে, যদি $m,n$ উভয়ই বিজোর হয় তাহলে বড় পাওয়ারেরটাকে, যদি একটি জোড় হয় তাহলে জোড়টিকে $z$ ধরতে হবে। উওভয়ই জোড় হলে $\theta$ এর গুণিতকের $\sin$ বা $\cos$ নিতে হবে। যদি $m+n<0$ হয় তাহলে $\sec^\theta$ এবং $\tan \theta$ এর ঘাত  হিসেবে প্রকাশ করতে হবে। যেমনঃ
+    \begin{align*}
+        \int \sin^5 x \cos^3 x \ dx &= \int sin^5 x \cos ^2 x\cos x \ dx = \int \sin^5x (1-\sin^2x)\cos x \ dx\\
+        &= \int z^5(1-z^2) dz = \int (z^5-z^7) dz = \dfrac{z^6}{6}-\dfrac{z^8}{8}+C\\
+        &= \dfrac{1}{6} \sin^6 x-\dfrac{1}{8} \sin^8x+C
+    \end{align*}
+    \begin{align*}
+        \int \sin^{-\frac{5}{3}}x \cos ^{-\frac{1}{3}} x \ dx &= \int \dfrac{1}{\sin^{\frac{5}{3}}x \cos ^{\frac{1}{3}} x} dx = \int \dfrac{1}{\frac{\sin ^{\frac{5}{3}}}{\cos ^{\frac{5}{3}}} \cos ^{\frac{5}{3}} x \cos ^{\frac{1}{3}} x} dx \\
+        &= \int \dfrac{1}{\tan ^{\frac{5}{3}} x \cos ^2 x} dx = \int \dfrac{\sec^2 x}{\tan ^{\frac{5}{3}}x} dx
+    \end{align*}
+    \tm $\dd \int \dfrac{dx}{a+b\sin^2x}, \int \dfrac{dx}{a+b\cos^2x}, \int \dfrac{dx}{a\sin^2x+b\cos^2x}$ আকারে থাকলে লব ও হরকে $\sec^2x$ দ্বারা গুণ করতে হবে। 
+    \tm $\dd \int \dfrac{dx}{a+b\sin x}, \int \dfrac{dx}{a+b \cos x}, \int \dfrac{dx}{a\sin x + b\cos x}$ থাকলে $\sin x= \dfrac{2 \tan \frac{x}{2}}{1+\tan^2 \frac{x}{2}}, \cos x = \dfrac{1-\tan ^2 \frac{x}{2}}{1+\tan^2 \frac{x}{2}} $ সূত্র ব্যবহার করতে হবে। 
+    \tm $\dd \int \dfrac{dx}{1+ \sin ax}, \int \dfrac{dx}{1-\sin ax}, \int \dfrac{dx}{1+\cos ax}, \int \dfrac{dx}{1-\cos ax}$ আকারের ক্ষেত্রে হরের অনুবন্ধী দ্বারা লব ও হরকে গুন করে সূত্র প্রয়োগ করতে হবে। 
+    \tm $\dd \int \dfrac{a \sin x +b \cos x}{c \sin x + d \cos x} dx$ আকারের ক্ষেত্রে লবকে $\text{লব}= l(\text{হর})+ m \dfrac{d}{dx} (\text{হর})$ ধরে কাজ করতে হবে। 
+    \tm $\dd \int \dfrac{P(\sin x, \cos x)}{Q(\sin x, \cos x)}dx, \int \dfrac{dx}{P(\sin x, \cos x)}$ এ যদি প্রতিসম ফাংশন হয় তাহলে $\tan x$ এর ফাংশনে পরিণত করতে হবে। 
+    \tm $\dd \int \dfrac{dx}{a+b^{mx}}, \int \dfrac{dx}{ae^{mx}+be^{-mx}}$ আকারের ক্ষেত্রে $e^{-mx}$ দ্বারা লব ও হরকে গুণ করতে হবে। \footnote{তবে ২য় ক্ষেত্রে $e^{mx}$ দ্বারা গুণ করা বেশি সুবিধাজক}
+    \tm $\dd \int \dfrac{e^{px}+e^{qx}}{e^{mx}+e^{-mz}} dx$ আকারের ক্ষেত্রে $p-q=2m$ হলে লব হতে $e^{\frac{px+qx}{2}}$ কমন নিতে হবে। 
+    \tm $\dd \int uv \ dx = u\int v-\int \lt\{\dfrac{d}{dx}(u) \int v \ dx\rt\} dx$ এখানে \eng{"LIATE"}\footnote{\text{L$=$Logarithm, I$=$Inverse, A$=$Algebra, T$=$trigometric, E$=$Exponential}} এর ক্রমানুসারে $u, v$ নির্ধারণ করতে হবে। 
+    \tm $\dd \int e^{ax}\lt\{af(x)+f'(x) \rt\}dx= e^{ax}f(x)+c$
+\end{enumerate}
+
+\newpage 
+
+\section{২য় পত্র}
+\subsection{১ম অধ্যায়ঃ বাস্তব সংখ্যা ও অসমতা}
+\textbf{ব্যবধিঃ} \eng{Open:} $(a,b)= \{x \in \mathbb{R} ; a <x<b \}$\\*
+\eng{Colsed:} $[a,b]= \{x \in \mathbb{R}; a \leq x \leq b \}$
+
+\subsection{৩য় অধ্যায়ঃ জটিল সংখ্যা}
+\textbf{মডুলাস ও আর্গুমেন্টঃ} কোনো জটিল সংখ্যা $x+iy$ হলে মডুলাস $r=|z|=\sqrt{x^2+y^2}$ এবং আর্গুমেন্ট $\theta= \tan^{-1} \dfrac{y}{x}$
+
+\textbf{জটিল সংখ্যার পোলার আকারঃ} কোনো জটিল সংখ্যা $z=x+iy$ হলে $z=x+iy=r(\cos \theta + i \sin \theta)=re^{i\theta}$ 
+
+\textbf{অনুবন্ধীঃ} কোনো জটিল সংখ্যা $z=x+iy$ হলে তার অনুবন্ধী $\bar{z}=x-iy$
+
+\textbf{$i$ এর ঘাতঃ} \begin{align*}
+    i^{4n+1} &= i = \sqrt{-1}\\
+    i^{4n+2} &= -1 \\
+    i^{4n+3} &= -i \\
+    i^{4n} &= 1 \\
+    i^i &= e^{-\frac{\pi}{2}}
+\end{align*}
+\textbf{এককের ঘনমূলঃ} এককের তিনটি ঘনমূল $1,\  \omega = \dfrac{-1 + \sqrt{-3}}{2}, \ \omega^2 = \dfrac{-1 - \sqrt{-3}}{2}$ তাহলে, $1+\omega + \omega^2=1$ এবং $\omega$ এর ঘাত,
+\begin{align*}
+    \omega^{3n} &= 1\\
+    \omega^{3n+1} &= \omega \\
+    \omega^{3m+2} &= \omega^2
+\end{align*}
+
+\subsection{৪র্থ অধ্যায়ঃ বহুপদী ও বহুপদী সমীকরণ}
+
+\textbf{দ্বিঘাতের সমাধানঃ} কোনো দ্বিঘাত সমীকরণ $ax^2+bx+c=0$ হলে সাধারণ সমাধান, 
+\[x=\dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\]
+আবার যদি সমাধান $\alpha, \ \beta $ হয় তাহলে $\alpha + \beta = -\dfrac{b}{a}$ এবং $\alpha \beta = \dfrac{c}{a}$। 
+
+\textbf{ত্রিপদী সমাধানঃ} কোনো একটি ত্রিপদী $a_0x^3+a_1x^2+a_2x+a_3=0$ এবং এর মুল $\alpha, \beta, \gamma$ হলে $\alpha + \beta + \gamma = -\dfrac{a_1}{a_0}, \ \alpha \beta + \beta \gamma + \gamma \alpha = \dfrac{a_2}{a_0}, \ \alpha \beta \gamma = \dfrac{a_3}{a_0}$ 
+
+\textbf{বহুপদীর সমাধানঃ} একটি বহুপদী $a_0x^n+a_1x^{n-1}+a_2x^{n-2}+\cdots+a_{n-1}x+a_n=0$ এবং এর মূল $\alpha_1, \alpha_2, \cdots, \alpha_n$ হলে $\dd \sum \alpha_1 = -\dfrac{a_1}{a_0}, \ \sum \alpha_1 \alpha_2= (-1)^2  \dfrac{a_2}{a_0}, \ \sum \alpha_1 \alpha_2 \alpha_3= (-1)^3  \dfrac{a_3}{a_0}, \cdots, \ \sum \alpha_1 \alpha_2 \alpha_3 \cdots \alpha_{n-1} =(-1)^{n-1}  \dfrac{a_{n-1}}{a_0}, \ \alpha_1\alpha_2\alpha_3\cdots \alpha_n=(-1)^n \dfrac{a_n}{a_0} $
+
+\subsection{৫ম অধ্যায়ঃ দ্বিপদী বিস্তৃতি} 
+
+\textbf{দ্বিপদী সূত্রঃ} $(x+y)^n= \comb{n}{0} x^n + \comb{n}{1} x^{n-1} y+ \comb{n}{2} x^{n-2} y^2+ \cdots + \comb{n}{r} x^{n-r} y^r + \cdots + \comb{n}{n} y^n$\\*
+$r+1$ তম পদ $T_{r+1}=\comb{n}{r} x^{n-r} y^r$
+
+\textbf{সর্বোচ্চ পদঃ} $(a+bx)^n$ এর বিস্তৃতিতে সহগের দিক দিয়ে $\dfrac{n-r+1}{r}=1$ এর $r \in \mathbb{Z}$ হলে $r$ এবং $r+1$ তম পদ সমান ও সর্বোচ্চ। যদি $r$ ভগ্নাংশ হয় তাহলে $\ceil{r}$ হবে সর্বোচ্চ পদ। আবার সংখ্যাগত দিক দিয়ে\footnote{$x$ এর মান দেওয়া থাকলে} $\dfrac{n-r+1}{r}\times \dfrac{bx}{a} =1$ এর $r \in \mathbb{Z}$ হলে $r$ এবং $r+1$ তম পদ সমান ও সর্বোচ্চ। যদি $r$ ভগ্নাংশ হয় তাহলে $\ceil{r}$ হবে সর্বোচ্চ পদ। 
+
+\textbf{অসীম ধারায় বিস্তৃতিঃ} $|x|<1$ হলে এবং $n <0$ বা $n \in \mathbb{Q} \notin \mathbb{N}$ হলে, 
+\[ (1+bx)^n=\sum_{i=0}^{\infty} \comb{n}{i}(bx)^i= 1+n(bx)+ \dfrac{n(n-1)}{2!}(bx)^2+\cdots+\dfrac{n(n-1)\cdots(n-r+1)}{r!}(bx)^r+\cdots\]
+তাড়াতাড়ি করার জন্য কয়েকটি এমন ধারার সূত্র, যেখানে $|x|<1$, 
+\begin{align*}
+    (1-x)^{-1} &= 1+x+x^2+x^3+\cdots + x^r+ \cdots\\
+    (1+x)^{-1} &= 1-x+x^2-x^3+\cdots + (-1)^rx^r+ \cdots\\
+    (1-x)^{-2} &= 1+2x+3x^2+4x^3+\cdots+(r+1)x^r+\cdots\\
+    (1+x)^{-2} &= 1-2x+3x^2-4x^3+\cdots+(-1)^r(r+1)x^r+\cdots\\
+    (1-x)^{-3} &= 1+3x+6x^2+10x^3+\cdots+\dfrac{1}{2}(r+1)(r+2)x^r+\cdots
+\end{align*}
+
+\newpage
+
+\subsection{৬ষ্ঠ অধ্যায়ঃ কণিক} 
+\begin{table}[h]
+    \centering
+        \begin{tabular}{|  Sl | Sc | Sc | Sc | Sc | Sc |}
+            \hline
+             & \multirow{2}{*}{ পরাবৃত্ত $y^2=4ax$ } &  \multicolumn{2}{c|}{ \ উপবৃত্ত $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ \ }   &  \multicolumn{2}{c|}{ \ অধিবৃত্ত \ }  \\
+            \cline{3-6}
+            &  &  $ \ \ \ a>b \ \ \ $  & $b>a$ & $ \ \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1 \ $ & $ \ \dfrac{y^2}{b^2}-\dfrac{x^2}{a^2}=1 \ $ \\
+            \hline
+            \ $e$ এর মান \ & $e=1$ & $ \ 0<e<1 \ $ & $ \ 0<e<1 \ $ & $e>1$ & $e>1$ \\ \hline
+              \ কেন্দ্রের স্থানাঙ্ক \  & $-$ & $(0,0)$ & $(0,0)$ & $(0,0)$ & $(0,0)$ \\
+            \hline 
+             \ উপকেন্দ্রের স্থানাঙ্ক \ & $(a,0)$ & $(\pm ae, 0)$ & $(0, \pm be)$ & $(\pm ae,0)$ & $(0,\pm be)$ \\
+            \hline
+            \ শীর্ষবিন্দু স্থানাঙ্ক \ & $(0,0)$ & $(\pm a, 0)$ & $(0,\pm b)$ & $(\pm a,0)$ & $(0,\pm b)$ \\ \hline
+            \ বৃহদাক্ষের সমীকরণ \ & $y=0$ & $y=0$ & $x=0$ & $y=0$ & $x=0$ \\ \hline
+            \ ক্ষুদ্রাক্ষের সমীকরণ \ & $-$ & $x=0$ & $y=0$ & $x=0$ & $y=0$ \\ \hline
+            \ নিয়ামকরেখার \ & $x=-a$ & $x=\pm \dfrac{a}{e}$ & $y=\pm \dfrac{b}{e}$ & $x= \pm \dfrac{a}{e}$ & $y=\pm \dfrac{b}{e}$ \\ \hline
+            \ উপকেন্দ্রীকতা \ & $e=1$ & \ $e=\sqrt{\dfrac{a^2-b^2}{a^2}} \ $  & \ $e=\sqrt{\dfrac{b^2-a^2}{b^2}} \ $ & $ \ e=\sqrt{\dfrac{a^2+b^2}{a^2}} \ $ & $ \ e=\sqrt{\dfrac{a^2+b^2}{b^2}} \ $ \\ \hline
+            \ বৃহদাক্ষের দৈর্ঘ্য \ & $-$ & $2a$ & $2b$ & $2a$ & $2b$ \\ \hline
+            \ ক্ষুদ্রাক্ষের দৈর্ঘ্য \ & $-$ & $2b$ & $2a$ & $2b$ & $2a$ \\ \hline
+            \ উপকেন্দ্রিকলম্বের দৈর্ঘ্য $ \ $ & $|4a|$ & $\dfrac{2b^2}{a}$ & $\dfrac{2a^2}{b}$ & $\dfrac{2b^2}{a}$ & $\dfrac{2a^2}{b}$ \\ \hline
+            \ উপকেন্দ্রিকলম্ব \ & $x=a$ & $x=\pm ae$ & $y= \pm be $ & $x=\pm ae$ & $y=\pm be$ \\ \hline
+            \ অসীমতট সমীকরণ \ & $-$ & $-$ & $-$ & $y= \pm \dfrac{b}{a}x$ & $y= \pm \dfrac{b}{a}x$ \\ \hline
+        \end{tabular}
+\end{table}
+
+\subsection{৭ম অধ্যায়ঃ বিপরীত ত্রিকোণমিতিক অনুপাত}
+\begin{align*}
+    \cos^{-1}x \pm \sin^{-1}y &= \sin^{-1}(x\sqrt{1-y^2} \pm y\sqrt{1-x^2})\\
+    \cos^{-1}x \pm \cos^{-1}y &= \cos^{-1}(xy \mp \sqrt{1-x^2}.\sqrt{1-y^2})\\
+    \tan^{-1}x + \tan^{-1} y &= \tan^{-1} \dfrac{x+y}{1-xy} \ (\text{এখানে, } xy \le 1) \\
+    \tan^{-1}x-\tan^{-1} y &= \tan^{-1} \dfrac{x-y}{1+xy}\\
+    2\tan^{-1}x=\sin^{-1} \dfrac{2x}{1+x^2} &= \cos^{-1}\dfrac{1-x^2}{1+x^2}=\tan^{-1} \dfrac{2x}{1-x^2}\footnotemark
+\end{align*}
+\footnotetext{যখন $0 \le x <1$}
+
+\subsection{১০ম অধ্যায়ঃ বিস্তার ও সম্ভাবনা}
+\textbf{পরিসরাংকঃ} যদি পরিসর $R$ এবং সর্বোচ্চ ও সর্বনিম্ন মান যথাক্রমে $H$ ও $L$ হলে পরিসরাংক $V_R=\dfrac{R}{H+L}\times100\% $
+
+\textbf{গাণিতিক গড়ঃ} 
+    \begin{enumerate}
+        \item অশ্রেণীকৃত ক্ষেত্রে $\dd \bar{x} = \dfrac{1}{n} \sum_{i=1}^n x_i= a + \dfrac{\sum d}{N}$\footnote{যেখানে, $d=x_i-a$}
+        \item শ্রেণীকৃত ক্ষেত্রে $\dd \bar{x} = a + \dfrac{\sum fd}{N} \times C$\footnote{$C=$ শ্রেণিব্যবধান}
+    \end{enumerate}
+
+\textbf{চতুর্থক ব্যবধানঃ} 
+    \begin{enumerate}
+        \item অশ্রেণীকৃত ক্ষেত্রে, $n$ বিজোড় হলে, $\dfrac{n+1}{4}$ এবং $\dfrac{n+1}{4}\times3$ তম পদের মান যথাক্রমে $Q_1$ ও $Q_3$ 
+        
+        $n$ জোড় এবং $4$ দ্বারা বিভাজ্য হলে, $\dd \dfrac{n}{4}$ এবং $\left( \dfrac{n}{4}+1 \right)$ তম পদের মানের গড় $=Q_1$ এবং $\dfrac{3n}{4}$ এবং $\left( \dfrac{3n}{4}+1 \right)$ তম পদের মানের গড় $Q_3$
+        
+        চতুর্থক ব্যবধান $\dd Q.D = \dfrac{Q_3-Q_1}{2}$
+
+        ব্যবধানাংক $\dd Co.Q.D = \dfrac{Q_3-Q_1}{Q_3+Q_1}\times 100\% $
+        
+        \item শ্রেণীকৃত ক্ষেত্রে, $i$ তম চতুর্থক ব্যবধান $\dd Q_i = L_i + \left( \dfrac{i\times N}{4}-F_i \right) \times \dfrac{C}{f_i}$\footnote{$L_i=i$ তম শ্রেণির নিম্নসীমা। $F_i=i$ তম শ্রেণির পূর্ববর্তী শ্রেণির যোজিত গণসংখ্যা। $f_i=i$ তম শ্রেণির গণসংখ্যা। $C=$ শ্রেণিব্যপ্তি।}
+        
+        চতুর্থক ব্যবধান $\dd Q.D = \dfrac{Q_3-Q_1}{2}$
+
+        ব্যবধানাংক $\dd Co.Q.D = \dfrac{Q_3-Q_1}{Q_3+Q_1}\times 100\% $
+    \end{enumerate}
+\textbf{গড় ব্যবধানঃ} 
+\begin{enumerate}
+    \item অশ্রেণীকৃত ক্ষেত্রে, গাণিতিক গড় $\bar{x}$, মধ্যমা $m$ ও প্রচুরক $M_0$ হতে গড় ব্যবধান যথাক্রমে, \[ M.D(\bar{x})=\dfrac{1}{n}\times \sum_{i=0}^{n} |x_i-\bar{x}|; \ M.D(m) =\dfrac{1}{n} \times \sum_{i=0}^{n} |x_i-m|, \ M.D(M_0) =\dfrac{1}{n} \times \sum_{i=0}^{n} |x_i-M_0|  \]
+    \item শ্রেণিকৃত ক্ষেত্রে, গাণিতিক গড় $\bar{x}$, মধ্যমা $m$ ও প্রচুরক $M_0$ হতে গড় ব্যবধান যথাক্রমে, \[ M.D(\bar{x})=\dfrac{1}{N}\times \sum_{i=0}^{n} f_i|x_i-\bar{x}|; \ M.D(m) =\dfrac{1}{N} \times \sum_{i=0}^{n} f_i|x_i-m|, \ M.D(M_0) =\dfrac{1}{n} \times \sum_{i=0}^{n}f_i |x_i-M_0|  \] \footnote{$\dd N= \sum  f_i $}
+\end{enumerate}
+\textbf{গড় ব্যবধানাংকঃ} অশ্রেণীকৃত ও শ্রেণিকৃত ক্ষেত্রে, গড় ব্যবধানাংক $Co.M.D(\bar{x})=\dfrac{M.D(\bar{x})}{\bar{x}}\times100\%, \ Co.M.D(m) = \dfrac{M.D(m)}{m}\times 100\% , \ Co.M.D(M_0) = \dfrac{M.D(M_0)}{M_0}\times 100 \%$
+
+\textbf{পরিমিত ব্যবধানঃ} 
+\begin{enumerate}
+    \item অশ্রেণীকৃত ক্ষেত্রে, পরিমিত ব্যবধান, $\dd \sigma = \sqrt{\dfrac{1}{n} \sum (x_i-\bar{x})^2} = \sqrt{\dfrac{\sum {x_i}^2}{n}-\left(\dfrac{\sum x_i}{n} \right)^2}$ সহজ ফর্মুলা $\dd \sigma = \sqrt{\dfrac{\sum d^2}{n}-\left(\dfrac{\sum d}{n} \right)^2}$\footnote{শ্রেণিব্যপ্তি অসমান হলে, $d=x-a$}
+    \item শ্রেণীকৃত ক্ষেত্রে, পরিমিত ব্যবধান, $\dd \sigma = \sqrt{\dfrac{f_i}{N} \sum (x_i-\bar{x})^2} = \sqrt{\dfrac{\sum f_i {x_i}^2}{N}-\left(\dfrac{\sum f_i x_i}{N} \right)^2}$ সহজ ফর্মুলা $\dd \sigma = \sqrt{\dfrac{\sum f_id^2}{N}-\left(\dfrac{\sum f_i d}{N} \right)^2}$\footnote{শ্রেণিব্যপ্তি সমান হলে, $d=\dfrac{x-a}{C}; N=\sum f_i$} 
+\end{enumerate}
+
+\textbf{ভেদাংকঃ}
+\begin{enumerate}
+    \item অশ্রেণীকৃত ক্ষেত্রে ভেদাংক, $\dd \sigma^2 = \dfrac{1}{n} \sum (x_i-\bar{x})^2 = \dfrac{\sum {x_i}^2}{n}-\left(\dfrac{\sum x_i}{n} \right)^2$ সহজ ফর্মুলা $\dd \sigma^2 = \dfrac{\sum d^2}{n}-\left(\dfrac{\sum d}{n} \right)^2$
+    \item শ্রেণীকৃত ক্ষেত্রে ভেদাংক, $\dd \sigma^2 = \dfrac{f_i}{N} \sum (x_i-\bar{x})^2 = \dfrac{\sum f_i {x_i}^2}{N}-\left(\dfrac{\sum f_i x_i}{N} \right)^2$ সহজ ফর্মুলা $\dd \sigma^2 = \dfrac{\sum f_id^2}{N}-\left(\dfrac{\sum f_i d}{N} \right)^2$
+\end{enumerate}
+
+\textbf{বিভেদাংকঃ} শ্রেণিকৃত ও অশ্রেণীকৃত ক্ষেত্রে, $C.V = \dfrac{\sigma}{\bar{x}}\times 100\%$
+
+\textbf{সম্ভাবনাঃ} যদি $A$ ঘটনার উপাদান সংখ্যা $n(A)$ এবং ঘটনাজগতে মোট উপাদান সংখ্যা $n(S)$ হলে $A$ ঘটনা ঘটার সম্ভাবনা $P(A)=\dfrac{n(A)}{n(S)}$
+
+\textbf{বর্জনশীল ঘটনার সম্ভাবনাঃ} যদি দুইটি ঘটনা ঘটনা ঘটার সম্ভাবনা বর্জনশীল হয় অর্থাৎ $P(A \cap B)=0$ হয় তাহলে $P(A\cup B)= P(A)+P(B)$
+
+\textbf{অবর্জনশীল ঘটনার সম্ভাবনাঃ} যদি দুইটি ঘটনা ঘটনা ঘটার সম্ভাবনা অবর্জনশীল হয় অর্থাৎ $P(A \cap B) \neq 0$ হয় তাহলে $P(A\cup B)= P(A)+P(B)$
+
+\textbf{অনির্ভরশীল বা স্বাধীন ঘটনার সম্ভাবনাঃ} দুইটি ঘটনা পরস্পর অনির্ভরশীল হলে $P(A \cap B) = P(A)\cdot P(B)$
+
+\textbf{নির্ভরশীল বা অধীন ঘটনার সম্ভাবনাঃ} যদি দুইটি ঘটনা পরস্পর নির্ভরশীল হয় তাহলে $B$ ঘটলে $A$ ঘটার সম্ভাবনা, $P(A|B)=\dfrac{P(A \cap B)}{P(B)}$
+
+
+
+\end{document}
