@@ -1,0 +1,2734 @@
+% !TEX program = xelatex
+\documentclass[a4paper,11pt]{article}
+%\setcounter{secnumdepth}{0}
+\usepackage{polyglossia}
+\usepackage{hyperref} 
+\usepackage{amsmath,yhmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\setchemfig{atom sep=4ex}
+\usepackage{xfrac}
+\usepackage{framed}
+\usetikzlibrary{arrows}
+\usepackage[alpine,misc]{ifsym}
+\usepackage{mathtools}
+\usepackage{tkz-euclide}
+\usepackage{sectsty}
+\usepackage[framemethod=TikZ]{mdframed}
+%\usepackage{exam}
+\usepackage[
+  top=1.5cm,
+  bottom=1.5cm,
+  left=2cm,
+  right=2cm,
+  headheight=17pt, % as per the warning by fancyhdr
+  includehead,includefoot,
+  heightrounded, % to avoid spurious underfull messages
+]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+%\usepackage{microtype} 
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{quotes,angles}
+\usepackage{chemformula}
+\usepackage{siunitx}
+\usepackage{pbox}
+\usepackage{pstricks-add}
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{multicol}
+\hypersetup{
+    colorlinks=true
+}
+\usepackage{amsthm,thmtools}
+\usepackage{chngcntr}
+
+\counterwithin{figure}{subsection}
+%\theoremstyle{plain}
+\DeclareMathOperator{\lcm}{lcm}
+
+\pagestyle{fancy}
+\fancyheadoffset{0cm}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0pt}
+    \newgeometry{top=2cm}
+}
+
+\setmainlanguage[numerals=Bengali]{bengali}
+\setotherlanguage{english}
+\newfontfamily\englishfont{Times New Roman}
+\newfontfamily\bengalifont[Script=Bengali,BoldFont={Kalpurush},BoldFeatures={FakeBold=2.5},ItalicFont={Kalpurush}, ItalicFeatures={FakeSlant=0.3}]{Kalpurush}
+
+\newcommand{\dd}{\displaystyle}
+\newcommand{\drg}{^{\circ}}
+\renewcommand{\baselinestretch}{1.3} 
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{ao}{rgb}{0.0, 0.18, 0.39}
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+\definecolor{steelblue}{rgb}{0.27, 0.51, 0.71}
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
+\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
+%\definecolor{darkgreen}{rgb}{0.6,0.59,0.6}
+\definecolor{darkblue}{rgb}{0.0, 0.42, 0.74}
+\definecolor{cyanblue}{rgb}{0.60, 0.174, 0.163}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\setlength\parindent{0pt}
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+\setlength{\tabcolsep}{0in}
+\usepackage{titlesec}
+\declaretheoremstyle[%
+headfont=\color{darkcyan},
+within=subsection]%
+{sample}
+\declaretheoremstyle[%
+headfont=\color{darkblue},
+within=subsection]%
+{bluethrm}
+\declaretheoremstyle[%
+headfont=\color{purple},
+within=subsection]%
+{purplecol}
+\declaretheoremstyle[%
+headfont=\color{cyanblue},
+within=subsection]%
+{cblm}
+
+\declaretheorem[name=Example, style=sample]{xmpl}
+\declaretheorem[name=Theorem, style=bluethrm]{thrm}
+\declaretheorem[name=Proposition, style=purplecol]{prop}
+\declaretheorem[name=Problem, style=sample]{prob}
+\declaretheorem[name=Lemma, style=cblm]{lma}
+\declaretheorem[name=Corollary, style=purplecol]{col} 
+\newenvironment{sltn}{\begin{proof}[\emph{\textcolor{darkcyan}{Solution.}}]} {\end{proof}} 
+\newenvironment{prf}{\begin{proof}[\emph{\textcolor{darkcyan}{Proof.}}]} {\end{proof}} 
+
+%\declaretheorem[name=Solution, style=sample]{sltn}
+
+%\declaretheorem[name=Sample Problem, style=sample]{mypb}
+
+%\chapterfont{\color{airforceblue}}  % sets colour of chapters
+\sectionfont{\LARGE \color{airforceblue}}  % sets colour of sections
+\subsectionfont{\Large \color{cyan}}  % sets colour of sections
+
+\newcounter{why}[section]
+\newenvironment{why}[1][]{%
+\stepcounter{why}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut কেন কেন কেন???};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut কেন কেন কেন???};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\newcounter{trick}[section]
+\newenvironment{trick}[1][]{%
+\stepcounter{trick}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=cyan!50]
+{\strut গণিত টোটকা};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=cyan!50]
+{\strut গণিত টোটকা};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=cyan!50,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\newcounter{stry}[section]
+\newenvironment{stry}[1][]{%
+\stepcounter{stry}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!50]
+{\strut গণিত গপ্পো};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!50]
+{\strut গণিত গপ্পো};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=orange!50,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\usepackage{ifthen}
+
+\usepackage{chngcntr}
+\usepackage{stackengine}
+
+\usepackage{tasks}
+\newlength{\longestlabel}
+\settowidth{\longestlabel}{\bfseries viii.}
+\settasks{counter-format={tsk[r].}, label-format={\bfseries}, label-width=\longestlabel,
+    item-indent=0pt, label-offset=2pt, column-sep={10pt}}
+
+\usepackage[lastexercise,answerdelayed]{exercise}
+\counterwithin{Exercise}{section}
+\counterwithin{Answer}{section}
+\renewcounter{Exercise}[section]
+\newcommand{\QuestionNB}{\arabic{Question}.\ }
+\renewcommand{\ExerciseName}{Practice Problems}
+\renewcommand{\ExerciseHeader}{\noindent\def\stackalignment{l}
+    \stackunder[0pt]{\colorbox{steelblue}{\textcolor{white}{{\Large\ExerciseHeaderNB\;\Large\ExerciseName}}}}{\textcolor{steelblue}{\rule{\linewidth}{2pt}}}}
+\renewcommand{\AnswerName}{Practice Problems}
+\renewcommand{\AnswerHeader}{
+    {\noindent{\textcolor{steelblue}{\Large\AnswerName\ \ExerciseHeaderNB, \Large page \pageref{\AnswerRef}}}}}
+\setlength{\QuestionIndent}{16pt}
+
+\makeatletter
+\DeclareRobustCommand{\mvdots}{%
+  \vcenter{%
+    \baselineskip4\p@\lineskiplimit\z@
+    \hbox{.}\hbox{.}\hbox{.}%
+  }%
+}
+\makeatother
+
+\begin{document}
+
+\begin{titlepage}
+
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+	
+	\center % Center everything on the page
+	
+	%----------------------------------------------------------------------------------------
+	%	HEADING SECTIONS
+	%----------------------------------------------------------------------------------------
+	
+	%----------------------------------------------------------------------------------------
+	%	TITLE SECTION
+	%----------------------------------------------------------------------------------------
+	
+	\HRule \\[0.4cm]
+	{ \huge \bfseries \textcolor{steelblue}{এক চিমটি গণিত}}\\
+	\LARGE \textcolor{bleudefrance}{জ্যামিতি} % Title of your document
+	\HRule \\[1.5cm]
+	
+	%----------------------------------------------------------------------------------------
+	%	AUTHOR SECTION
+	%----------------------------------------------------------------------------------------
+	
+	% Your name
+	
+	% If you don't want a supervisor, uncomment the two lines below and remove the section above
+	\Large   \href{https://www.facebook.com/soyebpervez.jim/}{সোয়েব পারভেজ জীম}\\[3cm] % Your name
+	
+	%----------------------------------------------------------------------------------------
+	%	DATE SECTION
+	%----------------------------------------------------------------------------------------
+	
+	{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+	
+	%----------------------------------------------------------------------------------------
+	%	LOGO SECTION
+	%----------------------------------------------------------------------------------------
+	\vspace{6cm}
+	\begin{tikzpicture}[scale=0.35]
+		\coordinate (O) at (0,0);
+		\coordinate (A) at (3,0);
+		\coordinate (B) at (1.5,2.6);
+		\coordinate (C) at (0.58,4.2);
+		\coordinate (D) at (-1.58,0);
+		\coordinate (E) at (2.74,4.7);
+		\coordinate (F) at (-1.21,-2.1);
+		\coordinate (G) at (6.64,-2.1);
+		
+		\draw[thick, color=yellow!70!red] (D)--(C)--(B)--(E)--(G);
+		\tkzDrawPolygon[color=blue,fill=bleudefrance!70](O,A,B);
+		\draw (D)--(O);
+		\draw (G)--(F)--(O); 
+		
+		
+		\node[below, scale=0.8] at (2.71,-2.1){$\phi^2$};
+		\node[above,right, scale=0.8] at (2.25,1.3){$1$};
+		\node[above,left, scale= 0.8] at (-0.64,2.1){$\phi$};
+	\end{tikzpicture}
+	
+	
+	\Large \href{https://www.youtube.com/channel/UCi_c260M8xmL-RfpT5yp1OA?}{Mathademia}
+	
+	\vfill 
+	
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\addtocounter{page}{-1}
+
+\section{Angle Chasing}
+Angle Chasing এর সহজ বাংলা হচ্ছে কোণের পিছনে ছোটা। মূলত জ্যামিতিক সমস্যা গুলোকে কোণের মধ্যকার সম্পর্কগুলো ব্যবহার করে সমাধানের চেষ্টা করাই Angle Chasing. বেশিরভাগ জ্যামিতিক সমস্যাগুলোতেই কোনো না কোনো ভাবে Angle Chasing ব্যবহার করতেই হয়। এই কোর্সে আমরা মূলত ফোকাস করব Problem Solving এর দিকে। বিভিন্ন Theorem, Lemma এখানে দেওয়া হলেও সেগুলোর প্রমাণের দিকে তেমন মনোযোগ না দিয়ে এগুলোর ব্যবহারই এই কোর্সের মূখ্য বিষয়। Theorem, Lemma এবং জ্যামিতির অন্যান্য বিষয় বিষদভাবে জানার জন্য জিও-টু(প্রমা আপুর কোর্স) টা দেখতে  পারো।
+
+এই কোর্সটা মূলত $9-12$ শ্রেণীর শিক্ষার্থীদের কথা মাথায় রেখে করা। তবে অন্য শ্রেণীর শিক্ষার্থীরা বুঝবে না এমন নয়। কোর্সটা বুঝার জন্য basic Geogemtry concept এবং ত্রিভুজের বিভিন্ন কেন্দ্র যেমনঃ পরিকেন্দ্র, লম্বকেন্দ্র, অন্তঃকেন্দ্র, ভরকেন্দ্র(নবম-দশম শ্রেণীর পাঠ্য বইয়ে দেওয়া আছে ) কি এবং কিভাবে পাওয়া যায় সেটা জানলেই হবে।  
+
+\subsection{ত্রিভুজ এবং বৃত্ত}
+ছোট বেলা থেকেই আমরা ত্রিভুজ এবং বৃত্ত সম্পর্কে পড়ে আসছি। আমরা এই অংশে সেই ধারণাগুলো দিয়েই কিভাবে সমস্যা সমাধান করা যায় তা দেখব। 
+\begin{thrm}
+	কোনো ত্রিভুজের তিন কোণের সমষ্টি $180\drg$
+\end{thrm}
+\begin{xmpl}[BdMO regional 2018]
+	তোমার জানা আছে ত্রিভুজের তিন কোণের সমষ্টি $180\drg$ তাহলে কোনো ষড়ভুজের সব কোণের সমষ্টি কত?
+\end{xmpl}
+\begin{sltn}
+	ষড়ভুজকে আমরা যদি ত্রিভুজে ভাগ করে ফেলি এবং সব ত্রিভুজের তিন কোণের সমষ্টি যেহেতু $180\drg$ তাই যতগুলো ত্রিভুজ তত দিয়ে $180\drg$ কে গুণ করলেই কিন্তু আমরা আমাদের উত্তর পেয়ে যাবো। 
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){A}
+			\tkzDefPoint(3,1){B}
+			\tkzDefPoint(4,3){C}
+			\tkzDefPoint(1,5){D}
+			\tkzDefPoint(-1,4){E}
+			\tkzDefPoint(-2,1){F}
+			\tkzDefMidPoint(A,D)		\tkzGetPoint{O}
+			
+			\tkzDrawPolygon(A,B,C,D,E,F)
+			\tkzDrawSegments[dashed](A,C A,D A,E)
+			\tkzDrawPoints(A,B,C,D,E,F)
+			\tkzAutoLabelPoints[center=O](A,B,C,D,E,F)
+		\end{tikzpicture}
+	\end{center}
+	দেখতে পারছো ষড়ভুজটাকে $4$টি ত্রিভুজে ভাগ করা যায়।(খেয়াল রাখতে হবে যাতে ত্রিভুজগুলো একে অপরকে ছেদ না করে।) অর্থাৎ ষড়ভুজের সব কোণের সমষ্টি $4\times 180\drg=720\drg$
+\end{sltn}
+আমাদের এই সমাধান থেকে আমরা কিন্তু যেকোনো বহুভুজের সকল কোণের সমষ্টি বের করতে পারি! কোনো $n$ বাহু বিশিষ্ট বহুভুজকে আমরা $n-2$ টা ত্রিভুজে ভাগ করতে পারি(চিত্রটা খেয়াল কর)। তাহলে আমরা বলতে পারি, 
+\begin{col}
+	কোনো $n$ বাহু বিশিষ্ট বহুভুজের সকল কোণের সমষ্টি $(n-2)180\drg$. আবার বহুভুজটি সুষম হলে প্রতিটা কোণের মান $\dfrac{(n-2)180\drg}{n}$
+\end{col}
+\begin{col}
+	\label{extrarnangle}
+	কোনো ত্রিভুজের বহিঃস্থ কোণ তার বিপরীত দুইটি অন্তঃস্থ কোণের যোগফলের সমান।
+\end{col}
+\begin{xmpl}[BdMO regional 2019]
+	ত্রিভূজ $\Delta ABC$ তে, $AB=AD; \angle ABC-\angle ACB= 30\drg; \angle CBD=?$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(1,3){A}
+			\tkzDefPoint(6,0){C}
+			\tkzDefPoint(3.71,1.37){D}
+			\tkzDefCircle[circum](A,B,C)
+			\tkzGetPoint{O}
+			
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments(B,D)
+			\tkzDrawPoints(A,B,C,D)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzMarkSegments[mark=||](A,B A,D)
+		\end{tikzpicture}
+	\end{center}
+\end{xmpl}
+\begin{sltn}
+	ধরি $\angle ACB=x$ এবং $\angle CBD=\delta$ তাহলে Corollary \ref{extrarnangle} অনুযায়ী $\angle ADB=\angle ACB+\angle CBD=x+\delta$ আবার যেহেতু $AB=AD$ তাহলে $\angle ABD=\angle ADB=x+\delta$। তাহলে প্রশ্নমতে,
+	\begin{alignat*}{2}
+		                & \angle ABC-\angle ACB &  & =30\drg \\
+		\Longrightarrow & x+\delta+\delta-x     &  & =30\drg \\
+		\Longrightarrow & x+2\delta-x           &  & =30\drg \\
+		\Longrightarrow & 2\delta               &  & =30\drg \\
+		\Longrightarrow & \delta                &  & =15\drg
+	\end{alignat*}
+	অর্থাৎ $\angle CBD=15\drg$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(1,3){A}
+			\tkzDefPoint(6,0){C}
+			\tkzDefPoint(3.71,1.37){D}
+			\tkzDefCircle[circum](A,B,C)
+			\tkzGetPoint{O}
+			
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments(B,D)
+			\tkzDrawPoints(A,B,C,D)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzMarkSegments[mark=||](A,B A,D)
+			\tkzMarkAngles[blue, mark=false, size=0.8](A,C,B)
+			\tkzMarkAngles[red, double, mark=false, size=0.8](C,B,D)
+			\tkzMarkAngles[mark=false, size=0.7](D,B,A A,D,B)
+			\tkzLabelAngles[dist=1.2](D,B,A A,D,B){\textcolor{blue}{$x$}+\textcolor{red}{$\delta$}}
+			\tkzLabelAngle[blue](A,C,B){$x$}
+			\tkzLabelAngle[red](C,B,D){$\delta$}
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{thrm}[Inscribed Angle Theorem]
+	\label{iat}
+	কোনো বৃত্তের কেন্দ্রস্থ কোণ বৃত্তস্থ কোণের দ্বিগুণ। অর্থাৎ	$O$ কেন্দ্র বিশিষ্ট কোনো বৃত্তের উপর তিনটি বিন্দু $A,B$ এবং $C$ হলে $\angle BOC=2\angle BAC$
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=0.7]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(75:2.5){A}
+			\tkzDefPoint(-2,-1.5){B}
+			\tkzDefPoint(2,-1.5){C}
+			
+			\tkzFillAngles[fill=cyan!50,size=0.55,opacity=0.7](B,A,C)
+			\tkzFillAngles[fill=blue!50,size=0.5,opacity=0.7](B,O,C)
+			
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(O,B,A,C)
+			\tkzDrawPoints(O,A,B,C)
+			\tkzMarkAngle[mark=false,size=0.5, blue](B,O,C)
+			\tkzLabelAngle[blue,pos=0.8](B,O,C){$2\theta$}
+			\tkzMarkAngle[mark=false,size=0.55,darkblue](B,A,C)
+			\tkzLabelAngle[darkblue,pos=0.85](B,A,C){$\theta$}
+			\tkzAutoLabelPoints[center=O](A,B,C)
+			\tkzLabelPoints[above](O)
+		\end{tikzpicture}
+		\qquad \qquad
+		\begin{tikzpicture}[scale=0.7]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(5:2.5){A}
+			\tkzDefPoint(-2,-1.5){B}
+			\tkzDefPoint(2,-1.5){C}
+			
+			\tkzFillAngles[fill=cyan!50,size=0.55,opacity=0.7](B,A,C)
+			\tkzFillAngles[fill=blue!50,size=0.5,opacity=0.7](B,O,C)
+			
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(O,B,A,C)
+			\tkzDrawPoints(O,A,B,C)
+			\tkzMarkAngle[mark=false,size=0.5, blue](B,O,C)
+			\tkzLabelAngle[blue,pos=0.8](B,O,C){$2\theta$}
+			\tkzMarkAngle[mark=false,size=0.55,darkblue](B,A,C)
+			\tkzLabelAngle[darkblue,pos=0.85](B,A,C){$\theta$}
+			\tkzAutoLabelPoints[center=O](A,B,C)
+			\tkzLabelPoints[above](O)
+		\end{tikzpicture}
+		\caption{The Inscribed Angle Theorem}
+	\end{figure}
+\end{thrm}
+\begin{thrm}
+	\label{cat}
+	কোনো বৃত্তের একই বৃত্তচাপের উপর অবস্থির সকল বৃত্তস্থ কোণের মান সমান। অর্থাৎ কোনো বৃত্তের $BC$ জ্যা এর একই পাশে যেকোনো দুইটি বিন্দু $A_1$ এবং $A_2$ থাকলে $\angle BA_1C=\angle BA_2C$
+\end{thrm}
+\begin{xmpl}
+	কোনো ত্রিভুজ $ABC$ এর লম্বকেন্দ্র $H$ এবং পরিকেন্দ্র $O$ হলে প্রমাণ কর $\angle BAH=\angle CAO$
+\end{xmpl}
+\begin{sltn} যেহেতু $H$ হল লম্বকেন্দ্র তাই $AD \perp BC$ অর্থাৎ $\angle BAH=90\drg-\angle CBA$
+	
+	আবার Theorem \ref{iat} $AC$ চাপের উপর থেকে $\angle COA=2\angle CBA$. আবার $\Delta AOC$ তে $AO=OC=R$ তাই 
+	\[\angle OAC=\dfrac{180\drg-\angle COA}{2}=\dfrac{180\drg-2\angle CBA}{2}=90\drg-\angle CBA=\angle BAH\]
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:2){A}
+			\tkzDefPoint(210:2){B}
+			\tkzDefPoint(-30:2){C}
+			\tkzDefTriangleCenter[ortho](A,B,C)
+			\tkzGetPoint{H}
+			\tkzDefTriangleCenter[circum](A,B,C)
+			\tkzGetPoint{O}
+			\tkzInterLL(A,H)(B,C) 		\tkzGetPoint{D}
+			
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawCircle[dotted, blue](O,A)
+			\tkzDrawSegments(A,D O,A O,C)
+			\tkzAutoLabelPoints[center=O](A,B,C)
+			\tkzLabelPoints[left](O,H)
+			\tkzLabelPoints[below](D)
+			\tkzMarkRightAngle[fill=green](C,D,A)
+			\tkzMarkAngles[mark=false, size=0.8](O,A,C B,A,H)
+			\tkzDrawPoints(A,B,C,D,O,H)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{col}
+	\label{smarc}
+	একটি বৃত্তের উপর দুইটি সমান দৈর্ঘ্যের ভিন্ন চাপের উপর দণ্ডায়মান বৃত্তীয় কোণের মান সমান। 
+\end{col}
+\begin{prf} ধরি বৃত্তটিতে চারটি বিন্দু $A,B,C$ এবং $D$ আছে যেন $AB=CD$ হয়। তাহলে $\Delta OAB$ এবং $\Delta OCD$ তে $OC=OB=OD=OA$ এবং $AB=CD$ তাহলে বাহু-বাহু-বাহু সর্বসমতা থেকে বলা যায় $\Delta OAB \cong \Delta OCD$. তাহলে $\angle AOB= \angle DOC$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(-10:1.9){A}
+			\tkzDefPoint(-60:1.9){B}
+			\tkzDefPoint(190:1.9){C}
+			\tkzDefPoint(240:1.9){D}
+			
+			\tkzMarkSegments[mark=|](O,A O,B O,C O,D)
+			\tkzMarkSegments[mark=||](A,B C,D)
+			\tkzFillAngles[fill=cyan!50,size=0.6,opacity=0.7](C,O,D B,O,A)
+			\tkzMarkAngles[mark=false,cyan,size=0.6](C,O,D B,O,A)
+			\tkzLabelAngles[cyan,pos=0.8](C,O,D B,O,A){$\theta$}
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(O,A,B)
+			\tkzDrawPolygon(O,C,D)
+			\tkzDrawPoints(O,A,B,C,D)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzLabelPoints[above](O)
+		\end{tikzpicture}
+	\end{center}
+	এখন Theorem \ref{cat} এবং Theorem \ref{iat} থেকে $AB$ এবং $CD$ এর উপর সকল বৃত্তস্থ কোণের মান সমান। 
+\end{prf}
+\begin{xmpl}[IGO 2016 Elementary/2]
+	একটি বিষমবাহু $\Delta ABC$ এর পরিবৃত্ত $\omega$ যেন $AC >AB$ হয়। $\omega$ তে $BC$ এর যে পাশে $A$ আছে তার বিপরীত পাশে একটি বিন্দু $Y$ এবং $AC$ বাহুর উপর যেকোনো বিন্দু $X$ যেন $CX=CY=AB$ হয়। $XY$ রেখা $\omega$-কে আবার $P$ বিন্দুতে ছেদ করে। প্রমাণ কর, $PB=PC$
+\end{xmpl}
+\begin{sltn} Theorem \ref{cat} অনুযায়ী $\angle BAY=\angle BCY$ এবং যেহেতু $AB=CY$ তাই Corollary \ref{smarc} অনুযায়ী $\angle YAC=\angle ACB$. অর্থাৎ $\angle ACY=\angle ACB+\angle BCY=\angle YAC+\angle BAY=\angle A$
+	
+	আবার $\Delta CXY$ এ $CX=XY$ তাই 
+	\[\angle YXC=\angle CYX =\dfrac{180\drg-\angle ACY}{2}=\dfrac{180\drg-\angle A}{2}=\dfrac{\angle A+\angle B+\angle C-\angle A}{2}=\dfrac{\angle B+\angle C}{2}\]
+	
+	আবার Theorem \ref{cat} অনুযায়ী $\angle CYP=\angle CBP=\dfrac{\angle B+\angle C}{2}$
+	
+	তাহলে $\angle PBA=\angle B-\dfrac{\angle B+\angle C}{2}=\dfrac{\angle B-\angle C}{2}$ এবং Theorem \ref{cat} অনুযায়ী $\angle PCA=\angle PBA$. অর্থাৎ
+	\[\angle PCB=\angle PCA+\angle C=\dfrac{\angle B-\angle C}{2}+\angle C=\dfrac{\angle B+\angle C}{2}\]
+	এখন $\Delta PBC$-তে যেহেতু $\angle CBP=\angle PCB=\dfrac{\angle B+\angle C}{2}$ তাই $PB=PC$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(130:3){A}
+			\tkzDefPoint(200:3){B}
+			\tkzDefPoint(-20:3){C}
+			\tkzDefPoint(270:3){Y}
+			
+			\tkzInterLC(A,C)(C,Y)
+			\tkzGetPoints{X}{a}
+			
+			\tkzInterLC(X,Y)(O,A)
+			\tkzGetPoints{P}{a}
+			
+			\tkzFillAngles[fill=cyan,opacity=0.3,size=0.8](B,A,Y B,C,Y B,P,Y)
+			\tkzMarkAngles[cyan, mark=false,size=0.8](B,A,Y B,C,Y B,P,Y)
+			\tkzFillAngles[fill=blue!80, opacity=0.3,size=0.7](Y,A,C A,C,B Y,P,C)
+			\tkzMarkAngles[mark=false, size=0.7,blue!80](Y,A,C A,C,B Y,P,C)
+			\tkzFillAngles[fill=green!80, opacity=0.3,size=0.65](C,B,P C,Y,P Y,X,C)
+			\tkzMarkAngles[mark=false, size=0.65,green](C,B,P C,Y,P Y,X,C)
+			
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawPoints(A,B,C,X,Y,P)
+			\tkzAutoLabelPoints[center=O](A,B,C,Y,P)
+			\tkzLabelPoints[right](X)
+			\tkzDrawSegments(P,Y C,Y)
+			\tkzDrawSegments[dashed](P,B P,C A,Y)
+			\tkzMarkSegments[mark=||](A,B C,Y C,X)
+			
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{trick}
+	জ্যামিতির যেকোনো ধরনের সমস্যা সমাধানের জন্যই চিত্র সুন্দর করে আকা অনেক গুরুত্বপূর্ণ। যখন ত্রিভুজ বা চতুর্ভুজ আকবা তখন বিষম আকার চেষ্ঠা করবা। প্রশ্নে যে যে তথ্য(সমান সমান কোণ বা বাহু) দেওয়া আছে সেগুলা চিত্রে এঁকে রাখবা। এক্ষেত্রে রঙ্গিন কলম/ পেন্সিল ব্যবহার করা উত্তম। 
+\end{trick}
+\begin{Exercise}
+	\label{agl-ex-1}
+	\begin{prob}[BdMO regional 2018]
+		চিত্রে $\angle CAB=58\drg,\angle ABC=64\drg$ এবং $\angle ACD=83\drg$ হলে $\angle BCE=?$
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(0,0){C}
+				\tkzDefPoint(-2,0){D}
+				\tkzDefPoint(3,0){E}
+				\tkzDefPoint(-0.39,3.16){A}
+				\tkzDefPoint(2.33,1.89){B}
+				
+				\tkzLabelAngle[pos=0.8](A,C,D){$83\drg$}
+				\tkzLabelAngle[pos=0.8](C,A,B){$58\drg$}
+				\tkzLabelAngle[pos=0.8](A,B,C){$64\drg$}
+				\tkzDrawPolygon(A,B,C)
+				\tkzDrawSegment(D,E)
+				\tkzDrawPoints(A,B,C,D,E)
+				\tkzAutoLabelPoints[center=C](A,B,D,E)
+				\tkzLabelPoints[below](C)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}[BdMO regional 2019, AMC 8 2014/15]
+		\label{bg-j-3}
+		$O$ কেন্দ্র বিশিষ্ট একটি বৃত্তের পরিধিকে সমান $12$ ভাগে ভাগ করা হয়েছে। চিত্রে $x=\angle OAE$ এবং $y=\angle OGI$, তাহলে $x+y$ এর মান কত?
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(0,0){A}
+				\tkzDefPoint(1,0){B}
+				\tkzDefRegPolygon[side,sides=12](A,B)
+				\tkzGetPoint{O}
+				\tkzLabelRegPolygon[sep=1.05](O){A,...,L}
+				\tkzDrawCircle[dashed, color=cyan](O,A)
+				\tkzDrawPolygon(O,A,E)
+				\tkzDrawPolygon(O,I,G)
+				\tkzLabelPoints[left](O)
+				\tkzMarkAngle[size=0.5, red, mark=false, fill=red!50](E,A,O)
+				\tkzMarkAngle[size=0.4, double, blue, mark=false](I,G,O)
+				\tkzLabelAngle[dist=0.7, red](E,A,O){$x$}
+				\tkzLabelAngle[dist=0.7, blue](I,G,O){$y$}
+				\tkzDrawPoints(A,E,O,I,G)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}[IGO 2017 Elementary/P2]
+		$\Delta ABC$ এর সকল কোণের মান বের কর। 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9]
+				\tkzDefPoint(0.95,2.94){A}
+				\tkzDefPoint(0,0){B}
+				\tkzDefPoint(5,0){C}
+				\tkzDefPoint(3.09,0){W}
+				\tkzDefPoint(2.5,1.82){X}
+				\tkzDefPoint(0.59,1.82){Y}
+				\tkzDefPoint(1.17,0){Z}
+				\tkzDefTriangleCenter[circum](A,B,C)		\tkzGetPoint{O}
+				
+				\tkzDrawPolygon(A,B,C)
+				\tkzDrawPolygon(W,X,Y,Z)
+				\tkzMarkSegments[mark=|](A,X X,Y Y,Z W,Z W,X B,Y C,W)
+				\tkzAutoLabelPoints[center=O](A,B,C)
+				\tkzDrawPoints(A,B,C,W,X,Y,Z)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}[BdMO regional 2019]
+		\label{ctg-s-3}
+		চিত্রে দেখানো চতুর্ভুজগুলো বর্গ হলে $x$ কোণে মান ভিগ্রিতে কত?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\tkzDefPoint(3,0){P}
+				\tkzDefPoint(1.4,2.1){Q}
+				\tkzDefSquare(Q,P)
+				\tkzGetPoints{S}{R}
+				\tkzDefPoint(5,0){W}
+				\tkzDefPoint(6.8,1.8){X}
+				\tkzDefSquare(W,X)
+				\tkzGetPoints{Y}{Z}
+				\tkzDefPoint(-1.5,0){E}
+				\tkzDefPoint(9,0){F}
+				\tkzInterLL(R,S)(Y,Z)
+				\tkzGetPoint{O}
+				
+				\tkzDrawPolygon(P,Q,R,S)
+				\tkzDrawPolygon(W,X,Y,Z)
+				\tkzDrawSegments(E,F)
+				%\tkzLabelPoints(P,Q,R,S,W,X,Y,Z)
+				\tkzMarkAngle[mark=false,size=0.8](Q,P,E)
+				\tkzMarkAngle[mark=false,size=0.8](F,W,X)
+				\tkzMarkAngle[mark=false,size=0.5](Z,O,S)
+				\tkzLabelAngle[pos=1.1](Q,P,E){$37\drg$}
+				\tkzLabelAngle[pos=1.2](F,W,X){$23\drg$}
+				\tkzLabelAngle[pos=0.7](Z,O,S){$x\drg$}
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}
+		একটি ত্রিভুজ $\Delta ABC$ এর পরিবৃত্ত $\omega$. প্রমাণ কর, $AC \perp CB$ হবে যদি এবং কেবল যদি $\omega$ বৃত্তের ব্যাস $AB$ হয়। 
+	\end{prob}
+	\begin{prob}[IGO Elementary 2015/2]
+		$\Delta ABC$ তে $\angle A=60\drg$. $Bc, AC, AB$ বাহুর উপর তিনটি বিন্দু যথাক্রমে $M,N$ এবং $K$ এমনভাবে অবস্থিত যেন $BK=KM=MN=NC$. যদি $AN=2AK$ হয় তাহলে $\angle B$ এবং $\angle C$ এর মান বের কর।
+	\end{prob}
+	\begin{prob}[IGO Elementary 2015/3]
+		চিত্রে $AB=CD, BC=2AD$ এবং $AB \perp BC$. যদি $\angle BCD=30\drg$ হয় তবে $\angle BAD$ এর মান কত?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65]
+				\tkzDefPoint(0,0){A}
+				\tkzDefPoint(0,5.1961){B}
+				\tkzDefPoint(6,5.1961){C}
+				\tkzDefPoint(1.5,2.598){D}
+				
+				\tkzDrawPolygon(A,B,C,D)
+				\tkzMarkRightAngle[black, fill=gray, fill opacity=0.2 ](A,B,C)
+				\tkzFillAngle[fill=cyan, opacity=0.2, size=0.8](B,C,D)
+				\tkzMarkAngle[mark=false,size=0.8, cyan](B,C,D)
+				\tkzLabelAngle[cyan, pos=1.3](B,C,D){$30\drg$}
+				\tkzDrawPoints(A,B,C,D)
+				\tkzAutoLabelPoints[center=D](A,B,C)
+				\tkzLabelPoints(D)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+\end{Exercise}
+\begin{Answer}[ref={agl-ex-1}]
+	\begin{sltn}\ref{bg-j-3}
+		যেহেতু পরিধিকে সমান $12$ ভাগে ভাগ করা হয়েছে তাই প্রতিটিভাগ কেন্দ্র $O$ এর সাথে $\dfrac{360}{12}=30\drg$ কোণ উৎপন্ন করে। তাহলে, \\
+		$\angle IOG = 2\times \dfrac{360}{12}=60\drg$\\
+		$\angle AOE = 4 \times \dfrac{360}{12}=120\drg$\\
+		আবার যেহেতু $IO=IG=AO=OE=r$ তাই $\angle OIG= \angle IGO$ এবং $\angle OEA = \angle EAO$\\
+		$\therefore y=\angle IGO = \dfrac{180\drg-\angle IOG}{2}=60\drg$\\
+		$\therefore x=\angle EAO= \dfrac{180\drg-\angle AOE}{2}=30\drg$\\
+		তাহলে $x+y=30\drg+60\drg=90\drg$
+	\end{sltn}
+	\begin{sltn}\ref{ctg-s-3}
+		এখন যেহেতু $WX||AB$ এবং $PQ||AC$ তাই $\angle XWC=\angle ABC=23\drg$ এবং $\angle QPB=\angle ACB=37\drg$
+		
+		তাহলে $\Delta ABC$ এর $\angle BAC=180\drg-(\angle ABC+\angle ACB)=180\drg-60\drg=120\drg$
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(3,0){P}
+				\tkzDefPoint(1.4,2.1){Q}
+				\tkzDefSquare(Q,P)
+				\tkzGetPoints{S}{R}
+				\tkzDefPoint(5,0){W}
+				\tkzDefPoint(6.8,1.8){X}
+				\tkzDefSquare(W,X)
+				\tkzGetPoints{Y}{Z}
+				\tkzDefPoint(-1.5,0){E}
+				\tkzDefPoint(9,0){F}
+				\tkzInterLL(R,S)(Y,Z)
+				\tkzGetPoint{A}
+				\tkzInterLL(E,F)(Y,Z)
+				\tkzGetPoint{B}
+				\tkzInterLL(E,F)(R,S)
+				\tkzGetPoint{C}
+				
+				\tkzDrawPolygon[dotted](P,Q,R,S)
+				\tkzDrawPolygon[dotted](W,X,Y,Z)
+				\tkzDrawPolygon[blue](A,B,C)
+				\tkzDrawSegments(E,F)
+				\tkzAutoLabelPoints[center=A](P,Q,W,X,B,C)
+				\tkzLabelPoints[above](A)
+				\tkzDrawPoints(A,B,C)
+				\tkzMarkAngle[mark=false,size=0.6](A,C,B)
+				\tkzMarkAngle[mark=false,size=0.6](C,B,A)
+				\tkzMarkAngle[mark=false,size=0.5](Z,A,S)
+				\tkzLabelAngle[pos=0.9](A,C,B){$37\drg$}
+				\tkzLabelAngle[pos=1](C,B,A){$23\drg$}
+				\tkzLabelAngle[pos=0.7](Z,A,S){$x\drg$}
+			\end{tikzpicture}
+		\end{center}
+	\end{sltn}
+\end{Answer}
+\newpage
+\subsection{বৃত্তীয় চতুর্ভুজ}
+সকল ত্রিভুজই কিন্তু বৃত্তীয় অর্থাৎ একটি ত্রিভুজকে ঘিরে এমন একটি বৃত্ত আঁকা যাবে যাতে তার পরিধির উপর ত্রিভুজের তিনটি বিন্দুই অবস্থান করে, আর এই বৃত্তকেই আমরা ত্রিভুজের পরিবৃত্ত বলি। তবে সকল চতুর্ভুজের ক্ষেত্রে কিন্তু পরিবৃত্ত তৈরি করা যায় না। তবে যেসব চতুর্ভুজের ক্ষেত্রে পরিবৃত্ত তৈরি করা যায় তাদের মাঝে অনেকগুলো কাজের বৈশিষ্ট্য দেখা যায়। এই অংশের আমরা এগুলো নিয়েই আলোচনা করব। 
+\begin{thrm}
+	\label{cyclicth}
+	$ABCD$ একটি চতুর্ভুজ এবং নিচের যেকোনোটি সত্য হলে বাকি বৈশিষ্ট্যগুলোও সত্য।  
+	\begin{enumerate}[label=(\alph*), nosep]
+		\item $ABCD$ বৃত্তীয়।
+		\item বিপরীত কোনগুলোর যোগফল $180\drg$. অর্থাৎ $\angle ABC+ \angle CDA=180\drg$ এবং $\angle DAB+ \angle BCD=180\drg$
+		\item একই চাপের উপর দণ্ডায়মান কোণগুলোর মান সমান। যেমনঃ $\angle ADB=\angle ACB, \angle BAC=\angle BDC, \angle ABD=\angle ACD$ এবং $\angle CAD=\angle CBD$
+		\item $PC\times PA=PB\times PD$ এবং $QA\times QB=QC\times QD$(Power of point)
+	\end{enumerate}
+	অর্থাৎ যেকোনোটি যেমনঃ শুধুমাত্র $\angle ABD=\angle ACD$ হলেই উপরের সকল বৈশিষ্ট্যগুলো সত্য বলা যাবে। 
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(15:3){C}
+			\tkzDefPoint(130:3){D}
+			\tkzDefPoint(230:3){A}
+			\tkzDefPoint(-35:3){B}
+			\tkzInterLL(A,C)(B,D)		\tkzGetPoint{P}
+			\tkzInterLL(A,B)(C,D)		\tkzGetPoint{Q}
+			
+			\tkzDrawCircle(O,A)
+			\tkzFillAngles[fill=red!70, opacity=0.25, size=0.7](A,D,B A,C,B)
+			\tkzMarkAngles[mark=false, size=0.7, red](A,D,B A,C,B)
+			\tkzFillAngles[fill=green!70, opacity=0.25, size=0.6](D,C,A D,B,A)
+			\tkzMarkAngles[mark=false, size=0.6, green](D,C,A D,B,A)
+			\tkzFillAngles[fill=darkcyan!70, opacity=0.25, size=0.65](B,A,C B,D,C)
+			\tkzMarkAngles[mark=false, size=0.65, darkcyan](B,A,C B,D,C)
+			\tkzFillAngles[fill=orange!70, opacity=0.25, size=0.55](C,B,D C,A,D)
+			\tkzMarkAngles[mark=false, size=0.55, orange](C,B,D C,A,D)
+			
+			\tkzDrawPolygon(A,B,C,D)
+			\tkzDrawSegments[dashed](A,C B,D C,Q B,Q)
+			\tkzDrawPoints(A,B,C,D,P,Q)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzLabelPoints[right](Q)
+			\tkzLabelPoints[below](P)
+		\end{tikzpicture}
+		\label{cyclic}
+		\caption{বৃত্তীয় চতুর্ভুজ}
+	\end{figure}
+\end{thrm}
+এই থিওরাম থেকে আমরা আরও কিছু মজার কোণের সমতা দেখাতে পারি, 
+\begin{col}
+	\label{cyexangle}
+	চতুর্ভুজের কোনো বহিঃস্থ কোণ বিপরীত অন্তঃস্থ কোণের সমান হবে যদি এবং কেবল যদি চতুর্ভুজটি বৃত্তীয় হয়। যেমনঃ $\angle OCB=\angle QAD$ হবে যদি এবং কেবল যদি $ABCD$ বৃত্তীয় হয়। 
+\end{col}
+এখন একটা Example দেখা যাক। 
+\begin{xmpl}
+	চিত্র \ref{cyclic} এ সবগুলো সদৃশ ত্রিভুজ বের কর।
+\end{xmpl}
+\begin{sltn} \qquad
+	
+	\begin{enumerate}[nosep]
+		\item $\Delta PAD$ এবং $\Delta PBC$ তে $\angle ADP=\angle PCB$ ও $\angle PAD=\angle CBP$ তাই $\Delta PAD \sim \Delta ADP$ একইভাবে $\Delta PCD \sim PAB$
+		\item $\Delta PAD$ এবং $\Delta PBC$ তে Corollary \ref{cyexangle} অনুযায়ী $\angle QBC=\angle ADQ, \angle BCQ=\angle QAD$ তাই $\Delta PAD \sim \Delta PBC$
+		\item $\Delta QCA$ এবং $\Delta QBD$ তে $\angle BDQ=\angle QAC$ ও $\angle AQD$ হল সাধারণ কোণ, তাই $\Delta QCA \sim \Delta QBD$(অর্থাৎ $\angle ACQ=\angle QAD$, যদি কেবল এই কোণ দুটিও সমান দেখানো যায় তাহলে $ABCD$ বৃত্তীয় বলা যাবে।)
+	\end{enumerate}
+\end{sltn}
+\begin{xmpl}
+	একটি চতুর্ভুজ $ABCD$ এর কর্ণগুলো পরস্পর লম্ব, আবার $\angle ADB=30\drg, \angle BAC=40\drg$ এবং $\angle ACD=50\drg$ হলে কোণ $\angle D$ এবং $\angle B$ এর মান কত? 
+\end{xmpl}
+\begin{sltn} এখানে $\Delta APB$ ত্রিভুজ সমকোণী এবং $\angle PAB=40\drg$ অর্থাৎ $\angle ABP=90\drg-40\drg=50\drg$ আবার যেহেতু $\angle ACD=50\drg=\angle ABD$ তাই Theorem \ref{cyclicth} থেকে $ABCD$ একটি বৃত্তীয় চতুর্ভুজ।
+	
+	যেহেতু বৃত্তীয় চতুর্ভুজ তাই $\angle CDB=\angle CAB=30\drg$ অর্থাৎ কোণ $\angle D=30\drg+40\drg=70\drg$
+	
+	আবার বৃত্তীয় চতুর্ভুজ হওয়ায় বিপরীত কোনগুলোর যোঘফল $180\drg$ অর্থাৎ $\angle B=180\drg-\angle D=180\drg-70\drg=110\drg$
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.1]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:3){A}
+			\tkzDefPoint(220:3){D}
+			\tkzDefPoint(-25:3){C}
+			\tkzDefPoint(50:3){B}
+			\tkzInterLL(A,C)(B,D)	\tkzGetPoint{P}
+			
+			\tkzDrawCircle[dotted, blue](O,A)
+			\tkzMarkRightAngle[fill=black, fill opacity=0.1, black](C,P,B)
+			\tkzLabelAngle(P,A,B){$40\drg$}
+			\tkzLabelAngle[pos=1.2](B,D,A){$30\drg$}
+			\tkzLabelAngle(A,C,D){$50\drg$}
+			\tkzDrawSegments[dashed](A,C B,D)
+			\tkzDrawPolygon(A,B,C,D)
+			\tkzDrawPoints(A,B,C,D,P)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzLabelPoints[below](P)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{xmpl}[Simson Line] একটি ত্রিভুজ $ABC$ এর পরিবৃত্তের উপর যেকোনো বিন্দু $P$. $BC, CA$ এবং $AB$ রেখার উপর যথাক্রমে $X,Y$ এবং $Z$ আছে যেন $PZ \perp AB, PY \perp AC$ এবং $PX \perp BC$ হয়। প্রমাণ কর, $X,Y$ এবং $Z$ সমরেখ।
+\end{xmpl}
+\begin{sltn} 
+	এখানে যেহেতু $APCB$ বৃত্তীয় তাই $\angle APC=180\drg-\angle B$
+	
+	আবার চিত্রে $\angle BZP+\angle PXB=90\drg+90\drg=180\drg$ অর্থাৎ $BZPX$ হল বৃত্তীয়। তাহলে $\angle ZPX=180\drg-\angle B=\angle APC$
+	
+	যেহেতু $\angle CXP=90\drg=\angle CYP$ তাই $PYXC$ বৃত্তীয় এবং $\angle XYP=\angle XPC$ একইভাবে $\angle AZP+\angle PYA=180\drg$ হওয়ায় $PYAZ$ বৃত্তীয়, তাই $\angle ZPA=\angle ZYP$ তাহলে, 
+	
+	\begin{alignat*}{2}
+		         & \angle APC            &  & = \angle ZPX            \\ 
+		\implies & \angle APC-\angle APX &  & = \angle ZPX-\angle APX \\
+		\implies & \angle XPC            &  & =\angle ZPA             \\ 
+		\implies & \angle XYC            &  & =\angle ZYA	
+	\end{alignat*}
+	যেহেতু বিপ্রতীপ কোনোগুলো সমান তাই $X,Y$ এবং $Z$ সমরেখ। 
+	\begin{figure}[h]
+		\centering 
+		\begin{tikzpicture}[scale=0.9]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(120:3){A}
+			\tkzDefPoint(200:3){B}
+			\tkzDefPoint(-20:3){C}
+			\tkzDefPoint(60:3){P}
+			
+			\tkzDefLine[perpendicular= through P](A,B)
+			\tkzGetPoint{a}
+			\tkzInterLL(A,B)(P,a)		\tkzGetPoint{Z}
+			
+			\tkzDefLine[perpendicular= through P](B,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,C)(P,a)		\tkzGetPoint{X}
+			
+			\tkzDefLine[perpendicular= through P](A,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(A,C)(P,a)		\tkzGetPoint{Y}
+			\tkzMarkRightAngles[fill=blue!80, fill opacity=0.2, blue](C,X,P C,Y,P A,Z,P)
+			\tkzMarkAngles[mark=false, red, size=0.8](X,P,C X,Y,C)
+			\tkzFillAngles[fill=red!80, opacity=0.2, size=0.8](X,P,C X,Y,C)
+			\tkzMarkAngles[mark=false, darkcyan, size=0.8](Z,Y,A Z,P,A)
+			\tkzFillAngles[fill=darkcyan, opacity=0.2, size=0.8](Z,Y,A Z,P,A)
+			
+			\tkzDrawCircle(O,A)
+			\tkzDrawCircle[circum, dashed, cyan](B,P,X)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments(P,Y P,X P,Z)
+			\tkzDrawSegments[dotted](A,Z P,C A,P)
+			\tkzDrawSegments[dashed, red](X,Z)
+			
+			\tkzDrawPoints(A,B,C,P,X,Y,Z)
+			\tkzAutoLabelPoints[center=O](A,B,C,P,Z)
+			\tkzAutoLabelPoints[center=P](X,Y)
+		\end{tikzpicture}
+		\caption{Simson Line}
+		%\Label{sml}
+	\end{figure}
+\end{sltn}
+
+এখন একটা বাংলাদেশ গণিত অলিম্পিয়াডের একটা সমস্যার সমাধান ব্যখ্যা সহকারে দেখা যাক- 
+\begin{xmpl}[BdMO Regional 2017]
+	$ABC$ একটি সমদ্বিবাহু ত্রিভুজে $AB=AC$ এবং $\angle A=100\drg$. $D,AB$ এর ওপর এমন একটি বিন্দু যেন $CD, \angle ACB$ কে সমান দুইভাগে অন্তঃবিভক্ত করে। $BC$ বাহুর দৈর্ঘ্য $2017$ একক হলে, $AD+CD$ এর মান কত?
+\end{xmpl}
+এই প্রশ্নটা ২০১৭ সালে জুনিয়র ক্যাটাগরিতে আসছিলো, আর সে তুলনায় প্রশ্নটা যথেষ্ঠ কঠিন। তাছাড়া এই প্রশ্নে যে বৃত্তীয় চতুভূজের ব্যবহার আছে, আর ব্যবহারটাই বা কিভাবে তা বুঝায় যথেষ্ঠ কঠিন। তাই এই সমস্যার সমাধান দেখার আগে সমাধানটা কিভাবে মাথায় আসল তা দেখা যাক। 
+
+প্রশ্নটা সমাধানের জন্য প্রথমেই যা করতে হবে তা হল, চিত্রটা ভালো করে আঁকা। তারপর প্রশ্নতে যে যে তথ্য দেওয়া আছে সেগুলো ব্যবহার করে আর কি কি তথ্য বের করা যায় তা নিয়ে চিন্তা করা যাক। প্রশ্নে বলা যাছে $AB=AC$ এবং $\angle BAC=100\drg$ তাহলে $\angle CBA=\angle ACB=\dfrac{180\drg -100\drg}{2}=40\drg$
+
+আবার, $CD$ হল $\angle ACB$ এর সমদ্বিখণ্ডক। অর্থাৎ $\angle ACD=\angle DCB=\dfrac{40\drg}{2}=20\drg$ এখন কিন্তু আমরা সকল obvious তথ্যগুলো পেয়ে গেসি, তাহলে এখন আমাদের পরের step কি হতে পারে? 
+
+লক্ষ কর প্রশ্নে আমাদের কাছে $AD+CD$ এর দৈর্ঘ্যের মান চাওয়া হয়েছে। প্রশ্নে কি আমাদের কোনো দৈর্ঘ্যের মান দেওয়া আছে? হ্যাঁ, আমাদের $BC$ বাহুর মান দেওয়া আছে। তবে এতে ঝামেলা হল $BC$ এর সাথে $AD$ বা $CD$ এর তেমন কোনো সম্পর্ক নেই। এই ঝামেলাটা কি আমরা সমাধান করতে পারি? সম্পর্ক যেহেতু নেই, তৈরি করে ফেলি একটা সম্পর্ক। $CB$ বাহুর উপর একটা বিন্দু $X$ নেই যেন $CD=CX$ হয়। এখন কি করা যায়? নতুন যে সম্পর্ক তৈরি করলাম, তা থেকে কি আমরা নতুন কোনো তথ্য পেতে পারি কি না। এক্ষেত্রে, $CX=CD$ সম্পর্ক থেকে আমরা বলতে পারি, $\angle XDC=\angle CDX=\dfrac{180\drg-\angle DCX}{2}=\dfrac{180\drg-20\drg}{2}=80\drg$
+
+আমরা এখন একটা খুব কাজের জিনিস পেয়ে গেছি। দেখ, $\angle XDC+\angle DAC=80\drg+100\drg=180\drg$ তাহলে Theorem \ref{cyclicth} মতে, $ACXD$ একটি বৃত্তীয় চতুর্ভুজ। এখন কিন্তু সমস্যাটির সমাধান যথেষ্ট সহজ। তাহলে সমস্যাটির formal সম্পূর্ণ সমাধান দেখা যাক। 
+
+\begin{sltn} $\Delta ABC$ তে $\angle ACB=\angle CBA=\dfrac{180\drg -100\drg }{2}=40\drg$, আবার $CD, \angle ACB$ এর সমদ্বিখণ্ডক হওয়ায়, $\angle ACD=\angle DCB=\dfrac{40\drg}{2}=20\drg$.
+	
+	$BC$ বাহুর উপর একটি বিন্দু $X$ নেই যেন $CD=CX$ হয়। তাহলে $\Delta CDX$ এ $\angle CDX=\dfrac{180\drg-20\drg}{2}=80\drg$, যেহেতু $\angle DAC+\angle CXD=100\drg+80\drg=180\drg$ তাই Theorem \ref{cyclicth} অনুযায়ী $ACXD$ হল বৃত্তীয়। তাহলে \[ \angle AXD=\angle ACD=20\drg=\angle DCX=\angle DAX\]
+	অর্থাৎ $DX=DA$
+	
+	আবার $\Delta DXB$ তে Corollary \ref{cyexangle} অনুযায়ী $\angle BDX=\angle ACX=\angle CBD$ অর্থাৎ $BX=DX=AD$
+	
+	তাহলে $AD+CD=BX+XC=BC=2017$
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.3]
+			\tkzDefPoint(0,0){C}
+			\tkzDefPoint(140:4){A}
+			\tkzDefPoint(180:6.1283){B}
+			\tkzDefPoint(160:4){Y}
+			\tkzInterLL(A,B)(C,Y) 		\tkzGetPoint{D}
+			\tkzInterLC(C,B)(C,D)		\tkzGetPoints{x}{X}
+			
+			\tkzDrawCircle[circum, dotted](A,C,D)
+			\tkzMarkAngles[mark=false, red, size=0.61](A,C,D A,X,D D,C,X D,A,X)
+			\tkzFillAngles[fill=red!70,opacity=0.2, size=0.6](A,C,D A,X,D D,C,X D,A,X)
+			\tkzLabelAngles[red, pos=0.9](A,C,D A,X,D D,C,X D,A,X){\small$20\drg$}
+			\tkzMarkAngles[mark=false, blue, size=0.4](X,B,D B,D,X)
+			\tkzFillAngles[fill=blue!70,opacity=0.2, size=0.4](X,B,D B,D,X)
+			\tkzLabelAngles[blue,pos=0.7](X,B,D B,D,X){\small$40\drg$}
+			%\tkzDrawArc(A,X)(C)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments[dashed](X,D A,X)
+			\tkzDrawSegment(C,D)
+			\tkzMarkSegments[mark=||](C,D C,X)
+			\tkzMarkSegments[mark=|](B,X A,D D,X)
+			\tkzDrawPoints(A,B,C,D,X)
+			\tkzLabelPoints(A,B,C,D,X)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{xmpl}[Canada 1997/4]
+	একটি সামান্তরিক $ABCD$ এর ভেতর একটি বিন্দু $O$ আছে যেন, $\angle AOB+\angle COD=180\drg$ প্রমাণ কর, $\angle OBC=\angle ODC$
+\end{xmpl}
+\begin{sltn}
+	এমন একটি বিন্দু $O'$ নেই যাতে $ADOO'$ একটি সামান্তরিক হয়। যেহেতু $AD||O'O||BC$ এবং $AD=O'O=BC$ তাই $O'BCO$-ও হল সামান্তরিক। তাহলে $\angle AO'B=\angle DOC$ অর্থাৎ $\angle AO'B+\angle BOA=\angle DOC+\angle BOA=180\drg$ অর্থাৎ $AO'BO$ হল বৃত্তীয়। 
+	
+	আবার যেহেতু $O'BCO$ সামান্তরিক তাই $\Delta O'OB \cong \Delta OBC \implies \angle O'OB=\angle OBC$ এবং $AO'BO$ হওয়ায় বলা যায়, 
+	\[\angle OBC=\angle O'OB=\angle O'AB=\angle ODC\]
+	\begin{center}
+		\begin{tikzpicture}[scale=0.55]
+			\tkzDefPoint(-5,-7){D}
+			\tkzDefPoint(1,-7){C}
+			\tkzDefPoint(3,-1){B}
+			\tkzDefPoint(-3,-1){A}
+			\tkzDefPoint(-1,-3){O}
+			\tkzDefPoint(1,3){O'}
+			
+			\tkzMarkAngles[mark=false, size=0.7, blue](C,D,O B,A,O' B,O,O' O,B,C)
+			\tkzFillAngles[size=0.7, fill=blue, opacity=0.2](C,D,O B,A,O' B,O,O' O,B,C)
+			
+			\tkzDrawPolygon(A,B,C,D)
+			\tkzDrawPoints(A,B,C,D,O,O')
+			\tkzAutoLabelPoints[center=O](A,B,C,D,O')
+			\tkzLabelPoints[below](O)
+			\tkzDrawSegments[dashed](A,O O,B O,C O,D O',A O',B O',O)
+			\tkzDrawCircle[circum,dotted](A,O,O')
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\newpage
+\begin{Exercise}
+	\begin{prob}[AMC 10B 2011/17]
+		একটি বৃত্তের ব্যাস $\overline{EB}$ এর সমান্তরাল বাহু $\overline{DC}$, $overline{AB}$ এর সমান্তরাল $\overline{ED}$ এবং $\angle AEB$ এবং $\angle ABE$ এর অনুপাত $4:5$ হলে $\angle BCD$ এর মান নির্ণয় কর। 
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(0,0){O}
+				\tkzDefPoint(80:2.5){A}
+				\tkzDefPoint(0:2.5){B}
+				\tkzDefPoint(180:2.5){E}
+				\tkzDefPoint(260:2.5){D}
+				\tkzDefPoint(280:2.5){C}
+				
+				\tkzDrawCircle(O,A)
+				\tkzDrawPolygon(A,B,C,D,E)
+				\tkzDrawSegment(E,B)
+				\tkzDrawPoints(A,B,C,D,E,O)
+				\tkzAutoLabelPoints[center=O](A,B,C,D,E)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}
+		প্রমাণ কর একটি ট্রাপিজিয়াম বৃত্তীয় হবে যদি এবং কেবল যদি ট্রাপিজিয়ামটি সমদ্বিবাহু হবে।
+	\end{prob}
+	\begin{prob}[BAMO 1999/2]
+		ধরি $O=(0,0), A=(0,a)$ এবং $B=(0,b)$ যেখানে $0<a<b \in \mathbb{R}$. $\overline{AB}$ ব্যাস বিশিষ্ট একটি বৃত্তের উপর যেকোনো বিন্দু $P$. যদি $PA$ রেখা $x$-অক্ষকে $Q$ বিন্দুতে ছেদ করে তবে প্রমাণ কর, $\angle BQP=\angle BOP$.
+	\end{prob}
+	\begin{prob}[AMC 10A 2019/13]
+		একটি সমদ্বিবাহু ত্রিভুজ $\Delta ABC$ এর $AC=BC$ এবং $\angle ACB=40\drg$. $\overline{BC}$ ব্যাস বিশিষ্ট একটি বৃত্ত $AC$ এবং $AB$ রেখাকে যথাক্রমে $D$ এবং $E$ বিন্দুতে ছেদ করে। $BCDE$ এর কর্ণদ্বয় পরস্পর $F$ বিন্দুতে ছেদ করলে, $\angle BFC$ এর মান বের কর।
+	\end{prob}
+	\begin{prob}[Canada 1991/3]
+		একটি বৃত্ত $\omega$ এর ভেতর যেকোনো বিন্দু $P$. প্রমাণ কর $\omega$ এর সকল $P$ বিন্দু বিশিষ্ট জ্যা এর মধ্যবিন্দুগুলো একই বৃত্তের উপর অবস্থিত।
+	\end{prob}
+	\begin{prob}[IGO Intermediate 2017/2]
+		দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $A,B$ বিন্দুতে ছেদ করে। $B$ দিয়ে অতিক্রম করে এমন যেকোনো রেখা $\omega_1$ এবং $\omega_2$ কে যথাক্রমে $C$ এবং $D$ বিন্দুতে ছেদ করে। $\omega_1$ এবং $\omega_2$ তে দুইটি বিন্দু যথাক্রমে $E$ এবং $F$ যেন $CE=CB$ এবং $BD=DF$ হয়। যদি $BF$ রেখা $\omega_1$ কে $P$ এবং $BE$ রেখা $\omega_2$ কে $Q$ বিন্দুতে ছেদ করলে প্রমাণ কর, $A,P,Q$ সমরেখ।
+	\end{prob}
+	\begin{prob}[Russia 1996]
+		একটি উত্তল চতুর্ভুজ $ABCD$ এর $\overline{BC}$ বাহুর উপর দুইটি বিন্দু $E$ এবং $F$ যেন $BE<BF$ হয়। দেওয়া আছে, $\angle BAE=\angle CDF$ এবং $\angle EAF=\angle FDE$. প্রমাণ কর, $\angle FAC=\angle EDB$.
+	\end{prob}
+	\begin{prob}
+		$ABCDE$ একটি উত্তল পঞ্চভুজ যেন $BCDE$ একটি বর্গ যার কেন্দ্র $O$ এবং $\angle A=90\drg$. প্রমাণ কর, $\angle BAF$ কোণের সমদ্বিখণ্ডক $\overline{AO}$
+	\end{prob}
+\end{Exercise}
+\newpage
+\subsection{লম্বকেন্দ্র, অন্তঃকেন্দ্র এবং বহিঃকেন্দ্র}
+একটি ত্রিভুজ অনেকগুলো গুরুত্বপূর্ণ বিন্দু আছে তাদের মাঝে এই অংশে আমরা লম্বকেন্দ্র, অন্তঃকেন্দ্র এবং বহিঃকেন্দ্র নিয়ে আলোচনা করব। ৯-১০ শ্রেণিতে এই বিন্দুগুলো কি এবং কিভাবে আঁকা যায় এগুলো সম্পর্কে জেনেছো। এখন আমরা এই বিন্দুগুলো কিভাবে আমাদের কিভাবে angle chasing এ সাহায্য করে তা আলোচনা করব। 
+
+\underline{লম্বকেন্দ্রঃ} ত্রিভুজের তিনটি শীর্ষবিন্দু থেকে বিপরীত বাহুর পর লম্ব আঁকলে সেই লম্বগুলো যে বিন্দুতে ছেদ করে তাকে লম্বকেন্দ্রে বলে। একে ইংরেজিতে orthocenter বলে এবং সাধারণত $H$ দ্বারা প্রকাশ করা হয়। 
+
+\underline{অন্তঃকেন্দ্রেঃ} কোনো ত্রিভুজের তিনটি বাহুর সাথে স্পর্শক এমন বৃত্তকে অন্তঃবৃত্ত বলে এবং সেই বৃত্তের কেন্দ্রকে অন্তঃবৃত্ত কেন্দ্র বলে। একে ইংরেজিতে incenter বলে এবং সাধারণত $I$ দ্বারা প্রকাশ করা হয়। 
+
+\begin{figure}[ht]
+	\begin{minipage}{0.5\linewidth}
+		\centering  % redundant
+		\begin{tikzpicture}[scale=1.6]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(3,0){C}
+			\tkzDefPoint(1,2.1){A}
+			
+			\tkzDefLine[perpendicular= through C](A,B)
+			\tkzGetPoint{X}
+			\tkzInterLL(A,B)(C,X)
+			\tkzGetPoint{F}
+			\tkzDefLine[perpendicular= through B](C,A)
+			\tkzGetPoint{X}
+			\tkzInterLL(C,A)(B,X)
+			\tkzGetPoint{E}
+			\tkzDefLine[perpendicular= through A](B,C)
+			\tkzGetPoint{X}
+			\tkzInterLL(B,C)(A,X)
+			\tkzGetPoint{D}
+			\tkzInterLL(A,D)(C,F)
+			\tkzGetPoint{H}
+			
+			\tkzMarkRightAngles[fill=black!70, fill opacity=0.2, black, size=0.15](C,D,A A,E,B B,F,C)
+			
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments[dashed](A,D B,E C,F)
+			\tkzDrawPoints(A,B,C,D,E,F,H)
+			\tkzAutoLabelPoints[center=H](A,B,C,D,E,F)
+			\tkzLabelPoints(H)
+		\end{tikzpicture}
+		\caption{লম্বকেন্দ্র}
+		\label{fig:figure1}
+	\end{minipage}%
+	\hfill% not: "\hspace{0.5cm}"
+	\begin{minipage}{0.5\linewidth}
+		\centering  % redundant
+		\begin{tikzpicture}[scale=1.6]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(3,0){C}
+			\tkzDefPoint(1,2.1){A}
+			
+			\tkzDefTriangleCenter[in](A,B,C)
+			\tkzGetPoint{I}
+			
+			\tkzDrawCircle[in, dashed](A,B,C)
+			\tkzDrawPoints(A,B,C,I)
+			\tkzDrawPolygon(A,B,C)
+			\tkzAutoLabelPoints[center=I](A,B,C)
+			\tkzLabelPoints(I)
+		\end{tikzpicture}
+		\caption{অন্তঃকেন্দ্র}
+		\label{fig:figure2}
+	\end{minipage}
+\end{figure}
+\underline{বহিঃকেন্দ্রঃ} কোনো ত্রিভুজের একটি বাহু এবং অপর দুইটি বাহুর বর্ধিতাংশের সাথে স্পর্শক এমন বৃত্তকে বহিঃবৃত্ত এবং সেই বৃত্তের কেন্দ্রকে অন্তঃকেন্দ্র বলে। একে ইংরেজিতে excenter বলে এবং কেন্দ্রটি ত্রিভুজের $A$ শীর্ষের বিপরীতে হলে কেন্দ্রটিকে $I_A$ দ্বারা প্রকাশ করা হয়। 
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=0.8]
+		\tkzDefPoint(0,0){B}
+		\tkzDefPoint(3,0){C}
+		\tkzDefPoint(1.2,2.5){A}
+		\tkzDefPoint(-3,0){X_1}
+		\tkzDefPoint(6,0){Y_1}
+		\tkzDefPoint(-1.44,-3){X_2}
+		\tkzDefPoint(2.88,6){Y_2}
+		\tkzDefPoint(5.16,-3){X_3}
+		\tkzDefPoint(-0.6,5){Y_3}
+		
+		\tkzDefTriangleCenter[ex](B,A,C)
+		\tkzGetPoint{I_A}
+		\tkzDefTriangleCenter[ex](A,B,C)
+		\tkzGetPoint{I_B}
+		\tkzDefTriangleCenter[ex](A,C,B)
+		\tkzGetPoint{I_C}
+		\tkzDefTriangleCenter[circum](B,A,C)
+		\tkzGetPoint{O}
+		\tkzDefLine[perpendicular= through I_A](C,X_3)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_A,a)(C,X_3)
+		\tkzGetPoint{Y_A}
+		\tkzDefLine[perpendicular= through I_A](C,B)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_A,a)(B,C)
+		\tkzGetPoint{X_A}
+		\tkzDefLine[perpendicular= through I_A](B,X_2)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_A,a)(B,X_2)
+		\tkzGetPoint{Z_A}
+		\tkzDefLine[perpendicular= through I_B](C,Y_1)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_B,a)(C,Y_1)
+		\tkzGetPoint{X_B}
+		\tkzDefLine[perpendicular= through I_B](C,A)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_B,a)(A,C)
+		\tkzGetPoint{Y_B}
+		\tkzDefLine[perpendicular= through I_B](A,Y_2)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_B,a)(A,Y_2)
+		\tkzGetPoint{Z_B}
+		\tkzDefLine[perpendicular= through I_C](B,X_1)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_C,a)(B,X_1)
+		\tkzGetPoint{X_C}
+		\tkzDefLine[perpendicular= through I_C](A,B)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_C,a)(B,A)
+		\tkzGetPoint{Z_C}
+		\tkzDefLine[perpendicular= through I_C](A,X_3)
+		\tkzGetPoint{a}
+		\tkzInterLL(I_C,a)(A,X_3)
+		\tkzGetPoint{Y_C}
+		
+		\tkzDrawCircle[ex](A,B,C)
+		\tkzDrawCircle[ex](B,A,C)
+		\tkzDrawCircle[ex](A,C,B)
+		\tkzDrawSegments[dashed](X_1,B C,Y_1 B,X_2 A,Y_2 C,X_3 A,Y_3)
+		\tkzDrawPolygon(A,B,C)
+		\tkzDrawPoints(A,B,C,I_A, I_B, I_C, X_A, Y_A,Z_A, X_B,X_C, Y_B,Y_C,Z_B,Z_C)
+		
+		\tkzLabelPoints(I_A,I_B,I_C)
+		\tkzAutoLabelPoints[center=O, pos=1.2](A,B,C, X_A, Y_B, Z_C)
+		\tkzAutoLabelPoints[center=I_A](Y_A,Z_A)
+		\tkzAutoLabelPoints[center=I_B](X_B, Z_B)
+		\tkzAutoLabelPoints[center=I_C](X_C,Y_C)
+	\end{tikzpicture}
+	\caption{অন্তঃকেন্দ্র}
+	\label{excenter}
+\end{figure}
+\begin{col}
+	\label{byincenter}
+	অন্তঃকেন্দ্র ত্রিভুজের অন্তঃকোণগুলোকে সমদ্বিখণ্ডিত করে। অর্থাৎ চিত্র \ref{fig:figure2} তে $AI$ হল $\angle BAC$ এর সমদ্বিখণ্ডক। 
+\end{col}
+\begin{col}
+	\label{byexcenter}
+	বহিঃকেন্দ্র ত্রিভুজের দুইটি বহিঃকোণকে এবং একটি অন্তঃকোণকে সমদ্বিখন্ডিত করে। অর্থাৎ চিত্র \ref{excenter} এ $\angle BAC$ এর সমদ্বিখণ্ডক $AI_A$, $\angle BCY_A$ কোণের সমদ্বিখণ্ডক $CI_A$ এবং $\angle CBZ_A$ কোণের সমদ্বিখণ্ডক $BI_A$.  
+\end{col}
+আবার যেহেতু $AI$ এবং $AI_A$ উভয়ই $\angle BAC$ এর সমদ্বিখণ্ডক তাই $A,I$ এবং $I_A$ সমরেখো। 
+\begin{xmpl}
+	\label{inexcenter}
+	$\Delta ABC$ বৃত্তের অন্তঃকেন্দ্র $I$ এবং $A$ এর বিপরীত পাশে একটি বহিঃকেন্দ্র $I_A$, $\overline{AI_A}$ যদি $\Delta ABC$ এর পরিবৃত্তেকে $M$ বিন্দুতে ছেদ করে তবে প্রমাণ কর, $IBI_AC$ একটি বৃত্তীয় চতুর্ভুজ যার কেন্দ্র $M$. 
+\end{xmpl}
+\begin{sltn} প্রথমে আমরা $IBI_AC$ বৃত্তীয় তা প্রমাণ করব পরে তার কেন্দ্র যে $M$ তা প্রমাণ করব। এখানে $\Delta BIC$-তে Corollary \ref{byincenter} অনুযায়ী $\angle CBI=\dfrac{\angle B}{2}$ এবং $\angle ICB=\dfrac{\angle C}{2}$ অর্থাৎ,
+	\[ \angle BIC=180\drg-\angle CBI-\angle ICB=180\drg-\dfrac{\angle B+\angle C}{2}=180\drg-\dfrac{180\drg-\angle A}{2}=90\drg+\dfrac{\angle A}{2}\]
+	আবার $\Delta BCI_A$ এর ক্ষেত্রে Corollary \ref{byexcenter} অনুযায়ী, $\angle BCI_A=\dfrac{180\drg-\angle C}{2}$ এবং $\angle I_ABC=\dfrac{180\drg-\angle B}{2}$ অর্থাৎ, 
+	\[ \angle CI_AB=180\drg-\angle BCI_A-\angle I_ABC=180\drg-\dfrac{360\drg-\angle B-\angle C}{2}=180\drg-\dfrac{180\drg+\angle A}{2}=90\drg-\angle A\]
+	
+	যেহেতু $IBI_AC$ তে $\angle BIC+\angle CI_AB=90\drg+\dfrac{\angle A}{2}+90\drg-\dfrac{\angle A}{2}=180\drg$ তাহলে Theorem \ref{cyclic} থেকে বলা যায়, $IBI_AC$ একটি বৃত্তীয় চতুর্ভুজ।
+	
+	এখন প্রমাণের ২য় অংশে আসা যাক। Theorem \ref{cat} অনুযায়ী $\angle BAM=\angle MAC$ হওয়ায় $MB=MC$
+	
+	আবার $ABMC$ বৃত্তীয় হওয়ায়, $\angle AMC=\angle C$, $\angle MBC=\angle MAC=\dfrac{\angle A}{2}$ এবং $\angle CBI=\dfrac{\angle B}{2}$ অর্থাৎ $\Delta BMI$ তে, 
+	\[\angle MBI=\angle MBC+\angle CMI=\dfrac{\angle A}{2}+\dfrac{\angle B}{2}=\dfrac{\angle A+\angle B}{2}\] এবং 
+	\[\angle BIM=180\drg-\angle IMB-\angle MBI=180\drg-\angle C-\dfrac{\angle A+\angle B}{2}=\dfrac{\angle A+\angle B}{2}\]
+	যেহেতু $\Delta BMI$ তে $\angle MBI=\angle BIM$ হওয়ায় $MB=MI$. তাহলে $MB=MI=MC$ অর্থাৎ $M$ হল $BIC$ পরিবৃত্তের কেন্দ্র। আর যেহেতু $IBI_AC$ বৃত্তীয় এবং বৃত্তের কেন্দ্র একটিই, তাই $IBI_AC$ এর কেন্দ্র $M$
+	\begin{center}
+		\begin{tikzpicture}[scale=1.1]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(3,0){C}
+			\tkzDefPoint(1,1.8){A}
+			\tkzDefTriangleCenter[ex](B,A,C)
+			\tkzGetPoint{I_A}
+			\tkzDefTriangleCenter[in](B,A,C)
+			\tkzGetPoint{I}
+			\tkzDefCircle[circum](A,B,C)
+			\tkzGetPoint{O}
+			\tkzInterLC(A,I_A)(O,A)
+			\tkzGetPoints{M}{b}
+			
+			\tkzDrawCircle[circum, cyan](A,B,C)
+			\tkzDrawCircle[circum, dashed](I,B,C)
+			\tkzMarkAngles[orange, size=0.5](M,B,C M,A,C B,A,M B,C,M)
+			\tkzFillAngles[fill=orange!80,opacity=0.2, size=0.5](M,B,C M,A,C B,A,M B,C,M)
+			\tkzDrawPolygon(A,B,C)
+			\tkzMarkSegments[mark=||](M,I M,B M,C M,I_A)
+			
+			
+			\tkzDrawSegments[dashed](A,I_A M,B M,C)
+			\tkzDrawPoints(A,B,C,I,I_A, M)
+			\tkzAutoLabelPoints[center=M](A,B,C,I_A)
+			\tkzLabelPoints(I,M)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{xmpl}
+	\label{nondirected}
+	একটি ত্রিভুজ $ABC$ এর $BC, CA$ এবং $AB$ এর উপর তিনটি বিন্দু যথাক্রমে $D,E$ এবং $F$ যেন $AD \perp BC, BE \perp CA$ এবং $CF \perp AB$ হয় যদি ত্রিভুজটির লম্বকেন্দ্র $H$ হয় তবে, 
+	\begin{enumerate}[label=(\alph*),nosep]
+		\item $A,B,C,D,E,F$ এবং $H$ এর কোনো চারটি বিন্দুগুলোগামী কয়টি ভিন্ন বৃত্ত পাওয়া যাবে?
+		\item প্রমাণ কর $\Delta DEF$ এর অন্তঃকেন্দ্র $H$
+	\end{enumerate}
+\end{xmpl}
+\begin{sltn}(a) Theorm \ref{cyclicth} ব্যবহার করেই এটা সহজে সমাধান করা যায়। এখানে ছয়টি ভিন্ন বৃত্ত পাওয়া যাবে। বৃত্তীয় চতুর্ভুজগুলো হল $AFHE,BFHD,CDHE,AEDB,BFEC$ এব�� $CDFA$.
+	
+	\qquad (b) যেহেতু $BFEC$ একটি বৃত্তীয় চতুর্ভুজ, তাই $\angle EBF=\angle ECF$. আবার $FHDB$ বৃত্তীয় তাই $\angle HBF=\angle HDF$ আর $HECD$ বৃত্তীয় তাই $\angle ECH=\angle EDH$. অর্থাৎ 
+	\[ \angle HDF=\angle HBF=\angle ECH=\angle EDH\]
+	অর্থাৎ $\angle EDF$ এর সমদ্বিখণ্ডক $DH$. অনুরূপভাবে $\angle FED$ এবং $\angle DFE$ এর সমদ্বিখণ্ডক যথাক্রমে $EH$ এবং $FH$. অর্থাৎ Corollary \ref{byincenter} অনুযায়ী $H$ হল $\Delta DEF$ এর অন্তঃকেন্দ্র। 
+	\begin{center} 
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:4){A}
+			\tkzDefPoint(200:4){B}
+			\tkzDefPoint(-20:4){C}
+			\tkzDrawPolygon(A,B,C)
+			\tkzDefLine[orthogonal= through C](A,B)
+			\tkzGetPoint{x}
+			\tkzInterLL(C,x)(A,B)
+			\tkzGetPoint{F}
+			\tkzDefLine[orthogonal= through B](A,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(B,x)(A,C)
+			\tkzGetPoint{E}
+			\tkzDefLine[orthogonal= through A](B,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(A,x)(B,C)
+			\tkzGetPoint{D}
+			\tkzInterLL(A,D)(C,F)
+			\tkzGetPoint{H}
+			\tkzMarkAngles[orange, size=0.7](E,B,A E,D,A A,C,F A,D,F)
+			\tkzMarkAngles[green, size=0.7](B,A,D B,E,D F,C,B F,E,B)
+			\tkzMarkAngles[darkcyan, size=0.7](D,A,C D,F,C C,B,E C,F,E)
+			
+			\tkzMarkRightAngles[fill=black, fill opacity=0.2](C,D,A C,F,A A,E,B)
+			
+			\tkzFillAngles[fill=orange, opacity=0.2,size=0.7](E,B,A E,D,A A,C,F A,D,F)
+			\tkzFillAngles[fill=green, opacity=0.2,size=0.7](B,A,D B,E,D F,C,B F,E,B)
+			\tkzFillAngles[fill=darkcyan, opacity=0.2,size=0.7](D,A,C D,F,C C,B,E C,F,E)
+			
+			\tkzMarkRightAngles[fill=gray, fill opacity=0.5](C,D,A C,F,A A,E,B)
+			
+			\tkzDrawSegments[dashed](A,D B,E C,F)
+			\tkzDrawPolygon[dotted](D,E,F)
+			
+			\tkzAutoLabelPoints[center=H](A,B,C,D,E,F)
+			\tkzLabelPoints(H)
+			\tkzDrawPoints(A,B,C,D,E,F,H)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{xmpl}
+	$H$ লম্বকেন্দ্র বিশিষ্ট $\Delta ABC$ এর $BC$ বাহুর উপর একটি বিন্দু $D$ যেন $AD \perp BC$ হয় এবং $M$ হল $BC$ বাহুর মধ্যবিন্দু। $H$ কে $D$ এবং $M$ এর সাপেক্ষে reflect করলে যথাক্রমে দুইটি বিন্দু $X$ এবং $Y$ পাওয়া যায়। 
+	\begin{enumerate}[label=(\alph*), nosep]
+		\item প্রমাণ কর $X$, $\Delta ABC$ এর পরিবৃত্তের উপর অবস্থিত।
+		\item প্রমাণ কর $Y$, $\Delta ABC$ এর পরিবৃত্তের উপর অবস্থিত।
+	\end{enumerate}
+\end{xmpl}
+\begin{sltn}
+	(a) এখানে $\Delta EBC$ তে $BE\perp AC$ হওয়ায় $\angle CBE=90\drg-\angle C$ আবার $\Delta HBD$ তে $HD \perp BC$ হওয়ায় $\angle BHD=90\drg-90\drg+\angle C=\angle C$. অনুরূপভাবে $\angle DHC=\angle B$
+	
+	$\Delta HCD$ এবং $\Delta DCX$ এ $HD=DX$, $\angle CDH=\angle XDC=90\drg$ এবং $CD$ সাধারণ বাহু। তাই $\Delta HCD \cong \Delta DCX$ অর্থাৎ $\angle CXD=\angle DHC=\angle B$. অনুরূপ ভাবে $\angle BXD=\angle BHD=\angle C$. তাহলে, 
+	\[ \angle CXB=\angle CXA+\angle AXB=\angle C+\angle B=180\drg-\angle A\]
+	
+	তাহলে, Theorem \ref{cyclicth} থেকে বলা যায় $X$, $\Delta ABC$ এর পরিবৃত্তের উপর অবস্থিত। 
+	
+	(b) যেহেতু $BM=MC$ এবং $HM=MY$ তাই $HBYC$ একটি সামান্তরিক। তাই, 
+	\[\angle CYB= \angle BHC=\angle B+\angle C=180\drg-\angle A\]
+	
+	তাহলে, Theorem \ref{cyclicth} থেকে বলা যায় $Y$, $\Delta ABC$ এর পরিবৃত্তের উপর অবস্থিত।
+	\begin{center} 
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:4){A}
+			\tkzDefPoint(200:4){B}
+			\tkzDefPoint(-20:4){C}
+			\tkzDrawPolygon(A,B,C)
+			\tkzDefCircle[circum](A,B,C)
+			\tkzGetPoint{O}
+			\tkzDefLine[orthogonal= through C](A,B)
+			\tkzGetPoint{x}
+			\tkzInterLL(C,x)(A,B)
+			\tkzGetPoint{F}
+			\tkzDefLine[orthogonal= through B](A,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(B,x)(A,C)
+			\tkzGetPoint{E}
+			\tkzDefLine[orthogonal= through A](B,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(A,x)(B,C)
+			\tkzGetPoint{D}
+			\tkzInterLL(A,D)(C,F)
+			\tkzGetPoint{H}
+			\tkzDefMidPoint(B,C)
+			\tkzGetPoint{M}
+			\tkzDefPointBy[reflection=over B--C](H)
+			\tkzGetPoint{X}
+			\tkzInterLC(H,M)(O,A)
+			\tkzGetPoints{Y}{y}
+			
+			\tkzMarkAngles[mark=false, orange, size=0.8](A,C,B B,H,D)
+			\tkzMarkAngles[mark=false, darkcyan, size=0.8](C,B,A D,H,C)
+			\tkzFillAngles[fill=orange, opacity=0.2,size=0.8](A,C,B B,H,D)
+			\tkzFillAngles[fill=darkcyan, opacity=0.2,size=0.8](C,B,A D,H,C)
+			
+			\tkzMarkRightAngles[fill=gray, fill opacity=0.5](C,D,A C,F,A A,E,B)
+			\tkzDrawSegments(B,X X,C)
+			\tkzDrawSegments[dashed](B,Y Y,C)
+			
+			\tkzDrawSegments[dotted](A,D B,E C,F D,X H,M M,Y)
+			\tkzMarkSegments[mark=|](H,D D,X)
+			\tkzMarkSegments[mark=||](H,M M,Y)
+			
+			\tkzAutoLabelPoints[center=H](A,B,C,D,E,F,M,X,Y)
+			\tkzLabelPoints[right](H)
+			\tkzDrawPoints(A,B,C,D,E,F,H,M,X,Y)
+			\tkzDrawCircle[blue, dotted](O,A)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{trick}
+	উপরের কিছু Example গুলো থেকে আমরা কিছু কাজের তথ্য পাই, সেগুলো এখানে একসাথে দেওয়া হল- 
+	\begin{enumerate}[label=(\alph*),nosep]
+		\item $\Delta ABC$ এর অন্তঃকেন্দ্র এবং বহিঃকেন্দ্র যথাক্রমে $I$ এবং $I_A$ হলে, $\angle BIC=90\drg+\dfrac{\angle A}{2}$ এবং $\angle CI_AB=90\drg-\dfrac{\angle A}{2}$
+		\item $\Delta ABC$ এর অন্তঃকেন্দ্র এবং বহিঃকেন্দ্র যথাক্রমে $I$ এবং $I_A$ হলে, $BICI_A$ হবে বৃত্তীয় এবং তার কেন্দ্র হবে $II_A$ ও $\Delta ABC$ এর পরিবৃত্তের ছেদবিন্দু।
+		\item $\Delta ABC$ এর লম্বকেন্দ্র $H$ কে যেকোনো শীর্ষের পাদবিন্দু বা যেকোনো বাহুর মধ্যবিন্দুর সাপেক্ষে reflect করলে তা $\Delta ABC$ এর পরিবৃত্তের উপর থাকবে।
+	\end{enumerate}
+\end{trick}
+\begin{xmpl}[IMO 2006/1]
+	$I$ কেন্দ্র বিশিষ্ট একটি ত্রিভুজ $\Delta ABC$ এর অভ্যন্তরে একটি বিন্দু $P$ যেন, 
+	\[\angle PBA+\angle PCA=\angle PBC+\angle PCB\]
+	প্রমাণ কর $AP \geq AI$, এবং তারা সমান হবে যদি এবং কেবল যদি $P=I$ হয়।
+\end{xmpl}
+\begin{sltn}
+	এখানে, 
+	\begin{alignat*}{2}
+		         & \angle PBA+\angle PCA    &  & =\angle PBC+\angle PCB                       \\
+		\implies & 2(\angle PBA+\angle PCA) &  & =\angle PBA+\angle PBC+\angle PCA+\angle PCB \\
+		\implies & 2(\angle PBA+\angle PCA) &  & =\angle B+\angle C                           \\
+		\implies & \angle PBA+\angle PCA    &  & =\dfrac{\angle B+\angle C}{2}
+	\end{alignat*}
+	তাহলে $\angle BPC=\angle A+\dfrac{\angle B+\angle C}{2}=90\drg+\dfrac{\angle A}{2}$
+	
+	আবার Example \ref{inexcenter} থেকে $\angle BIC=90\drg+\dfrac{\angle A}{2}$. অর্থাৎ $BIPC$ হল বৃত্তীয় চতুর্ভুজ এবং $M$ হল তার কেন্দ্র ফলে $PM=IM$. যেহেতু $A,I$ ও $M$ সমরেখ, তাই $AM=AI+IM$. 
+	
+	$\Delta AMP$ তে আমরা জানি, 
+	\begin{alignat*}{2}
+		         & AP+PM &  & \geq AM    \\
+		\implies & AP+PM &  & \geq AI+IM \\
+		\implies & AP    &  & \geq AI
+	\end{alignat*}
+	অর্থাৎ $AP\geq AI$ এবং $AP=AI$ হবে যদি এবং কেবল যদি $I=P$ হয়। 
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:4){A}
+			\tkzDefPoint(200:4){B}
+			\tkzDefPoint(-20:4){C}
+			\tkzDefCircle[in](A,B,C)
+			\tkzGetPoint{I}
+			\tkzInterLC(A,I)(O,A)
+			\tkzGetPoints{M}{y}
+			\draw[opacity=0] (M)--+(80:4.589cm) coordinate (P);
+			\tkzDrawArc(M,C)(B)
+			\tkzMarkAngles[mark=false,size=0.4, orange](B,I,C B,P,C)
+			\tkzFillAngles[size=0.4, fill=orange, opacity=0.2](B,I,C B,P,C)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawCircle(O,A)
+			\tkzDrawPoints(A,B,C,M,I,P)
+			\tkzDrawSegments[dashed](P,C P,B I,B I,C)
+			\tkzDrawSegments(A,M A,P P,M)
+			\tkzMarkSegments[mark=|](I,M P,M)
+			\tkzAutoLabelPoints[center=I](A,B,C,M)
+			\tkzLabelPoints[above right](I,P)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{Exercise}
+	\begin{prob}
+		একটি বৃত্তীয় চতুর্ভুজ $ABCD$ তে $\Delta ABC$ এবং $\Delta DBC$ এর অন্তঃকেন্দ্র সথাক্রমে $I_1$ এবং $I_2$. প্রমাণ কর, $I_1I_2BC$ ও বৃত্তীয় চতুর্ভুজ।  
+	\end{prob}
+	\begin{prob}[Lemma]
+		$\Delta ABC$ এর পরিবৃত্তের $\wideparen{BC}$ এর মধ্যবিন্দু $X$ যেন $X,A$, $\overline{BC}$ এর বিপরীত পাশে হয়। একইভাবে $Y$ এবং $Z$ বিন্দু নেওয়া হল। প্রমাণ কর, $\Delta ABC$ এর অন্তঃকেন্দ্র $I$, $\Delta XYZ$ এর লম্বকেন্দ্র। 
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(0,0){O}
+				\tkzDefPoint(110:2){A}
+				\tkzDefPoint(210:2){B}
+				\tkzDefPoint(-30:2){C}
+				\tkzDefPoint(-90:2){X}
+				\tkzDefPoint(160:2){Z}
+				\tkzDefPoint(40:2){Y}
+				\tkzInterLL(A,X)(B,Y)
+				\tkzGetPoint{I}
+				
+				\tkzDrawCircle(O,A)
+				\tkzDrawPolygon(A,B,C)
+				\tkzDrawPolygon[dashed](X,Y,Z)
+				\tkzDrawPoints(A,B,C,X,Y,Z,I)
+				\tkzAutoLabelPoints[center=I](A,B,C,X,Y,Z)
+				\tkzLabelPoints(I)
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}[IGO Advanced 2017/1]
+		$\Delta ABC$ এর অন্তঃকেন্দ্র $I$ এবং অন্তঃবৃত্তটি $BC$ কে $D$ বিন্দুতে ছেদ করে। আবার $DI$ রেখা $AC$ কে $X$ বিন্দুতে ছেদ করে। $AB$ বাহুর উপর একটি বিন্দু $Y\neq A$ যেন $XY$ অন্তঃবৃত্তের সাথে স্পর্শক হয়। এখন $YI$ রেখা $BC$ কে $Z$ বিন্দুতে ছেদ করলে প্রমাণ কর $AB=BZ$ হয়। 
+	\end{prob}
+\end{Exercise}
+\newpage
+\subsection{স্পর্শক}
+যদি কোনো রেখা কোনো বৃত্তকে কেবল মাত্র একটি বিন্দুতে ছেদ করলে সেই রেখাকে স্পর্শক বলে। 
+\begin{thrm}
+	\label{tanperp}
+	একটি স্পর্শক $PA$ কোনো $O$ কেন্দ্র বিশিষ্ট বৃত্তকে $A$ বিন্দুতে ছেদ করলে $PA \perp AO$.
+\end{thrm}
+একইভাবে কোনো বৃত্তের স্পর্শকের উপর কেন্দ্র থেকে লম্ব আঁকলে লম্বের দৈর্ঘ্য বৃত্তের ব্যাসার্ধের সমান। 
+\begin{thrm}[Alternate Segment Theorem]
+	\label{altseg}
+	$\Delta ABC$ এর পরিবৃত্তের $A$ বিন্দুতে একটি স্পর্শক $XY$(যেখানে $\angle XAB<\angle XAC$) হলে,
+	\[\angle XAB=\angle C \text{ এবং } \angle YAC=\angle B\]
+\end{thrm}
+\begin{prf} বৃত্তটির উপর একটি বিন্দু $B'$ নেই যেন $AC'$ বৃত্তটির ব্যাস হয়। তাহলে Theorem \ref{cat} অনুযায়ী $\angle ACB=\angle AC'B=\theta$. আবার $AC'$ ব্যাস হওয়ায় $\angle ABC'=90\drg$. তাহলে $\angle C'AB=90-\theta$
+	
+	আবার Theorm \ref{tanprep} অনুযায়ী $\angle C'AX=90\drg$ অর্থাৎ, 
+	\[\angle BAX=90\drg-\angle C'AB=90\drg-90\drg+\theta =\theta=\angle ACB\]
+	অনুরূপভাবে প্রমাণ করা যায়, $\angle YAC=\angle B$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(-90:2){A}
+			\tkzDefPoint(170:2){B}
+			\tkzDefPoint(50:2){C}
+			\tkzDefPoint(90:2){C'}
+			\tkzDefPoint(-3,-2){X}
+			\tkzDefPoint(3,-2){Y}
+			
+			\tkzFillAngles[fill=blue,opacity=0.2, size=0.55](B,C,A B,C',A B,A,X)
+			\tkzMarkAngles[mark=false, blue, size=0.55](B,C,A B,C',A B,A,X)
+			\tkzLabelAngles[blue, pos=0.8](B,C,A B,C',A B,A,X){\small $\theta$}
+			
+			\tkzMarkRightAngles[fill=gray, fill opacity=0.4](A,B,C' Y,A,C')
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments(X,Y A,C' C',B)
+			\tkzDrawPoints(A,B,C,X,Y,C')
+			\tkzAutoLabelPoints[center=O](A,B,C,X,Y,C')
+		\end{tikzpicture}
+	\end{center}
+\end{prf}
+\begin{col}
+	একই বিন্দু থেকে কোনো বৃত্তের উপর অংকিত স্পর্শক দুইটির দৈর্ঘ্য সমান। 
+\end{col}
+\begin{xmpl}
+	$\Delta ABC$ এর পরিবৃত্তের উপর $P$ বিন্দু থেকে দুইটি স্পর্শক $PA$ এবং $PB$. $BC$ বাহুর উপর একটি বিন্দু $D$ যেন $PD||AC$ হয়। প্রমাণ কর $AD=CD$
+\end{xmpl}
+\begin{sltn} Theorem \ref{altseg} থেকে $\angle ACB=\angle ABP=\angle PAB$. আবার $PD||AC$ তাই $\angle PDB=\angle ACD=\angle PAB$ অর্থাৎ $PADB$ বৃত্তীয়।
+	
+	তাহলে $\angle ABP=\angle ADP$ আবার $PD||AC$ তাই $\angle ADP=\angle DAC$.(একান্তর কোণ) অর্থাৎ 
+	\[\angle ACB=\angle PDB=\angle ADP=\angle DAC\]
+	যেহেতু $\angle ACB=\angle DAC$ তাই $AD=CD$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:2.5){A}
+			\tkzDefPoint(200:2.5){B}
+			\tkzDefPoint(-20:2.5){C}
+			\tkzDefTangent[at=A](O)
+			\tkzGetPoint{x}
+			\tkzDefTangent[at=B](O)
+			\tkzGetPoint{y}
+			\tkzInterLL(A,x)(B,y)
+			\tkzGetPoint{P}
+			\tkzDefLine[parallel= through P](A,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(P,x)(B,C)
+			\tkzGetPoint{D}
+			\tkzMarkAngles[mark=false, orange, size=0.6](A,C,B D,A,C A,B,P P,A,B P,D,B A,D,P)
+			\tkzFillAngles[fill=orange,opacity=0.2, size=0.6](A,C,B D,A,C A,B,P P,A,B P,D,B A,D,P)
+			\tkzMarkSegments[mark=||](A,D C,D)
+			\tkzDrawCircle[dotted](O,A)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments(A,P B,P)
+			\tkzDrawSegments[dashed](P,D A,D)
+			\tkzDrawPoints(A,B,C,D,P)
+			\tkzAutoLabelPoints[center=O](A,B,C,D,P)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{xmpl}[IGO Medium 2016/2]
+	দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $A$ এবং $B$ বিন্দুতে ছেদ করে। $\omega_1$ এর $A$ বিন্দুতে স্পর্শক $\omega_2$ কে $P$ বিন্দুতে এবং $PB$ রেখা $\omega_1$ কে $Q(Q\neq B)$ বিন্দুতে ছেদ করে।(ধরে নাও $Q$ বিন্দুটা $\omega_2$ এর বাইরে অবস্থিত।) $Q$ থেকে $\omega_2$ এর উপর অংকিত স্পর্শক $\omega_1$ এবং $\omega_2$ কে যথাক্রমে $C$ এবং $D$ বিন্দুতে ছেদ করে।($A$ এবং $D$ বিন্দুদ্বয় $PQ$ রেখার বিপরীত পাশে অবস্থান করে।) প্রমাণ কর $AD$ রেখা $\angle CAP$ এর সমদ্বিখণ্ডক।
+\end{xmpl}
+\begin{sltn} এখানে $APDB$ বৃত্তীয় তাই $\angle DAP=\angle DBP$. আবার Corollary \ref{extrarnangle} অনুযায়ী $\angle DBP=\angle DQB+\angle BDQ$ অর্থাৎ,
+	\[\angle DAP=\angle DBP=\angle DQB+\angle BDQ\]
+	
+	আবার Theorem \ref{altseg} অনুযায়ী $\angle BAD=\angle DQB$ এবং $ABCQ$ বৃত্তীয় হওয়ায় $\angle CAB=\angle CQB$. অর্থাৎ 
+	\[\angle CAD=\angle CAB+\angle BAD=\angle DQB+\angle BDQ=\angle DAP\]
+	যেহেতু $\angle CAD=\angle DAP$ তাই $AD$ হল $\angle CAP$ এর সমদ্বিখণ্ডক। 
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O_1}
+			\tkzDefPoint(4.2,0){O_2}
+			\tkzDefPoint(50:2.5){A}
+			\tkzDrawCircle(O_1,A)
+			\tkzDrawCircle(O_2,A)
+			\tkzInterCC(O_1,A)(O_2,A)
+			\tkzGetPoints{x}{B}
+			\tkzDefMidPoint(A,B)
+			\tkzGetPoint{M}
+			
+			\tkzDefTangent[at = A](O_1)
+			\tkzGetPoint{x}
+			\tkzInterLC(A,x)(O_2,A)
+			\tkzGetPoints{P}{x}
+			\tkzInterLC(P,B)(O_1,A)
+			\tkzGetPoints{x}{Q}
+			\tkzDefTangent[from=Q](O_2,A)
+			\tkzGetPoints{D}{y}
+			\tkzInterLC(Q,D)(O_1,A)
+			\tkzGetPoints{C}{y}
+			\tkzMarkAngles[thick, mark=false, darkblue,size=1.1](C,A,B C,Q,B)
+			\tkzFillAngles[fill=darkblue,opacity=0.2,size=1.1](C,A,B C,Q,B)
+			\tkzMarkAngles[thick, mark=false, orange, size=1.1](B,A,D B,D,C)
+			\tkzFillAngles[fill=orange, opacity=0.2, size=1.1](B,A,D B,D,C)
+			\tkzDrawSegments(A,P P,Q Q,D A,B)
+			\tkzDrawSegments[dashed](A,C A,D B,D)
+			\tkzDrawPoints(A,B,P,Q,D,C)
+			\tkzAutoLabelPoints[center=M](A,B,P,Q,D,C)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{col}
+	\label{teng}
+	একটি ত্রিভুজের কোনো শীর্ষবিন্দুতে ত্রিভুজটির পরিবৃত্তের উপর অংকিত স্পর্শক শীর্ষবিন্দুটির বিপরীত বাহুর সমান্তরাল হলে, ত্রিভুজটি সমদ্বিবাহু। 
+\end{col}
+\begin{prf} ধরি $\Delta ABC$ এর পরিবৃত্তের উপর $XY$ স্পর্শক এবং $XY||BC$. তাহলে $\angle B=\angle XAC$(একন্তর কোণ)। আবার Theorem \ref{altseg} থেকে $\angle XAC=\angle C$. অর্থাৎ $\angle B=\angle C$ তাই $AB=AC$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(90:2){A}
+			\tkzDefPoint(210:2){B}
+			\tkzDefPoint(-30:2){C}
+			\tkzDefPoint(-1.7,2){X}
+			\tkzDefPoint(1.7,2){Y}
+			\tkzMarkAngles[mark=false, size=0.5, darkblue](C,B,A A,C,B X,A,B C,A,Y)
+			\tkzFillAngles[size=0.5, fill=darkblue, opacity=0.2](C,B,A A,C,B X,A,B C,A,Y)
+			\tkzDrawCircle(O,A)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegment(X,Y)
+			\tkzMarkSegments[mark=||](A,B A,C)
+			\tkzDrawPoints(A,B,C,X,Y)
+			\tkzAutoLabelPoints[center=O](A,B,C,X,Y)
+		\end{tikzpicture}
+	\end{center}
+\end{prf}
+\begin{xmpl}[IGO Advanced Lavel 2018/1]
+	দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $A,B$ বিন্দুতে ছেদ করে। $\omega_1$ এর উপর যেকোনো বিন্দু $X$ এবং $XA$ রেখা $\omega_2$ বৃত্তকে $Y(Y\neq A)$ বিন্দুতে ছেদ করে। $\omega_2$ তে অন্য একটি বিন্দু $Y'$ নেওয়া হল যেন $QY=QY'$ হয়। এখন $BY'$ রেখা $\omega_1$ কে $X'$ বিন্দুতে ছেদ করলে প্রমাণ কর $PX=PX'$.
+\end{xmpl}
+\begin{sltn} এখানে যেহেতু $Y'YBA$ এবং $X'BXA$ বৃত্তীয় তাই, \[\angle Y'YA=\angle Y'BA=\angle X'XA\]
+	
+	অর্থাৎ $XX'||YY'$ আবার $QY'=QY$ তাই Corollary \ref{teng} অনুযায়ী, $PQ||YY'||XX'$ আবার Corollary \ref{teng} অনুযায়ী, $PQ||XX'$ হও���ায় $PX=PX'$
+	\begin{center}
+		\begin{tikzpicture}
+			\tkzDefPoint(0,0){O_1}
+			\tkzDefPoint(3.7,0){O_2}
+			\tkzDefPoint(39.37:2){A}
+			\tkzDefPoint(96.56:2){P}
+			\tkzDefPoint(1.7,0){M}
+			\draw[opacity=0] (O_2)--+(96.56:2.5) coordinate (Q);
+			\draw[opacity=0] (O_2)--+(70:2.5) coordinate (y);
+			\draw[opacity=0] (O_1)--+(140:2.5) coordinate (x);
+			\tkzInterLL(P,Q)(O_1,x)
+			\tkzGetPoint{X}
+			\tkzInterLL(P,Q)(O_1,y)
+			\tkzGetPoint{Y}
+			\tkzDrawSegment(X,Y)
+			\tkzDefPoint(165:2){X}
+			\tkzInterLC(X,A)(O_2,A)
+			\tkzGetPoints{a}{Y}
+			\tkzInterCC(Q,Y)(O_2,A)
+			\tkzGetPoints{a}{Y'}
+			\tkzInterCC(O_1,A)(O_2,A)
+			\tkzGetPoints{a}{B}
+			\tkzInterLC(Y',B)(O_1,A)
+			\tkzGetPoints{X'}{a}
+			\tkzDefMidPoint(X,X')
+			\tkzGetPoint{M'}
+			%\tkzMarkAngles[mark=false, orange, size=1.01](Y',Y,A Y',B,A X',X,A)
+			\tkzMarkSegments[mark=|](Q,Y' Q,Y)
+			\tkzMarkSegments[mark=||](P,X' P,X)
+			\tkzDrawCircle[dotted](O_1,A)
+			\tkzDrawCircle[dotted](O_2,A)
+			\tkzDrawPoints(A,P,Q,Y',Y,X,X',B)
+			\tkzDrawSegments(P,X P,X' X,X' Q,Y Q,Y' Y,Y')
+			\tkzDrawSegments[dashed](A,B Y',B X,Y)
+			\tkzAutoLabelPoints[center=M](P,Q,Y,Y',B)
+			\tkzAutoLabelPoints[center=M'](X,X')
+			\tkzLabelPoints[above left](A)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\newpage 
+\begin{Exercise}
+
+\end{Exercise}
+\newpage
+\subsection{Directed Angles}
+জ্যামিতির অনেকগুলো সমস্যা সমাধানে চিত্রের configuration এর ভিত্তিতে সমাধান ভিন্ন ভিন্ন হয়ে থাকে। তাই পূর্ণ সমাধানের জন্য প্রত্যেকটা configuration এর জন্যই আলাদাভাবে সমাধান করতে হয়, যা একই সাথে বিরক্তিকর এবং সময় সাপেক্ষ। তবে directed angles ব্যবহার করলে বেশিরভাগ ক্ষেত্রে এই configuration issue উপেক্ষা করা যায়। 
+\begin{why}
+	অনেকে ভাবতে পারো কেন এই configuration issue দেখা যায়? 
+	
+	configuration issue মূলত হয়ে থাকে বৃত্তের উপর অবস্থিত চারটি বিন্দু $A,B,C,D$ এর অবস্থানের ভিত্তিতে দুইটি আলাদা ফলাফল পাওয়া যায়- 
+	\begin{enumerate}[nosep]
+		\item যদি $A$ এবং $C$ বিন্দু দুইটি $\overline{BD}$ এর একই পাশে হয় তবে $\angle DAB=\angle DCB$
+		\item যদি $A$ এবং $C$ বিন্দু দুইটি $\overline{BD}$ এর বিপরীত পাশে হয় তবে $\angle DAB+\angle DCB=180\drg$
+	\end{enumerate}
+	এখন যেহেতু এটা বৃত্তের একটা fundamental বৈশিষ্ট্য তাই এটা থেকে অনেকগুলো theorem(i.e. Inscribed angle theorem) পাওয়া যায়। তাই সেই theorem গুলো এবং Theorem based প্রশ্নগুলোর মাঝেও এই configuration issue দেখা যায়।
+\end{why}
+এখন directed angles ব্যবহার করলে এই configuration issue উপেক্ষা করা যায়। Directed angles এ কোণের দিকের(clockwise বা counter-clockwise) উপর নির্ভর করে directed angle এর মান ধনাত্মক বা ঋণাত্মক হবে। অর্থাৎ 
+\[\measuredangle AOB = - \measuredangle BOA\]
+
+এবং directed angles এ কোণগুলোকে $180\drg$ এর modulas এ নিয়ে হসাব করা হয়। অর্থাৎ $XY$ রেখার মাঝে একটি বিন্দু $O$ এবং রেখার মাঝে নেই এমন একটি বিন্দু $A$ হলে, 
+\[\measuredangle XOA+\measuredangle AOY=180\drg \implies \measuredangle XOA=-\measuredangle AOY\]
+
+এখন directed angles এ আমরা বিন্দুগুলোর orientation প্রকাশ করতে পারি কোণের সামনে ধনাত্মক বা ঋণাত্মক চিহ্ন দ্বারা আর আমরা কোণগুলোকে $180\drg$ এর mod নিয়ে থাকি। তাই configuration issue গুলো উপেক্ষা করা যায়। 
+
+অর্থাৎ directed angles এর ক্ষেত্রে- 
+\[\measuredangle AOB = - \measuredangle BOA\]
+এখন দেখা যাক directed angles দিয়ে কিভাবে configuration issue উপেক্ষা দূর করা যায়- 
+\begin{figure}[ht]
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=0.6]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(130:3){A}
+			\tkzDefPoint(220:3){B}
+			\tkzDefPoint(-20:3){D}
+			\tkzDefPoint(40:3){C}
+			\tkzDrawCircle(O,A)
+			\tkzDrawPoints(A,B,C,D)
+			\tkzDrawSegments(A,B A,D C,B C,D)
+			\tkzMarkAngles[size=0.7,mark=false,cyan](B,A,D B,C,D)
+			\tkzFillAngles[size=0.7,fill=cyan,opacity=0.2](B,A,D B,C,D)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+		\end{tikzpicture}
+		\caption{$\overline{BD}$ এর একই পাশে $A$ এবং $C$}
+		\label{fig:same side}
+		
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=0.55]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(130:3){A}
+			\tkzDefPoint(220:3){B}
+			\tkzDefPoint(-20:3){D}
+			\tkzDefPoint(-105:3){C}
+			\tkzDefPoint(-90:3){Y}
+			\tkzInterLL(B,C)(O,Y)	\tkzGetPoint{X}
+			\tkzDrawCircle(O,A)
+			\tkzDrawPoints(A,B,C,D)
+			\tkzDrawSegments(A,B A,D C,B C,D)
+			\tkzMarkAngles[size=0.7,mark=false,cyan](B,A,D X,C,D)
+			\tkzFillAngles[size=0.7,fill=cyan,opacity=0.2](B,A,D X,C,D)
+			\tkzDrawSegment[dashed](C,X)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+		\end{tikzpicture}
+		\caption{$\overline{BD}$ এর বিপরীত পাশে $A$ এবং $C$}
+		\label{fig:opposite side}
+		
+	\end{minipage}
+\end{figure}
+
+এখানে উভয়ক্ষেত্রেই $\measuredangle BAD=\measuredangle BCD$ সত্য। চিত্র \ref{fig:same side} এর ক্ষেত্রে $\angle BAD=\angle BCD \implies \measuredangle BAD=\measuredangle BCD$
+
+আবার চিত্র \ref{fig:opposite side} এর ক্ষেত্রে, 
+\[ \measuredangle BAD=180\drg-\measuredangle DCB=-\measuredangle DCB=\measuredangle BCD\]
+
+যেহেতু এই theorem এর মাঝে configuration issue আর থাকে না তাই এটা থেকে dirived সকল theorem এবং theorem based সমস্যাতেও configuration issue ও দূর হয়ে যায়। এখান থেকে কিন্তু আমরা সুন্দর একটা theorem ও পাই- 
+\begin{thrm}[Cyclic Quadrilaterals with directed angles]
+	চারটি বিন্দু $A,B,C$ এবং $D$ বৃত্তীয় হবে যদি এবং কেবল যদি 
+	\[\measuredangle ACB=\measuredangle ADB\]
+	হয়। 
+\end{thrm}
+
+Directed Angle কে মূলত দুইভাবে প্রকাশ করা হয়ে থাকে। যথাঃ রেখার মাধ্যমে এবং বিন্দুর মাধ্যমে। দুইটি অসমান্তরাল রেখা $l$ এবং $m$ এর ক্ষেত্রে $\measuredangle(l,m)$ বলতে বুঝায় $l$ থেকে $m$ পর্যন্ত counter clockwise rotation এর পরিমাণ। সাধারণত রেখাগুলোর ছেদবিন্দু যদি দেওয়া না থাকে তবে এভাবে directed angle ব্যবহার করা হয়। যদি তিনটি বিন্দু $A,O$ এবং $B$ এর ক্ষেত্রে, 
+$\measuredangle AOB \overset{\mathrm{def}}{=} \measuredangle(AO,BO)$
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\tkzDefPoint(0,0){O}
+		\tkzDefPoint(80:2.5){l}
+		\tkzDefPoint(260:2.5){l'}
+		\tkzDefPoint(130:2.5){m}
+		\tkzDefPoint(-50:2.5){m'}
+		\tkzDefPoint(80:2.1){A}
+		\tkzDefPoint(-50:2.1){B}
+		
+		\tkzDrawSegments(l,l' m,m')
+		\tkzDrawPoints(A,B,O)
+		\tkzAutoLabelPoints[center=O](l,m)
+		\tkzLabelPoints[right](A,B)
+		\tkzLabelPoints[left](O)
+		\tkzMarkAngle[mark=false, size=0.7, arrows=stealth-, blue](B,O,A)
+		\tkzMarkAngle[mark=false, size=0.75, arrows=-stealth, cyan](A,O,m)
+		\tkzLabelAngle[dist=1.2, blue](B,O,A){$-130\drg$}
+		\tkzLabelAngle[dist=1.05, cyan](A,O,m){$50\drg$}
+	\end{tikzpicture}
+	\caption{চিত্রে $\measuredangle (l,m)=\measuredangle AOB=50\drg=-130\drg$}
+\end{figure}
+
+সাধারণত directed angle কে বিন্দুর মাধ্যমেই প্রকাশ করা হয়ে থাকে। সতর্ক থাকা দরকার $\measuredangle ABC=\measuredangle XYZ$ মানেই যে তারা $\angle ABC=\angle XYZ$ হবে তা নয় কেননা directed angle এ আমরা mod $180\drg$ নিয়ে থাকি। একই কারণে $n\measuredangle ABC=n\measuredangle XYZ$ হলে $\measuredangle ABC=\measuredangle XYZ$ লিখা যাবে না। যেমনঃ $\angle ABC=210\drg; \angle XYZ=60\drg$ হলে, 
+
+$\measuredangle ABC+30\drg=\measuredangle XYZ$ তবে $\angle ABC+30\drg \neq \angle XYZ$ আবার $2\measuredangle ABC=2\measuredangle XYZ$ তবে $\measuredangle ABC\neq \measuredangle XYZ$
+
+এখন directed angles এর কিছু কাজের বৈশিষ্ট্য সম্পর্কে জানা যাক- 
+\begin{enumerate}[nosep]
+	\item $\measuredangle APA=0$
+	\item $\measuredangle ABC=-\measuredangle CBA$
+	\item $\measuredangle PBA=\measuredangle PBC$ হবে যদি এবং কেবল যদি $A,B$ এবং $C$ সমরেখ হয়।
+	\item যদি $AP \perp BP$ হয় তবে $\measuredangle APB=\measuredangle BPA=90\drg$
+	\item $\measuredangle APB+\measuredangle BPC=\measuredangle APC$
+	\item $\Delta ABC$ এর ক্ষেত্রে $\measuredangle ABC+\measuredangle BCA+\measuredangle CAB=0$
+	\item $\Delta ABC$ তে $\overline{AB}=\overline{AC}$ হবে যদি এবং কেবল যদি $\measuredangle ACB=\measuredangle CBA$
+	\item যদি $\Delta ABC$ এর পরিকেন্দ্র $O$ হয় তবে $\measuredangle AOB=2\measuredangle ACB$
+	\item যদি $\overline{AB}||\overline{CD}$ হয় তবে $\measuredangle ABC+\measuredangle BCD=0$
+\end{enumerate}
+এখন directed angle ব্যবহার করে কিভাবে সমাধান করা হয় তার কয়েকটি  example দেখা যাক।  
+\begin{xmpl}
+	দেখত $\Delta ABC$ যদি স্থূলকোণী হয় তবে কি Example \ref{nondirected} এর সমাধানটা ঠিক থাকে? 
+\end{xmpl}
+\begin{sltn}
+	না থাকে সমীকরণগুলো ভুল হয়ে যায়। সকল configuration এর সমাধানের জন্য directed angle ব্যবহার করতে হবে। 
+	
+	আমরা জানি, 
+	\begin{align*}
+		90\drg & = \measuredangle ADB=\measuredangle ADC \\ 
+		90\drg & = \measuredangle BEC=\measuredangle BEA \\ 
+		90\drg & = \measuredangle CFA=\measuredangle CFB
+	\end{align*}
+	তাহলে, 
+	\[\measuredangle AEH=\measuredangle AEB=-\measuredangle BEA=-90\drg=90\drg\]
+	\[\measuredangle AFH=\measuredangle AFC=-\measuredangle CFA=-90\drg=90\drg\]
+	তাই $\measuredangle AEH=\measuredangle AFH$ অর্থাৎ $A,E,F,H$ হল বৃত্তীয়। আবার, 
+	\[\measuredangle BFC=-\measuredangle CFB=-90\drg=90\drg=\measuredangle BEC\]
+	অর্থাৎ $B,E,F,C$  বৃত্তীয়। একই ভাবে বাকি গুলোও প্রমাণ করা যায়। 
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:4){H}
+			\tkzDefPoint(200:4){B}
+			\tkzDefPoint(-20:4){C}
+			\tkzDefLine[orthogonal= through C](H,B)
+			\tkzGetPoint{x}
+			\tkzInterLL(C,x)(H,B)
+			\tkzGetPoint{F}
+			\tkzDefLine[orthogonal= through B](H,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(B,x)(H,C)
+			\tkzGetPoint{E}
+			\tkzDefLine[orthogonal= through H](B,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(H,x)(B,C)
+			\tkzGetPoint{D}
+			\tkzInterLL(H,D)(C,F)
+			\tkzGetPoint{A}
+			\tkzLabelPoints[above right](A)
+			\tkzDrawPoints[blue](A,B,C,D,E,F,H)
+			\tkzDrawSegments(A,B B,C C,A)
+			\tkzDrawSegments[dashed](H,B H,C H,A A,F A,E A,D)
+			\tkzDrawSegments[dotted](E,F E,D D,F)
+			\tkzAutoLabelPoints[center=A](H,B,C,D,E,F,H)
+		\end{tikzpicture}
+		\qquad \qquad
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(110:4){A}
+			\tkzDefPoint(200:4){B}
+			\tkzDefPoint(-20:4){C}
+			\tkzDrawPolygon(A,B,C)
+			\tkzDefLine[orthogonal= through C](A,B)
+			\tkzGetPoint{x}
+			\tkzInterLL(C,x)(A,B)
+			\tkzGetPoint{F}
+			\tkzDefLine[orthogonal= through B](A,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(B,x)(A,C)
+			\tkzGetPoint{E}
+			\tkzDefLine[orthogonal= through A](B,C)
+			\tkzGetPoint{x}
+			\tkzInterLL(A,x)(B,C)
+			\tkzGetPoint{D}
+			\tkzInterLL(A,D)(C,F)
+			\tkzGetPoint{H}
+			\tkzDrawSegments[dashed](A,D B,E C,F)
+			\tkzDrawPolygon[dotted](D,E,F)
+			
+			\tkzAutoLabelPoints[center=H](A,B,C,D,E,F)
+			\tkzLabelPoints(H)
+			\tkzDrawPoints[blue](A,B,C,D,E,F,H)
+		\end{tikzpicture}
+	\end{figure}
+\end{sltn}
+\begin{xmpl}[BDMO national 2019]
+	$\alpha$ এবং $\omega$ দুটি বৃত্ত যাতে $\omega, \alpha$ এর কেন্দ্র দিয়ে যায়। বৃত্ত দুইটি $A$ এবং $B$ বিন্দুতে ছেদ করে। $P, \omega$ এর পরিধির ওপরে কোণ বিন্দু। $PA$ এবং $PB, \alpha$ কে আবার যথাক্রমে $E$ এবং $F$ বিন্দুতে ছেদ করে। প্রমাণ কর যে, $AB=EF$
+\end{xmpl}
+\begin{sltn} যেহেতু দুইটা আলাদা ধরনের figure হতে পারে তাই এখানে Directed Angles ব্যবহার দরকার।
+	
+	এখানে যেহেতু $PAOB$ একটি বৃত্তস্থ চতুর্ভুজ তাই $\measuredangle APB= \measuredangle AOB$ আবার $\measuredangle AEB=\dfrac{\measuredangle AOB}{2}$ তাহলে $\Delta PEB$ এর ক্ষেত্রে, 
+	\begin{alignat*}{2}
+		         & \measuredangle BPE+\measuredangle PEB +\measuredangle EBP &  & =0                    \\
+		\implies & \measuredangle BPE + \dfrac{\measuredangle AOB}{2}        &  & = -\measuredangle EBP \\
+		\implies & \measuredangle BPE + \dfrac{\measuredangle EPB}{2}        &  & = -\measuredangle EBP \\
+		\implies & \measuredangle BPE - \dfrac{\measuredangle BEP}{2}        &  & = -\measuredangle EBP \\
+		\implies & \dfrac{\measuredangle BEP}{2}                             &  & = -\measuredangle EBP \\
+		\implies & \measuredangle BEP                                        &  & =-\measuredangle EBP  \\
+		\implies & \measuredangle PEB                                        &  & =\measuredangle EBP
+	\end{alignat*}
+	অর্থাৎ $PE=PB$ আবার $\Delta PEF \text{ ও } \Delta PAB$ এ $\angle BPE$ হল সাধারন কোণ এবং \href{https://brilliant.org/wiki/power-of-a-point/}{power of point}\footnote{পরবর্তী কোর্সে আলোচনা করা হবে} থেকে বল যায় $PE\times PA =PF\times PB \implies \dfrac{PE}{PB}=\dfrac{PF}{PA}$ অর্থাৎ $\Delta PEF \sim \Delta PAB$ তাহলে $\dfrac{EF}{AB}=\dfrac{PE}{PB}=1\implies EF=AB$
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(1,0){r}
+			\tkzDefPoint(1.4,0){Q}
+			\tkzInterCC(O,r)(Q,O)   \tkzGetPoints{A}{B}
+			\tkzDefPoint(2.22,1.15){P}
+			\tkzInterLC(P,A)(O,r)   \tkzGetPoints{E}{E'}
+			\tkzInterLC(P,B)(O,r)   \tkzGetPoints{F}{F'}
+			
+			\tkzDrawCircle(O,r)
+			\tkzDrawCircle(Q,O)
+			\tkzDrawSegments(P,E P,B E,B)
+			\tkzDrawSegments[cyan](O,A O,B)
+			\tkzLabelPoints(A,B,E,F,P,O)
+			\tkzDrawPoints(A,B,E,F,P,O)
+		\end{tikzpicture}
+		\hspace{1cm}
+		\begin{tikzpicture}[scale=1.5]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(1,0){r}
+			\tkzDefPoint(1.4,0){Q}
+			\tkzInterCC(O,r)(Q,O)   \tkzGetPoints{A}{B}
+			\tkzDefPoint(0.04,0.35){P}
+			\tkzInterLC(P,A)(O,r)   \tkzGetPoints{E}{E'}
+			\tkzInterLC(P,B)(O,r)   \tkzGetPoints{F}{F'}
+			
+			\tkzDrawCircle(O,r)
+			\tkzDrawCircle(Q,O)
+			\tkzDrawSegments(A,E F,B E,B F,A)
+			\tkzDrawSegments[cyan](O,A O,B)
+			\tkzLabelPoints(A,B,E,F,P,O)
+			\tkzDrawPoints(A,B,E,F,P,O)
+		\end{tikzpicture}
+	\end{center}
+\end{sltn}
+\begin{thrm}[Miquel's Theorem]
+	$\Delta ABC$ এর $BC,CA$ এবং $AB$ রেখার উপর যথাক্রমে $D,E$ এবং $F$ বিন্দু আছে। $\Delta AEF, \Delta BFD$ এবং $\Delta CDE$ এর পরিবৃত্তগুলো একটি সাধারণ বিন্দুতে ছেদ করে। 
+\end{thrm}
+এখানে অনেক গুলো configuration সম্ভব(কারণ বিন্দুগুলো বাহুর বাহিরে হতে পারে)। সাধারণ angle ব্যবহার করে এটার সমাধান করতে গেলে প্রতিটা configuration এর আলাদাভাবে সমাধান করতে হয়। আর directed angle ব্যবহার করে শুধু একটা সমাধানকেই প্রমাণ করা যায়। 
+\begin{prf}
+	ধরি $\Delta BFD$ এবং $\Delta CDE$ পরিবৃত্তদ্বয় পরস্পর $D $ এবং $K$ বিন্দুতে ছেদ করে। এখন যদি প্রমাণ করা যায় $A,F,E,K$ বিন্দুগুলো বৃত্তীয় তাহলে কিন্তু আমাদের প্রমাণ হয়ে যায়! তাহলে,  
+	\[\measuredangle FKD=\measuredangle FBD=\measuredangle ABC\]
+	\[\measuredangle DKE=\measuredangle DCE=\measuredangle BCA\]
+	আবার, 
+	\begin{alignat*}{2}
+		         & \measuredangle FKD &  & +\measuredangle DKE+\measuredangle EKF=0 \\
+		\implies & \measuredangle EKF &  & =-\measuredangle FKD-\measuredangle DKE  \\
+		         &                    &  & =-\measuredangle ABC-\measuredangle BCA  \\ 
+		         &                    &  & =\measuredangle CAB                      \\ 
+		         &                    &  & =\measuredangle EAF 
+	\end{alignat*}
+	অর্থাৎ $A,E,F,K$ বৃত্তীয়। 
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(1,3){A}
+			\tkzDefPoint(4,0){C}
+			\tkzDefPoint(2.14,0){D}
+			\tkzDefPoint(2.54,1.46){E}
+			\tkzDefPoint(0.5,1.5){F}
+			\tkzDefPoint(2.11,1.01){K}
+			\tkzDrawCircle[circum, dotted,purple!80](A,F,E)
+			\tkzDrawCircle[circum](B,F,D)
+			\tkzDrawCircle[circum](C,D,E)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawPoints(A,B,C,E,F,D,K)
+			\tkzAutoLabelPoints[center=K](A,B,C)
+			\tkzAutoLabelPoints[center=K, pos=1.1](E,F,D)
+			\tkzLabelPoints[above](K)
+		\end{tikzpicture}
+		\qquad
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(1,3){A}
+			\tkzDefPoint(4,0){C}
+			\tkzDefPoint(2.14,0){D}
+			\tkzDefPoint(2.54,1.46){E}
+			\tkzDefPoint(1.17,3.51){F}
+			\tkzDefPoint(2.99,1.6){K}
+			\tkzDefMidPoint(A,D) \tkzGetPoint{O}
+			\tkzDrawCircle[circum, dotted,purple!80](A,F,E)
+			\tkzDrawCircle[circum](B,F,D)
+			\tkzDrawCircle[circum](C,D,E)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegment[dashed,cyan](A,F)
+			\tkzDrawPoints(A,B,C,E,F,D,K)
+			\tkzAutoLabelPoints[center=O](C,B)
+			\tkzAutoLabelPoints[center=O, pos=1.1](K,F,D)
+			\tkzLabelPoints[left](A,E)
+			
+		\end{tikzpicture}
+		\qquad
+		\begin{tikzpicture}[scale=0.8]
+			\tkzDefPoint(0,0){B}
+			\tkzDefPoint(1,3){A}
+			\tkzDefPoint(4,0){C}
+			\tkzDefPoint(4.5,0){D}
+			\tkzDefPoint(2.54,1.46){E}
+			\tkzDefPoint(1.17,3.51){F}
+			\tkzDefPoint(3.65,3.33){K}
+			\tkzDrawCircle[circum, dotted, purple!80](A,F,E)
+			\tkzDrawCircle[circum](B,F,D)
+			\tkzDrawCircle[circum](C,D,E)
+			\tkzDrawSegments[dashed,cyan](A,F C,D)
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawPoints(A,B,C,E,F,D,K)
+			\tkzAutoLabelPoints[center=K](A,B,C)
+			\tkzAutoLabelPoints[center=K, pos=1.1](E,F,D)
+			\tkzLabelPoints[above](K)
+		\end{tikzpicture}
+		\caption{Miquel's Theorem}
+	\end{figure}
+\end{prf}
+\newpage
+\begin{Exercise}
+	\begin{prob}
+		প্রমাণ কর চারটি ভিন্ন বিন্দু $A,B,C$ এবং $D$ এর জন্য $\measuredangle ABC+\measuredangle BCD+\measuredangle CDA+\measuredangle DAB=0$
+	\end{prob}
+	\begin{prob}[Spiral Similarity Lemaa]
+		দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $X$ এবং $Y$ বিন্দুতে ছেদ করে। $X$ গামী একটি রেখা $\omega_1$ এবং $\omega_2$ কে যথাক্রমে $A$ এবং $B$ বিন্দুতে ছেদ করে। অন্য একটি $X$ গামী রেখা $\omega_1$ এবং $\omega_2$ কে যথাক্রমে $C$ এবং $D$ বিন্দুতে ছেদ করে। প্রমাণ কর, $\Delta AYC \sim \Delta BYD$
+	\end{prob}
+	\begin{prob}
+		$O$ কেন্দ্র বিশিষ্ট একটি বৃত্তের উপর তিনটি বিন্দু $A,B$ এবং $C$ আছে। প্রমাণ কর, $\measuredangle OAC=90\drg-\measuredangle CBA$
+	\end{prob}
+	\begin{prob}[Right Angles on Intough Chord]
+		$\Delta ABC$ এর অন্তঃকেন্দ্র $\overline{BC}, \overline{AC}$ এবং $\overline{AB}$কে যথাক্রমে $D,E$ এবং $F$ বিন্দুতে ছেদ করে। $\angle B$ এবং $\angle C$ এর সমদ্বিখণ্ডক $EF$ রেখাকে যথাক্রমে $X$ এবং $Y$ বিন্দুতে ছেদ করে। প্রমাণ কর $X$ এবং $Y$ বিন্দু $\overline{BC}$ ব্যাস বিশিষ্ট বৃত্তের উপর অবস্থিত। 
+	\end{prob}
+	\begin{prob}[Shortlist 2010/G1]
+		$\Delta ABC$ এর $\overline{BC}, \overline{AC}$ এবং $\overline{AB}$ বাহুর উপর যথাক্রমে তিনটি বিন্দু $D,E$ এবং $F$ অবস্থিত যেন $AD \perp BC, BE \perp AC$ এবং $CF \perp AB$ হয়। $EF$ রেখা $\Delta ABC$ এর পরিবৃত্তকে $P$ বিন্দুতে ছেদ করে। $BP$ এবং $DF$ রেখা পরস্পর $Q$ বিন্দুতে ছেদ করে। প্রমাণ কর $AP=AQ$
+	\end{prob}
+	\begin{prob}[USAMO 2013/1]
+		$\Delta ABC$ এর $\overline{BC}, \overline{AC}$ এবং $\overline{AB}$ বাহুর উপর যথাক্রমে তিনটি বিন্দু $P,Q$ এবং $R$. $\Delta AQR, \Delta BRP$ এবং $\Delta CPQ$ এর পরিবৃত্ত যথাক্রমে $\omega_A, \omega_B$ এবং $\omega_C$. আবার $AP$ রেখা $\omega_A, \omega_B$ এবং $\omega_C$ বৃত্তকে আবার যথাক্রমে $X,Y$ এবং $Z$ বিন্দুতে ছেদ করে। প্রমাণ কর, $\dfrac{YX}{XZ}=\dfrac{BP}{PC}$
+	\end{prob}
+	\begin{prob}[Balakan 2009]
+		$\Delta ABC$ এর $\overline{BC}$ এর সমান্তরাল অন্য কেটি রেখাংশ $\overline{MN}$ যেন $BM<BN$ হয়। $BN$ এবং $CM$ রেখা পরস্পর $P$ বিন্দুতে ছেদ করে। $\Delta BMP$ এবং $\Delta CNP$ ত্রিভুজের পরিবৃত্ত পরস্পর আবার $Q$ বিন্দুতে ছেদ করে। প্রমাণ কর, $\angle BAQ=\angle CAP$
+	\end{prob}
+\end{Exercise}
+\newpage
+\subsection{Geogetry Problem Solving Strategies}
+এই অংশে আমরা জ্যামিতির সমস্যা সমাধানের পিছনে আমাদের সাধারণ কি কি Approach নেওয়া হয় এবং thinking proccess টা অনেকটা কেমন তা নিয়ে আলোচনা করব। অবশ্যই প্রতিটা প্রশ্নই uniqe, তাই তাদের বেলায় কোন approach বেশি উপযোগী তা তোমাদের নিজেরই বুঝতে হবে। আর সেই understanding এর জন্য দরকার প্রচুর পরিমাণ Problem Solve করা। এখানে আমি কিছু basic approach আর thinking process এর basic একটা stucture নিয়ে আলোচনা করব। 
+\subsubsection{চিত্র আঁকা}
+জ্যামিতির সমস্যা সমাধানে সুন্দর করে চিত্রটা আঁকতে পারা অনেক বেশি important. কেননা ভালোমত চিত্র আঁকতে চিত্র দেখেই তুমি চিত্রের অনেক বৈশিষ্ট্য(কোন কোন বাহু সমান বা সমান্তরাল হতে পারে, কোন বাহু অন্য বাহুড় উপর লম্ব হতে পারে, কোন তিনটি বিন্দু সমরেখ হতে পারে, কোন বাহুগুলো সমবিন্দু হতে পারে ইত্যাদি।) ধারনা করতে পারবে। 
+
+তবে সুন্দর করে চিত্র আঁকতে গিয়ে অনেক বেশ সময় নিলে ত সমস্যা সমাধান করার টাইম পাওয়া যাবে না ঠিক মত তাই এই অংশে কিভাবে কম সময়ে এবং অনেকটা নিখুঁতভাবে কিভাবে চিত্র আঁকা যায় তা নিয়ে আলোচনা করব। 
+
+অলিম্পিয়াডে চিত্র সহজে আঁকার জন্য তোমাদের সাধারণত যা যা লাগবে তা হল- 
+\begin{enumerate}
+	\item কলম এবং পেন্সিল। সম্ভব হলে রঙ্গিন কলমও থাকলে সুবিধা হয়।
+	\item রুলার এবং কম্পাস।
+	\item রাবার, sharpener ইত্যাদি।
+\end{enumerate}
+এখন আসা যাক চিত্র কিভাবে আঁকা যায় তা নিয়ে। আমরা চেষ্ঠা করব যত সম্ভব কম ধাপে এবং কম constraction করে কিভাবে চিত্র আঁকা যায়। এখানে শুধু সাধারণত যে যে জিনিস প্রায় সব চিত্রেই আঁকতে হয় সেগুলা নিয়েই এখানে আলোচনা করা হল-  
+\begin{enumerate}
+	\item প্রথমত সমস্যাতে যে চিত্রের কথা বলা/দেওয়া আছে তা পেন্সিলের চেয়ে কলমে আঁকা বেশি ভালো। কারণ সমস্যা সমাধানের জন্য বেশির ভাগ সময় মূল চিত্রের সাথে তোমার নিজেরও কিছু constraction করা লাগতে পারে। আর সেই constraction গুলোর অনেকগুলোই মুছার দরকার পরে। এখন যদি চিত্রের পুরোটাই তুমি পেন্সিল দিয়ে আঁক তবে যখন তুমি অদরকারি onstraction টা মুছবে তখন কিন্তু মূল চিত্রটাও অনেকটা মুছে যাবে। এই কারণে মূল চিত্রটা কলমে এবং constraction গুলো পেন্সিল দিয়ে আঁকা ভালো।
+	\item কোনো জ্যামিতি প্রশ্নে যদি ত্রিভুজ আঁকা লাগে তাহলে প্রশ্নে পরিবৃত্ত আঁকতে বলুক বা না বলুক সব সময় আগেই পরিবৃত্ত এঁকে নিবা। এখন ৯ম-১০ম শ্রেণীতে প্রথমে ত্রিভুজ এঁকে ইয়া বড় প্রক্রিয়ায়(যা কম করে হলেও ২-৩ মিনিট লাগবে, আর মাঝে মাঝে সুন্দর পরিবৃত্তও আঁকা যায় না।) কি পরিবৃত্তটা আঁকবে? অবশ্যই না। বরং আগে বৃত্তটি এঁকে তার ভিতরে ত্রিভুজটা এঁকে নিলে, পরিবৃত্তও সহজে আঁকা হল এবং পরিকেন্দ্রও পেয়ে গেলা।
+	\item প্রশ্নে যদি বলা না থাকে যে ত্রিভুজটা সমবাহু বা সমদ্বিবাহু, তাহলে অবশ্যই ত্রিভুজটাকে বিষমবাহু ধরেই কাজ করতে হবে। তবে অনেকেরই বিষমবাহু ত্রিভুজ আঁকতে কিছুটা সমস্যা হয়। সহজে বিষমবাহু ত্রিভুজ আঁকার জন্য প্রথমে পরিবৃত্ত আঁকার পর যখন ত্রিভুজের বাহুগুলো আঁকবা তখন চেষ্ঠা করবা যাতে পরিবৃত্তের কেন্দ্র থেকে বাহুগুলোর লম্ব দূরত্ব ভিন্ন ভিন���ন হয়।
+	      \begin{center}
+		      \begin{tikzpicture}
+			      \tkzDefPoint(0,0){O}
+			      \tkzDefPoint(110:2.5){A}
+			      \tkzDefPoint(205:2.5){B}
+			      \tkzDefPoint(-25:2.5){C}
+			      \tkzDrawCircle[dashed, blue](O,A)
+			      \tkzDefLine[perpendicular = through O](A,B)  \tkzGetPoint{X}
+			      \tkzInterLL(A,B)(O,X) \tkzGetPoint{E}
+			      \tkzDefLine[perpendicular = through O](B,C)  \tkzGetPoint{X}
+			      \tkzInterLL(B,C)(O,X) \tkzGetPoint{D}
+			      \tkzDefLine[perpendicular = through O](A,C)  \tkzGetPoint{X}
+			      \tkzInterLL(A,C)(O,X) \tkzGetPoint{F}
+			      \tkzDrawSegments(A,B B,C C,A)
+			      \tkzDrawSegments[dotted](O,D O,E O,F)
+			      \tkzDrawPoints(A,B,C,D,E,F,O)
+			      \tkzAutoLabelPoints[center=O](A,B,C,D,E,F)
+			      \tkzLabelPoints[below left](O)
+		      \end{tikzpicture}
+	      \end{center}
+	\item রুলার ব্যবহার করে খুব সহজে এবং তাড়াতাড়ি লম্ব আঁকা যায়। যে রেখার উপর লম্ব আঁকবে, তার উপর রুলারটিকে এমন ভাবে বসাও যেন রুলারের কোন একটি আনুভূমিক দাগ রেখাটির উপর থাকে। তারপর রুলার দিয়ে নতুন রেখাটি আঁকলেই তা মূল রেখার উপর লম্ব হবে।
+	\item ত্রিভুজের গুরুত্বপূর্ণ কেন্দ্র-
+	      \begin{enumerate}[label=\roman*.]
+		      \item \underline{পরিকেন্দ্রঃ} এটা নিয়ে আগেই বলা হয়েছে সবার আগে পরিবৃত্ত আঁকার সময় কম্পাসের সুচালো মাথাটা খাতায় একটা দাগ তৈরি করবে। যা থেকে পরিকেন্দ্র কোনটা বুঝতে পারবে।
+		      \item \underline{ভরকেন্দ্রঃ} পরিকেন্দ্র থেকে ত্রিভুজের দুইটি বাহুর উপর লম্ব আঁকলে তা বাহুগুলোকে যে যে বিন্দুতে ছেদ করে তা চিহ্নিত কর। এই বিন্দুগুলো হল বাহুর মধ্যবিন্দু। এখন দুইটি মধ্যমা যে বিন্দুতে ছেদ করবে তাই হবে ভরকেন্দ্র।(দুইটি মধ্যমাই কিন্তু আঁকার প্রয়োজন নেই, একটা আঁকার পর, অপর মধ্যমা প্রথমটিকে যে বিন্দুতে ছেদ করবে তাই ভরকেন্দ্র।)
+		      \item \underline{লম্বকেন্দ্রঃ} যেকোনো দুইটি শীর্ষবিন্দু থেকে বিপরীত বাহুর উপর আঁকা লম্বদ্বয় যে বিন্দুতে ছেদ করবে তাই হল লম্বকেন্দ্র।
+		      \item \underline{অন্তঃকেন্দ্রঃ} ধর $\Delta ABC$ এর অন্তঃকেন্দ্র $I$ আঁকতে হবে, তাহলে পরিকেন্দ্র $O$ ত্রিভুজের যেকোনো বাহুর(এক্ষেত্রে $\overline{BC}$) উপর লম্ব আঁকলে তা পরিবৃত্তকে যে বিন্দুতে ছেদ করে তা চিহ্নিত(এক্ষেত্রে বিন্দু $D$) কর। এখন $\overline{AD}$ হবে $\angle A$ এর অন্তঃসমদ্বিখণ্ডক। এখন $D$ কে কেন্দ্র করে $\overline{OB}$ এর সমান ব্যাসার্ধ নিয়ে বৃত্তচাপ আঁকলে তা $\overline{AD}$ কে যে বিন্দুতে ছেদ করবে তাই হল অন্তকেন্দ্র $I$.
+		      \item \underline{বহিঃকেন্দ্রঃ} অন্তঃকেন্দ্রের মত $\overline{AD}$ রেখাংশকে বর্ধিত কর, $D$ কে কেন্দ্র করে $LB$ এর সমান ব্যাসার্ধ নিয়ে আঁকা বৃত্তচাপ $AD$ এর বধিতাংশকে যে বিন্দুতে ছেদ করে তাই হল বহিঃকেন্দ্র।
+		            \begin{figure}[ht]
+			            \begin{minipage}{0.5\linewidth}
+				            \centering 
+				            \begin{tikzpicture}[scale=0.75]
+					            \tkzDefPoint(0,0){O}
+					            \tkzDefPoint(110:2.5){A}
+					            \tkzDefPoint(205:2.5){B}
+					            \tkzDefPoint(-25:2.5){C}
+					            \tkzDrawCircle(O,A)
+					            \tkzDrawPolygon(A,B,C)
+					            \tkzDefLine[perpendicular = through O](B,C)
+					            \tkzGetPoint{x}
+					            \tkzInterLC(O,x)(O,A) \tkzGetPoints{D}{y}
+					            \tkzDrawSegment(A,D)
+					            \tkzDrawSegments[dashed](O,D)
+					            \tkzDefTriangleCenter[in](A,B,C)
+					            \tkzGetPoint{I}
+					            \tkzCompass[thick, dotted, delta=10](D,I)
+					            \tkzCompass[thick, dotted, delta=10](D,B)
+					            \tkzDrawPoints(A,B,C,D,O,I)
+					            \tkzAutoLabelPoints[center=O](A,B,C,D)
+					            \tkzLabelPoints[above left](I)
+					            \tkzLabelPoints[right](O)
+				            \end{tikzpicture}
+				            \caption{অন্তঃকেন্দ্র}
+			            \end{minipage}
+			            \hfill
+			            \begin{minipage}{.5\linewidth}
+				            \centering
+				            \begin{tikzpicture}[scale=0.5]
+					            \tkzDefPoint(0,0){O}
+					            \tkzDefPoint(110:2.5){A}
+					            \tkzDefPoint(205:2.5){B}
+					            \tkzDefPoint(-25:2.5){C}
+					            \tkzDrawCircle(O,A)
+					            \tkzDrawPolygon(A,B,C)
+					            \tkzDefLine[perpendicular = through O](B,C)
+					            \tkzGetPoint{x}
+					            \tkzInterLC(O,x)(O,A) \tkzGetPoints{D}{y}
+					            \tkzDrawSegment(A,D)
+					            \tkzDefTriangleCenter[ex](B,A,C)
+					            \tkzGetPoint{I_A}
+					            \tkzDrawSegment(A,I_A)
+					            \tkzCompass[very thick, dotted, delta=12](D,B)
+					            \tkzCompass[very thick, dotted, delta=12](D,I_A)
+					            \tkzDrawPoints(A,B,C,D,I_A,O)
+					            \tkzAutoLabelPoints[center=O](A,B,C)
+					            \tkzLabelPoints[below right](O,I_A,D)
+				            \end{tikzpicture}
+				            \caption{বহিঃকেন্দ্র}
+			            \end{minipage}
+		            \end{figure}
+	      \end{enumerate}
+	\item অনেক সময় প্রশ্নে যেভাবে চিত্রের বর্ণনা দেওয়া সেভাবে আঁকা অনেক কঠিন বা একেকবারে অসম্ভব। তাই তখন প্রশ্নে যা প্রমাণ করতে বলা হয়েছে তা সত্য ধরেই চিত্র আঁকতে সুবিধা হয়। যেমন-
+	      \begin{xmpl}[USAMO 2009/1]
+		      দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $X$ এবং $Y$ বিন্দুতে ছেদ করে। $\omega_1$ এর কেন্দ্রগামী কোনো রেখা $l_1, \ \omega_2$ কে $P$ এবং $Q$ বিন্দুতে ছেদ করে। আবার $\omega_2$ এর কেন্দ্রগামী কোনো রেখা $l_2, \ \omega_1$ কে $R$ এবং $S$ বিন্দুতে ছেদ করে। এখন যদি $P,Q,R,S$ বিন্দুগুলো বৃত্তীয় হলে প্রমাণ কর $XY$ রেখা সেই বৃত্তের কেন্দ্র দিয়ে যায়।
+	      \end{xmpl}
+	      এই প্রশ্নের চিত্র যদি যেভাবে বর্ণনা করা হয়েছে সেভাবে যেকোনো রেখা $l_1$ এবং $l_2$ নেও তবে $P,Q,R,S$ বিন্দুগুলোর বৃত্তীয় হওয়ার সম্ভাবনা প্রায় $0$-এর কাছাকাছি। তাহলে কিভাবে আঁকা সম্ভব? প্রথমে দেখা যাক চিত্র সম্পর্কে আমরা কি কি জানি। 
+	      
+	      $P,Q,R,S$ যে বৃত্তের উপর অবস্থিত তা হল $\omega_3$ এবং $\omega_1, \omega_2$ এবং $\omega_3$ এর কেন্দ্র যথাক্রমে $O_1, O_2$ এবং $O_3$ হলে- 
+	      \begin{enumerate}[label=\roman*.]
+		      \item $\overline{PQ}$ হল $\omega_2$ এবং $\omega_3$ এর সাধারণ জ্যা এবং $\overline{RS}$ হল $\omega_1$ এবং $\omega_3$ এর সাধারণ জ্যা।
+		      \item $\omega_3$ এর কেন্দ্র $XY$ রেখার উপর অবস্থিত।(যেহেতু প্রমাণ করতে বলা হয়েছে তাই অবশ্যই সত্য।)
+	      \end{enumerate}
+	      এখন যেহেতু $\overline{PQ}$ রেখাংশ $\omega_2$ এবং $\omega_3$ এর সাধারণ জ্যা, তাই $\overline{O_2O_3} \perp \overline{PQ}$  এখন আঁকা শুরু করা যাক- 
+	      \begin{enumerate}[label=\roman*.]
+		      \item প্রথমে দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ আঁকি যাতে তাদের ছেদ বিন্দু $X$ এবং $Y$.
+		      \item এখন যেকোনো একটি রেখা $l_1$ এঁকে $\overline{PQ}$ জ্যা আঁকি।
+		      \item যেহেতু $\overline{O_2O_3} \perp \overline{PQ}$ তাই $O_2$ হতে $\overline{PQ}$-এর উপর লম্ব আঁকলে তা $XY$ বর্ধিতাংশকে যে বিন্দুতে ছেদ করে তাই হল $O_3$.
+		      \item এখন $O_3$ কে কেন্দ্র করে $O_3P$ এর সমান ব্যাসার্ধ নিয়ে বৃত্তচাপ আঁকলে তা $\omega_1$-কে যে যে বিন্দুতে ছেদ করে তাই হল $R$ এবং $S$
+		  \end{enumerate}
+		  \begin{figure}[ht]
+			\begin{minipage}{0.3\linewidth}
+				\centering 
+				\begin{tikzpicture}[scale=0.45]
+					\tkzDefPoint(0,0){O_1}
+					\tkzDefPoint(5,0){O_2}
+					\tkzDefPoint(1.8,2.4){X}
+					\tkzDefPoint(1.8,-2.4){Y}
+					\tkzDefPoint(1.8,6.5){X'}
+					\tkzDrawCircle(O_1,X)
+					\tkzDrawCircle(O_2,X)
+					\tkzDrawSegment[dashed](Y,X')
+					\tkzDrawPoints(O_1,O_2,X,Y)
+					\tkzLabelPoints[below left](O_1)
+					\tkzLabelPoints[below](Y)
+					\tkzLabelPoints[left](X)
+					\tkzLabelPoints[below right](O_2)
+				\end{tikzpicture}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.3\linewidth}
+				\centering
+				\begin{tikzpicture}[scale=0.45]
+					\tkzDefPoint(0,0){O_1}
+					\tkzDefPoint(5,0){O_2}
+					\tkzDefPoint(1.8,2.4){X}
+					\tkzDefPoint(1.8,-2.4){Y}
+					\tkzDefPoint(1.8,6.5){X'}
+					\tkzDefPoint(28:3){a}
+					\tkzDrawCircle(O_1,X)
+					\tkzDrawCircle(O_2,X)
+					\tkzInterLC(O_1,a)(O_2,X)
+					\tkzGetPoints{P}{Q}
+					\tkzDrawSegment[dashed](Y,X')
+					\tkzDefLine[perpendicular=through O_2](P,Q)
+					\tkzGetPoint{a}
+					\tkzInterLL(O_2,a)(X,Y)
+					\tkzGetPoint{O_3}
+					\tkzDrawSegment(P,Q)
+					\tkzDrawSegments[dotted](O_2,O_3 O_1,P)
+					\tkzDrawPoints(O_1,O_2,X,Y,P,Q,O_3)
+					\tkzLabelPoints[below left](O_1,P)
+					\tkzLabelPoints[below](Y)
+					\tkzLabelPoints[left](X)
+					\tkzLabelPoints[above right](Q,O_3)
+					\tkzLabelPoints[below right](O_2)
+				\end{tikzpicture}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.34\linewidth}
+				\centering
+			\begin{tikzpicture}[scale=0.45]
+				\tkzDefPoint(0,0){O_1}
+				\tkzDefPoint(5,0){O_2}
+				\tkzDefPoint(1.8,2.4){X}
+				\tkzDefPoint(1.8,-2.4){Y}
+				\tkzDefPoint(1.8,6.5){X'}
+				\tkzDefPoint(28:3){a}
+				\tkzDrawCircle(O_1,X)
+				\tkzDrawCircle(O_2,X)
+				\tkzInterLC(O_1,a)(O_2,X)
+				\tkzGetPoints{P}{Q}
+				\tkzDrawSegment[dashed](Y,X')
+				\tkzDefLine[perpendicular=through O_2](P,Q)
+				\tkzGetPoint{a}
+				\tkzInterLL(O_2,a)(X,Y)
+				\tkzGetPoint{O_3}
+				\tkzDrawSegment(P,Q)
+				\tkzDrawSegments[dotted](O_2,O_3 O_1,P)
+				\tkzInterCC(O_1,X)(O_3,P)
+				\tkzGetPoints{R}{S}
+				\tkzCompass[thick, dotted, delta=12](O_3,R)
+				\tkzCompass[thick, dotted, delta=12](O_3,S)
+				\tkzDrawPoints(O_1,O_2,X,Y,P,Q,O_3,R,S)
+				\tkzLabelPoints[below left](O_1,P)
+				\tkzLabelPoints[below](Y)
+				\tkzLabelPoints[left](X,R)
+				\tkzLabelPoints[above right](Q,O_3)
+				\tkzLabelPoints[below right](O_2,S)
+			\end{tikzpicture}
+			\end{minipage}
+		\end{figure}
+		  আমরা কিন্তু এখানে চিত্রটা প্রশ্নে যেভাবে বর্ণনা করা সেভাবে না এঁকে কিছুটা উল্টাভাবেই আঁকা হয়েছে। অনেক সময় এভাবে বিপরীত দিক থেকে আঁকলে বেশি সহজে চিত্র আঁকা যায়। 
+	\item তবে কিছু সময় চিত্রটা ভালোভাবে আঁকা অনেক বেশি ���ময় সাপেক্ষ বা প্রায় অসম্ভব ধরনের হয়। সে ক্ষেত্রে free hand ভাবে চিত্রটা বিশেষত প্রশ্নে যে যে important information গুলো দেওয়া সেগুলো ভালোভাবে আঁকতে হবে। 
+	\item চিত্র আঁকার পর প্রশ্নে যে যে information দেওয়া আছে সেগুলো চিত্রের দেখালে অনেক সুবিধা হয়। যেমনঃ যদি প্রশ্নে বলা থাকে দুইটি কোণ সমান তবে সেই দুইটি কোণকে এক রঙের কলম দিয়ে চিহ্নিত করা যায়। একি ভাবে যদি দুইটি বাহু সমান বলা থাকে তবে বাহুগুলোকেও দাগ দিয়ে চিহ্নিত করা যায়। এতে করে যদি প্রশ্নের প্রায় সব information চিত্রে থাকে, ফলে শুধু চিত্র দেখেই তুমি সকল তথ্য পাবে। তবে প্রশ্নে যা প্রমাণ করতে বলছে তা চিহ্নিত না করাই ভালো। যেমন তিনটি বিন্দু সমরেখ প্রমাণ করতে বললে সেই তিনটি বিন্দুকে একটা রেখা ধারা যুক্ত করা উচিত না। বরং তুমি dotted line ব্যবহার করতে পারো।
+\end{enumerate}
+\subsubsection{Information gathering \& Guessing}
+আগের অংশে আমরা প্রশ্নের সব information চিত্রে স্থাপন করেছি এখন এই অংশে আমরা সেই information গুলো থেকে আর কি কি information বের করে আনা যায় যেগুলো প্রশ্নে direct বলা ছিল না তা বের করব। যেমনঃ চিত্রে আর কোন কোন বাহু সমান, কোন কোণ দুটি সমান, কোনটা সমকোণ ইত্যাদি। এটার মূল উদ্দেশ্যই হল প্রশ্নে যা যা বলা তার চেয়ে কিছু বেশি information পাওয়া। 
+
+এটার পাশাপাশি চিত্র দেখেও আমরা চিত্রের নানা বৈশিষ্ট্য সম্পর্কে কিছু ভালো educated guess করতে পারি। যেমনঃ  চিত্র দেখে মনে হতে পারে, মনে হতে পারে দুইটি কোণ সমান, দুইটি বাহু সমান বা সমান্তরাল, কোনো বাহু অন্য বাহুর উপর লম্ব, কোনো তিনটি বিন্দু সমরেখো, তিনটি রেখা সমরেখ ইত্যাদি। আর এসব বৈশিষ্ট্য চোখে পড়ার জন্য বিশেষ নজর রাখা প্রয়োজন চিত্রের special বিন্দু/রেখার(পরিকেন্দ্র, অন্তকেন্দ্র, ভরকেন্দ্র, লম্বকেন্দ্র, স্পর্শক, Miquel Point, Simson Line, Eular's Line etc.) উপর। যেমনঃ 
+\begin{xmpl}[IGO Advanced Lavel 2018/1]
+	দুইটি বৃত্ত $\omega_1$ এবং $\omega_2$ পরস্পর $A,B$ বিন্দুতে ছেদ করে। $\omega_1$ এর উপর যেকোনো বিন্দু $X$ এবং $XA$ রেখা $\omega_2$ বৃত্তকে $Y(Y\neq A)$ বিন্দুতে ছেদ করে। $\omega_2$ তে অন্য একটি বিন্দু $Y'$ নেওয়া হল যেন $QY=QY'$ হয়। এখন $BY'$ রেখা $\omega_1$ কে $X'$ বিন্দুতে ছেদ করলে প্রমাণ কর $PX=PX'$.
+\end{xmpl}
+\begin{center}
+	\begin{tikzpicture}
+		\tkzDefPoint(0,0){O_1}
+		\tkzDefPoint(3.7,0){O_2}
+		\tkzDefPoint(39.37:2){A}
+		\tkzDefPoint(96.56:2){P}
+		\tkzDefPoint(1.7,0){M}
+		\draw[opacity=0] (O_2)--+(96.56:2.5) coordinate (Q);
+		\draw[opacity=0] (O_2)--+(70:2.5) coordinate (y);
+		\draw[opacity=0] (O_1)--+(140:2.5) coordinate (x);
+		\tkzInterLL(P,Q)(O_1,x)
+		\tkzGetPoint{X}
+		\tkzInterLL(P,Q)(O_1,y)
+		\tkzGetPoint{Y}
+		\tkzDrawSegment(X,Y)
+		\tkzDefPoint(165:2){X}
+		\tkzInterLC(X,A)(O_2,A)
+		\tkzGetPoints{a}{Y}
+		\tkzInterCC(Q,Y)(O_2,A)
+		\tkzGetPoints{a}{Y'}
+		\tkzInterCC(O_1,A)(O_2,A)
+		\tkzGetPoints{a}{B}
+		\tkzInterLC(Y',B)(O_1,A)
+		\tkzGetPoints{X'}{a}
+		\tkzDefMidPoint(X,X')
+		\tkzGetPoint{M'}
+		%\tkzMarkAngles[mark=false, orange, size=1.01](Y',Y,A Y',B,A X',X,A)
+		\tkzDrawCircle[dotted](O_1,A)
+		\tkzDrawCircle[dotted](O_2,A)
+		\tkzDrawPoints(A,P,Q,Y',Y,X,X',B)
+		\tkzDrawSegments(P,X P,X' X,X' Q,Y Q,Y' Y,Y')
+		\tkzDrawSegments[dashed](Y',B X,Y)
+		\tkzAutoLabelPoints[center=M](P,Q,Y,Y',B)
+		\tkzAutoLabelPoints[center=M'](X,X')
+		\tkzLabelPoints[above left](A)
+	\end{tikzpicture}
+\end{center}
+এই চিত্র দেখে কি কি ধারনা করা যায়? দেখেই মনে হচ্ছে না, $PQ||XX'||YY'$? এই প্রশ্ন সমাধানে কিন্তু এই ধারণা প্রমাণ করতে পারলেই সমাধান হয়ে যায়!!! 
+
+তবে সতর্ক থাকা দরকার তোমার guess করা বৈশিষ্ট্যগুলো যাতে চিত্রে চিহ্নিত না করা হয়। কোনো বৈশিষ্ট্যকে তখনি চিত্রে চিহ্নিত করা উচিত যখন তুমি প্রমাণ করেছ যে সেই ধারণা অবশ্যই সত্য। 
+
+\subsubsection{Checking, Evaluation \& Information gathering}
+এ পর্যায়ে আমরা আমাদের guess গুলো সঠিক নাকি তা প্রমাণ করার চেষ্ঠা করব। তবে এই অংশে খুব বেশি সময় না দেওয়াই ভালো। প্রতিটা guess এর জন্য বড়জোড় 1-2 মিনিট সময় দিবে, যদি এর মাঝে প্রমাণ না করতে পারো তাহলে আপাতত বাদ দেও। আর guess টা সঠিক নাকি বুঝার আরেকটা সহজ উপায় হল অন্যভাবে আবার চিত্রটা আঁক। যদি এই নতুন চিত্রেও মনে হয় guess করা বৈশিষ্ট্যটা আছে তবে মোটামোটি sure হওয়া যায় যে তোমার guess টা সঠিক। 
+
+তবে guess সঠিক হলেই ত হবে না, guess টা সমাধানে কাজে লাগে এমন হতে হবে। একটা চিত্রের অনেক গুলোই বৈশিষ্ট্যই থাকে যা সমাধানে কোনো কাজেই লাগে না। তাই এমন অপ্রয়োজনীয় বৈশিষ্ট্যের পিছনে সময় অপচয় না করার বিষয়ে সতর্ক থাকা দরকার। 
+
+এ পর্যায়ে তোমার কাছে চিত্র সম্পর্কে বেশ কিছু বৈশিষ্ট্য থাকার কথা। পরের অংশে এই বৈশিষ্ট্যগুলো থেকে কিভাবে  সমাধানের কাছে যাওয়া যায় তা দেখব।  
+
+\subsubsection{Walking Backwards}
+সমাধান করার সময় বিপরীত দিক দিকে সমাধান করলে সমাধানটা অনেক সহজ হয়ে যায়। এক্ষেত্রে আমাদের যা প্রমাণ করতে বলা হয়েছে তার সাথে if and only if সম্পর্ক বিশিষ্ট্য properties বের করব। আবার এই properties গুলার সাথেও if and only if সম্পর্ক বিশিষ্ট্য অন্য properties খুঁজব। এতে করে আমরা flow chart এর মত পাব, সেটার কোনো একটা প্রমাণ করতে পারলেই সমাধান সম্পূর্ণ হয়ে যাবে। এই flow chart টা কোন ভাবে আমাদের আগের জানা বৈশিষ্ট্যের সাথে কিভাবে মিলানো যায় তা চেষ্ঠা করব। এখন একটা উদাহল দেখা যাক কিভাবে বিপরীত দিক থেকে এই flow chart তৈরী করা যায়।
+
+\begin{xmpl}[IGO Advanced 2017/1]
+	$\Delta ABC$ এর অন্তঃকেন্দ্র $I$ এবং অন্তঃবৃত্তটি $BC$ কে $D$ বিন্দুতে ছেদ করে। আবার $DI$ রেখা $AC$ কে $X$ বিন্দুতে ছেদ করে। $AB$ বাহুর উপর একটি বিন্দু $Y\neq A$ যেন $XY$ অন্তঃবৃত্তের সাথে স্পর্শক হয়। এখন $YI$ রেখা $BC$ কে $Z$ বিন্দুতে ছেদ করলে প্রমাণ কর $AB=BZ$ হয়। 
+\end{xmpl}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\tkzDefPoint(0,0){O}
+		\tkzDefPoint(125:3){A}
+		\tkzDefPoint(200:3){B}
+		\tkzDefPoint(-20:3){C}
+		\tkzDefCircle[in](A,B,C)
+		\tkzGetPoint{I}
+		\tkzDrawCircle[in, dashed, orange](A,B,C)
+		\tkzDrawPolygon(A,B,C)
+		\tkzDefLine[perpendicular=through I](B,C)
+		\tkzGetPoint{x}
+		\tkzInterLL(I,x)(B,C)
+		\tkzGetPoint{D}
+		\tkzInterLL(D,I)(A,C)
+		\tkzGetPoint{X}
+		\tkzDefTangent[from = X](I,D)
+		\tkzGetPoints{a}{b}
+		\tkzInterLL(X,a)(A,B)
+		\tkzGetPoint{Y}
+		\tkzInterLL(Y,I)(B,C)
+		\tkzGetPoint{Z}
+		\tkzDrawSegments(X,D X,Y Y,Z)
+		\tkzDrawSegments[dashed](A,I B,I)
+		\tkzDrawPoints(A,B,C,D,I,X,Y,Z)
+		\tkzAutoLabelPoints[center=I](A,B,C,D,X,Y,Z)
+		\tkzLabelPoints[above right](I)
+	\end{tikzpicture}
+\end{figure}
+প্রশ্নে আমাদের প্রমাণ করতে বলা হয়েছে $AB=BX$. আর যদি $AB=BX$ হয় তবে $\Delta ABI \cong \Delta BIZ$ হবে কেননা $\angle ABI=\angle IBZ$($BI, \ \angle B$এর অন্তঃসমদ্বিখণ্ডক।) একিভাবে যদি $\Delta ABI \cong \Delta BIZ$ হয় তবে $AI=IZ$ এবং $\angle BAI=\angle IZB$. তাহলে আমাদের flow chart টা দাঁড়ালো 
+\begin{equation*}
+	AB=BX \iff \Delta ABI \cong \Delta BIZ \iff \begin{cases}
+		& AI=IZ\\
+		& \angle BAI=\angle IZB
+	  \end{cases}
+\end{equation*}
+এখন $AI=IZ$ প্রমাণ করা কঠিন। তাই $\angle BAI=\angle IZB$ প্রমাণ করার চেষ্ঠা করা যাক। যেহেতু $I$ হল $\Delta AXY$ এর বহিঃকেন্দ্র তাই $\angle XIY=90\drg-\dfrac{\angle A}{2}=\angle DIZ$ অর্থাৎ $\angle IZD=90\drg-90\drg+\dfrac{\angle A}{2}=\dfrac{\angle A}{2}=\angle BAI$ 
+\begin{sltn}
+	যেহেতু $I$ হল $\Delta AXY$ এর বহিঃকেন্দ্র তাই
+	\begin{align*}
+		\angle XIY=90\drg-\dfrac{\angle A}{2}=\angle DIZ &\implies \angle IZD=\dfrac{\angle A}{2}=\angle BAI \\ 
+		&\implies \Delta ABI \cong \Delta BIZ \\ 
+		&\implies AB=BX
+	\end{align*}
+\end{sltn}
+\subsubsection{Construction} এই অংশটা অনেক বেশি practice depended আর কিছুটা trial and error. আর এটা সবার শেষে লিখা মানে এই না যে construction সবার শেষে করা হয়। আসলে contruction প্রায় সব ধাপেই করা লাগে। contruction করা হয় প্রয়োজন মাফিক। যদি উপরের যেকোনো ধাপে মনে হয় contruction করা লাগবে তখনি আমরা contrution এর কাজ করব। 
+
+এখন কিভাবে বুঝব এই contruction করলে আমার সমাধানে উপকার হবে? সত্যি বলতে এই প্রশ্নের কোন direct answer নাই। তবে construction এর সময় কয়েকটা জিনিস মাথায় রাখা যায়- 
+\begin{enumerate}
+	\item চিত্রের কোনো অংশ যদি দেখে incomplete মনে হয় তবে তা complete কর।  
+	\item চিত্রে যদি এমন কোন দুইটি রেখা থাকে যারা কোন special point এ মিলিত হয়, তবে তাদের ছেদ বিন্দু এর কর। (বিশেষ করে radical exis গুলোর radical center এর ক্ষেত্রে প্রযোজ্য।)
+	\item প্রশ্নে যদি এমন থাকে $AB=XY+YZ$ তাহলে $AB$ কে $XY$ এবং $YZ$ অংশে ভাগ করতে পারো। 
+	\item কোন নতুন রেখা বা ছেদ বিন্দু যোগ করলে যদি কোন special case বা theorem পরে তবে সেই constraction টা করতে পারো। 
+\end{enumerate}
+এটা খুব simplified একটা solving strategy. এই সবগুলো ধাপ দরকার হবেই তা নয়, আবার অনেক সময় আরও অনেক ধাপের প্রয়োজন হয়। 
+\newpage
+
+\subsection{ব্যাখ্যা সহ কিছু সমস্যার সমাধান}
+এই section আমরা thinking proccess সহ কিছু অলিম্পিয়াডের প্রশ্ন সমাধান করব। এই section এর মূল উদ্দেশ্যই হল একজন problem solver কোন প্রশ্নকে কিভাবে সমাধান করার কথা ভাবে তা যথাসম্ভব বুঝানো। 
+
+\begin{xmpl}[IMO 2013/4] 
+	$\Delta ABC$ ত্রিভুজের লম্বকেন্দ্র $H$ এবং $\overline{BC}$ এর উপর কোনোবিন্দু $W$. $AC$ বাহুর উপর $B$ বিন্দুর লম্ব পাদবিন্দু $M$ এবং $AB$ বাহুর উপর $C$ বিন্দুর লম্ব পাদবিন্দু $N$. $\Delta WMC$ এবং $\Delta WNB$ ত্রিভুজের পরিবৃত্ত যথাক্রমে $\omega_1$ এবং $\omega_2$. যদি $\omega_1$ এবং $\omega_2$ বৃত্তের ব্যাস যথাক্রমে $WY$ এবং $WX$ তবে প্রমাণ কর যে, $X,H$ এবং $Y$ সমরেখ। 
+\end{xmpl}
+\underline{চিত্র আঁকাঃ} এই প্রশ্নের চিত্রটা প্রশ্নে যেভাবে বলা সেভাবে আঁকলে, $\Delta WMC$ এবং $\Delta WXB$ এর পরিবৃত্ত আঁকা লাগে। আর যেহেতু পরিবৃত্ত আঁকা বেশ ঝামেলার আর সময় সাপেক্ষ তাই আমরা এভাবে চিত্র আঁকব না। 
+
+বরং প্রথমেই আমরা যেকোনো দুইটা বৃত্ত($\omega_1$ এবং $\omega_2$) আঁকি, যাদের একটা ছেদ বিন্দু $W$. এখন $W$ দিয়ে যায় এমন একটি রেখাংশ $\overline{BC}$ আঁকি যেমন $B$ বিন্দু $\omega_1$ এর উপর এবং $C$ বিন্দু $\omega_2$ এর উপর। এখন দেখ একটা ঝামেলায় পরে গেলাম। $\omega_1$ ও $\omega_2$ এর উপর দুইটি আছে $N$ এবং $M$ যেন $BM\perp AC$ এবং $CN \perp AB$, এখন যেহেতু $A$ বিন্দু আমাদের জানা নেই তাহলে $M,N$ বিন্দু কিভাবে বের করা যায়? 
+
+খেয়াল কর ত, $\angle BMC=90\drg=\angle CNB$, আর যেহেতু অর্ধবৃত্তস্থ ত্রিভুজ সমকোণী তাই আমরা কিন্তু $BC$ এর মধ্যবিন্দুকে কেন্দ্র করে $\overline{BC}$ কে ব্যাস ধরে একটা বৃত্ত আঁকতে পারি। আর সেই বৃত্ত $\omega_1$ কে যে বিন্দুতে ছেদ করবে তা হল $N$ এবং $\omega_2$ কে যে বিন্দুতে ছেদ করবে তা হবে $M$. অর্থাৎ আমরা $M,N$ পেয়ে গেলাম!!! এখন $BN$ ও $CM$ রেখার ছেদ বিন্দুই হবে $A$ এবং $BM$ ও $CN$ রেখার ছেদ বিন্দু $H$. 
+
+$BC$ বাহুর $B$ বিন্দুর উপর লম্ব আঁকলে তা $\omega_1$ বৃত্তের উপর যে বিন্দুতে ছেদ করবে তা হল $X$ একি ভাবে $C$ বিন্দুর উপর আঁকা লম্ব $\omega_2$ এর উপর যে বিন্দুতে ছেদ করবে তা হল $Y$. এখন প্রশ্নে যা যা informaion দেওয়া ছিল তা যথাসম্ভব চিত্রে স্থাপন করি। 
+\begin{figure}[ht]
+	\begin{minipage}{0.3\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=1.2]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(120:2){A}
+			\tkzDefPoint(205:2){B}
+			\tkzDefPoint(-25:2){C}
+			\tkzDefPoint(-0.45,-0.842){W}
+			\tkzDefMidPoint(B,C)
+			\tkzGetPoint{M}
+			\tkzDefLine[perpendicular=through B](A,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,a)(A,C)
+			\tkzGetPoint{M}
+			\tkzDefLine[perpendicular=through C](A,B)
+			\tkzGetPoint{a}
+			\tkzInterLL(C,a)(A,B)
+			\tkzGetPoint{N}
+			\tkzDrawCircle[circum](W,M,C)
+			\tkzDefCircle[circum](W,M,C)
+			\tkzGetPoint{O_2}
+			\tkzDrawCircle[circum](W,N,B)
+			\tkzDefCircle[circum](W,N,B)
+			\tkzGetPoint{O_1}
+			\tkzInterLC(W,O_1)(O_1,W)
+			\tkzGetPoints{a}{X}
+			\tkzInterLC(W,O_2)(O_2,W)
+			\tkzGetPoints{c}{Y}
+			\tkzDrawSegment(B,C)
+			\tkzDrawPoints(B,C,W)
+			\tkzAutoLabelPoints[center=O](B,C)
+			\tkzLabelPoints[below](W)
+			\tkzLabelAngle[dist=0.9](B,O_1,W){$\omega_1$}
+			\tkzLabelAngle[dist=1.5](W,O_2,C){$\omega_2$}
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.3\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=1.2]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(120:2){A}
+			\tkzDefPoint(205:2){B}
+			\tkzDefPoint(-25:2){C}
+			\tkzDefPoint(-0.45,-0.842){W}
+			\tkzDefMidPoint(B,C)
+			\tkzGetPoint{D}
+			\tkzDefLine[perpendicular=through B](A,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,a)(A,C)
+			\tkzGetPoint{M}
+			\tkzDefLine[perpendicular=through C](A,B)
+			\tkzGetPoint{a}
+			\tkzInterLL(C,a)(A,B)
+			\tkzGetPoint{N}
+			\tkzDrawCircle[circum](W,M,C)
+			\tkzDefCircle[circum](W,M,C)
+			\tkzGetPoint{O_2}
+			\tkzDrawCircle[circum](W,N,B)
+			\tkzDefCircle[circum](W,N,B)
+			\tkzGetPoint{O_1}
+			\tkzInterLC(W,O_1)(O_1,W)
+			\tkzGetPoints{a}{X}
+			\tkzInterLC(W,O_2)(O_2,W)
+			\tkzGetPoints{c}{Y}
+			\tkzDefTriangleCenter[ortho](A,B,C)
+			\tkzGetPoint{H}
+			\tkzDrawPolygon(A,B,C)
+			\tkzCompass[thick, dotted, delta=10](D,M) 
+			\tkzCompass[thick, dotted, delta=10](D,N)
+			\tkzDrawSegments[dashed](B,M C,N) 
+			\tkzDrawPoints(B,C,W,M,N,D,A,H)
+			\tkzAutoLabelPoints[center=O](A,B,C)
+			\tkzLabelPoints[below](W,H)
+			\tkzLabelPoints[above left](N)
+			\tkzLabelPoints[above](M)
+			\tkzLabelAngle[dist=0.9](B,O_1,W){$\omega_1$}
+			\tkzLabelAngle[dist=1.5](W,O_2,C){$\omega_2$}
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.34\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=1.2]
+			\tkzDefPoint(0,0){O}
+			\tkzDefPoint(120:2){A}
+			\tkzDefPoint(205:2){B}
+			\tkzDefPoint(-25:2){C}
+			\tkzDefPoint(-0.45,-0.842){W}
+			\tkzDefMidPoint(B,C)
+			\tkzGetPoint{M}
+			\tkzDefLine[perpendicular=through B](A,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,a)(A,C)
+			\tkzGetPoint{M}
+			\tkzDefLine[perpendicular=through C](A,B)
+			\tkzGetPoint{a}
+			\tkzInterLL(C,a)(A,B)
+			\tkzGetPoint{N}
+			\tkzDrawCircle[circum](W,M,C)
+			\tkzDefCircle[circum](W,M,C)
+			\tkzGetPoint{O_2}
+			\tkzDrawCircle[circum](W,N,B)
+			\tkzDefCircle[circum](W,N,B)
+			\tkzGetPoint{O_1}
+			\tkzInterLC(W,O_1)(O_1,W)
+			\tkzGetPoints{a}{X}
+			\tkzInterLC(W,O_2)(O_2,W)
+			\tkzGetPoints{c}{Y}
+			\tkzDefTriangleCenter[ortho](A,B,C)
+			\tkzGetPoint{H}
+			\tkzDrawPolygon(A,B,C)
+			\tkzDrawSegments[dotted,purple](X,Y)
+			\tkzCompass[thick, dotted, delta=10](D,M) 
+			\tkzCompass[thick, dotted, delta=10](D,N)
+			\tkzDrawSegments[dashed](B,M C,N) 
+			\tkzMarkRightAngles[orange, fill opacity=0.3, fill=orange](A,M,B C,N,A)
+			\tkzDrawPoints(B,C,W,M,N,A,H,X,Y)
+			\tkzAutoLabelPoints[center=O](A,B,C)
+			\tkzAutoLabelPoints[center=H](X,Y)
+			\tkzLabelPoints[below](W,H)
+			\tkzLabelPoints[above left](N)
+			\tkzLabelPoints[above](M)
+			\tkzLabelAngle[dist=0.9](B,O_1,W){$\omega_1$}
+			\tkzLabelAngle[dist=1.5](W,O_2,C){$\omega_2$}
+		\end{tikzpicture}
+	\end{minipage}
+\end{figure} 
+
+\underline{Information gathering \& Guessing}
+এই চিত্রে special Point/case আসে কি না লক্ষ কর ত? হ্যাঁ এখানে $H$ হল লম্বকেন্দ্র। আর তাই Example \ref{nondirected} থেকে বলা যায় $AMHN$ বৃত্তীয় চতুর্ভুজ এবং $AH$ হল বৃত্তটির ব্যাস। Vitualization এর সুবিধার জন্য বৃত্তটা এঁকে ফেলি। 
+
+আর একটু খেয়াল করলে ধরতে পারবা $\omega_1$ এবং $\omega_2$ এর $W$ ছাড়া অন্য ছেদ বিন্দু Miquel Point!!! সেই বিন্দুটার নাম $P$ দেই। অর্থাৎ $AMPN$ ও বৃত্তীয়। আর যেহেতু $AMHN$ও বৃত্তীয় তাই $A,M,P,H,N$ ৫টি বিন্দুই একি বৃত্তের উপর অবস্থিত। 
+
+এখন চিত্র দেখে কি আরও কোনো বৈশিষ্ট্য চোখে পড়ে? দেখে মনে হচ্ছে না $P$ বিন্দুটা $XY$ রেখার উপর অবস্থিত? আবার তাও মনে হচ্ছে না, $A,P,W$ বিন্দু সমরেখ? আমাদের এই guess গুলো সঠিক কি না তা চেক করব পরের অংশে। 
+
+\underline{Checking \& Evaluation:} 
+আমরা আগের অংশে যে guessটা করেছিলাম, সেটা সত্য কিনা তা চেক করা যাক। 
+
+যেহেতু $AMPHN$ বৃত্তীয় চতুর্ভুজ তাই $\measuredangle APN=\measuredangle AHN=90\drg-\measuredangle NAH$ আর যেহেতু $AH \perp BC$ তাই $\measuredangle NAH =90\drg-\measuredangle WBN$ অর্থাৎ 
+\[\measuredangle APN=90\drg-90\drg+\measuredangle WBN=WPN\]
+অর্থাৎ $A,P,W$ হল সমরেখ। 
+
+আবার এখানে যেহেতু $\omega_1$ এর ব্যাস $WX$ তাই $\measuredangle XPW=90\drg$ একই কারণে $\measuredangle WPY=90\drg$। তাহলে 
+\[\measuredangle XPW=\measuredangle YPW \]
+অর্থাৎ $X,P,Y$ সমরেখ। 
+
+এখন যদি দেখানো যায় যে $X,H,P$ বা $H,P,Y$ সমরেখ তাহলেই আমাদের সমাধান শেষ!!! 
+
+এখানে $\measuredangle APH=90\drg$ আবার $WX, \omega_1$ এর ব্যাস হওয়ায়  $XP \perp AW$ তাই $\measuredangle APX=90\drg$  অর্থাৎ $\measuredangle APH=\measuredangle APX$ অর্থাৎ $X,H,P$ সমরেখ। আমাদের প্রমাণ শেষ। :D 
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=2]
+		\tkzDefPoint(0,0){O}
+		\tkzDefPoint(120:2){A}
+		\tkzDefPoint(205:2){B}
+		\tkzDefPoint(-25:2){C}
+		\tkzDefPoint(-0.45,-0.842){W}
+		\tkzDefMidPoint(B,C)
+		\tkzGetPoint{M}
+		\tkzDefLine[perpendicular=through B](A,C)
+		\tkzGetPoint{a}
+		\tkzInterLL(B,a)(A,C)
+		\tkzGetPoint{M}
+		\tkzDefLine[perpendicular=through C](A,B)
+		\tkzGetPoint{a}
+		\tkzInterLL(C,a)(A,B)
+		\tkzGetPoint{N}
+		\tkzDrawCircle[circum](W,M,C)
+		\tkzDefCircle[circum](W,M,C)
+		\tkzGetPoint{O_2}
+		\tkzDrawCircle[circum](W,N,B)
+		\tkzDefCircle[circum](W,N,B)
+		\tkzGetPoint{O_1}
+		\tkzInterLC(W,O_1)(O_1,W)
+		\tkzGetPoints{a}{X}
+		\tkzInterLC(W,O_2)(O_2,W)
+		\tkzGetPoints{c}{Y}
+		\tkzDefTriangleCenter[ortho](A,B,C)
+		\tkzGetPoint{H}
+		\tkzDrawPolygon(A,B,C)
+		\tkzInterLL(A,W)(X,Y)
+		\tkzGetPoint{P}
+		\tkzDrawSegments[dotted,purple](X,Y)
+		\tkzDrawSegments(A,W)
+		\tkzCompass[thick, dotted, delta=10](D,M) 
+		\tkzCompass[thick, dotted, delta=10](D,N)
+		\tkzDrawSegments[dashed](B,M C,N) 
+		\tkzDefMidPoint(A,H)
+		\tkzGetPoint{q}
+		\tkzDrawCircle[cyan, dashed](q,P)
+		\tkzMarkRightAngles[orange, fill opacity=0.3, fill=orange, size=0.2](A,M,B C,N,A)
+		\tkzMarkRightAngle[orange, fill opacity=0.3, fill=orange, size=0.2](Y,P,A)
+		\tkzDrawPoints(P,B,C,W,M,N,A,H,X,Y)
+		\tkzAutoLabelPoints[center=O](A,B,C)
+		\tkzAutoLabelPoints[center=H](X,Y)
+		\tkzLabelPoints[below](W,H)
+		\tkzLabelPoints[below right](P)
+		\tkzLabelPoints[above left](N)
+		\tkzLabelPoints[above](M)
+		\tkzLabelAngle[dist=0.9](B,O_1,W){$\omega_1$}
+		\tkzLabelAngle[dist=1.5](W,O_2,C){$\omega_2$}
+	\end{tikzpicture}	
+\end{figure}
+\begin{sltn}
+	যদি $\omega_1$ এবং $\omega_2$ এর $W$ ভিন্ন অপর ছেদ বিন্দু $P$। $AMPHN$ বৃত্তিয় তাই 
+	\[\measuredangle APN=AHN=90\drg-\measuredangle NPH=\measuredangle WBN=\measuredangle WPN\] 
+	অর্থাৎ $A,P,W$ সমরেখ। যেহেতু $\measuredangle XPW=\measuredangle YPW=90\drg$ তাই $X,P,Y$ সমরেখ। 
+
+	আবার $\measuredangle APH=\measuredangle APX$ অর্থাৎ $P,H,X$ সমরেখ। আর যেহেতু $X,P,Y$ সমরেখ তাই $X,H,Y$ সমরেখ।  
+\end{sltn} 
+\begin{xmpl}
+	বৃত্তীয় চতুর্ভুজ $ABCD$ এর $\overline{AB}$ এর উপর একটি বিন্দুকে কেন্দ্র একটি বৃত্ত আঁকা হল যেন তা চতুর্ভুজের বাকি তিনটি বাহুর সাথে স্পর্শক হয়। প্রমাণ কর, $AD+BC=AB$
+\end{xmpl}
+\underline{চিত্র আঁকাঃ} প্রশ্নে যেভাবে বলা সেভাবে আঁকা প্রায় অসম্ভব। তাই আমরা বরং $AD+BC=AB$ এই বৈশিষ্ট্যটা কাজে লাগিয়ে চিত্রটা আঁকব। 
+
+প্রথমে কোন বৃত্তের ভেতরে যেকোনো জ্যা $AB$ এবং $AD$ নেই যেন $AD<AB$ হয়। এখন $\overline{AB}$ এর উপর কোন বিন্দু $Q$ নেই যেন $AQ=AD$ হয়। এখন $B$ কে কেন্দ্র করে $BQ$ এর সমান ব্যাসার্ধ নইয়ে বৃত্তচাপ আঁকলে তা বৃত্তটিকে যে বিন্দুতে ছেদ করবে তাই হল $C$ বিন্দু। 
+
+$\overline{AB}$ এর উপর কেন্দ্র বিশিষ্ট বৃত্তটা কিন্তু আমাদের একেকবারে accurate ভাবে আঁকার প্রয়োজন নেই। তাই মোটামোটি free hand এ $\overline{AB} $ এর উপর একটি বিন্দু $O$ নিব যেন তা থেকে $\overline{AD}, \overline{CD}$ এবং $\overline{BC}$ এর উপর অংকিত লম্বের দূরত্ব সমান হয়। 
+\begin{figure}[ht]
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			\tkzDefPoint(0,0){O_1}
+			\tkzDefPoint(0.05,-0.43412){O}
+			\tkzDefPoint(110:2.5){D}
+			\tkzDefPoint(90:2.5){x}
+			\tkzDefPoint(190:2.5){A}
+			\tkzDefPoint(-10:2.5){B}
+			\tkzInterLC(A,B)(A,D)
+			\tkzGetPoints{a}{Q}
+			%\tkzDrawCircle(O_1,A)
+			\tkzCompass[dotted, delta=110](O_1,x)
+			\tkzInterCC(O_1,A)(B,Q)
+			\tkzGetPoints{C}{b}
+			\tkzDefLine[perpendicular=through O](A,D)
+			\tkzGetPoint{a}
+			\tkzInterLL(A,D)(O,a)
+			\tkzGetPoint{X}
+			\tkzDefLine[perpendicular=through O](D,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(D,C)(O,a)
+			\tkzGetPoint{Y}
+			\tkzDefLine[perpendicular=through O](B,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,C)(O,a)
+			\tkzGetPoint{Z}
+			\tkzDrawSegments(A,D A,B)
+			%\tkzDrawSegments[dashed](O,X O,Y O,Z)
+			%\tkzMarkRightAngles[orange, fill opacity=0.2, fill=orange](O,X,D O,Y,C C,Z,O)
+			%\tkzMarkSegments[mark=|](O,X O,Y O,Z)
+			\tkzCompass[thick, dotted, delta=6](A,Q)
+			\tkzCompass[thick, dotted, delta=8](B,C)
+			\tkzDrawPoints(A,B,C,D,Q)
+			\tkzAutoLabelPoints[center=O](A,B,C,D)
+			\tkzLabelPoints[below](Q)
+		\end{tikzpicture}
+		\end{minipage}
+		\hfill
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			\tkzDefPoint(0,0){O_1}
+			\tkzDefPoint(0.05,-0.43412){O}
+			\tkzDefPoint(110:2.5){D}
+			\tkzDefPoint(90:2.5){x}
+			\tkzDefPoint(190:2.5){A}
+			\tkzDefPoint(-10:2.5){B}
+			\tkzInterLC(A,B)(A,D)
+			\tkzGetPoints{a}{Q}
+			%\tkzDrawCircle(O_1,A)
+			\tkzCompass[dotted, delta=110](O_1,x)
+			\tkzInterCC(O_1,A)(B,Q)
+			\tkzGetPoints{C}{b}
+			\tkzDefLine[perpendicular=through O](A,D)
+			\tkzGetPoint{a}
+			\tkzInterLL(A,D)(O,a)
+			\tkzGetPoint{X}
+			\tkzDefLine[perpendicular=through O](D,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(D,C)(O,a)
+			\tkzGetPoint{Y}
+			\tkzDefLine[perpendicular=through O](B,C)
+			\tkzGetPoint{a}
+			\tkzInterLL(B,C)(O,a)
+			\tkzGetPoint{Z}
+			\tkzDrawSegments(A,D A,B B,C C,D)
+			\tkzDrawSegments[dashed](O,X O,Y O,Z)
+			\tkzMarkRightAngles[orange, fill opacity=0.2, fill=orange](O,X,D O,Y,C C,Z,O)
+			\tkzMarkSegments[mark=|](O,X O,Y O,Z)
+			\tkzCompass[thick, dotted, delta=6](A,Q)
+			\tkzCompass[thick, dotted, delta=8](B,C)
+			\tkzDrawPoints(A,B,C,D,Q,O,X,Y,Z)
+			\tkzAutoLabelPoints[center=O](A,B,C,D,X,Y,Z)
+			\tkzLabelPoints[below](Q,O)
+		\end{tikzpicture}
+		\end{minipage}
+\end{figure} 
+\underline{information gathering \& Guessing:} প্রথমেই আমাদের কি প্রমাণ করতে বলা হয়েছে তা দেখা যাক। $AD+BC=AB$ আমরা চিত্র আঁকার সময় $\overline{AB}$ বাহুর উপর একটি বিন্দু $Q$ নিয়েছিলাম যেন $AD=AQ$ হয়। অর্থাৎ এখন যদি আমরা প্রমাণ করতে পারি $BQ=BC$ তাহলেই আমাদের প্রমাণ শেষ!!! আমরা কিন্তু চিত্র আঁকার সময় $Q$ বিন্দু নিয়েছি, তবে যদি চিত্র আঁকার সময় না নিতাম তাহলেও কিন্তু $Q$ বিন্দুটা নেওয়া অত্যন্ত জরুরী। 
+
+$\Delta AQD$ এর $AD=AQ$। ধরি $\angle BAD=\alpha$ তাহলে $\angle AOQ=\angle DQA=90\drg-\dfrac{\alpha}{2}$ আবার যেহেতু $ABCD$ বৃত্তীয় তাই $\angle BCD=180\drg-\alpha$. একইভাবে যদি $\angle CBA=\beta$ হয় তবে $\angle CDA=180\drg-\beta$ 
+
+যেহেতু $OX \perp AD, OY \perp DC$ এবং $OZ \perp CB$ তাই বলা যায় $XOYD$ এবং $YOZC$ বৃত্তীয়। আর $\angle ADC=180\drg-\beta$ এবং $\angle BCD=180\drg-\alpha$ তাই $\angle YOX=\beta$ এবং $\angle YOZ=\alpha$
+
+দেখে মনে হচ্ছে না $DOQC$ একটি বৃত্তীয়? 
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.8]
+		\tkzDefPoint(0,0){O_1}
+		\tkzDefPoint(-0.05,-0.43412){O}
+		\tkzDefPoint(110:2.5){D}
+		\tkzDefPoint(90:2.5){x}
+		\tkzDefPoint(190:2.5){A}
+		\tkzDefPoint(-10:2.5){B}
+		\tkzInterLC(A,B)(A,D)
+		\tkzGetPoints{a}{Q}
+		%\tkzDrawCircle(O_1,A)
+		\tkzCompass[dotted, delta=110](O_1,x)
+		\tkzInterCC(O_1,A)(B,Q)
+		\tkzGetPoints{C}{b}
+		\tkzDefLine[perpendicular=through O](A,D)
+		\tkzGetPoint{a}
+		\tkzInterLL(A,D)(O,a)
+		\tkzGetPoint{X}
+		\tkzDefLine[perpendicular=through O](D,C)
+		\tkzGetPoint{a}
+		\tkzInterLL(D,C)(O,a)
+		\tkzGetPoint{Y}
+		\tkzDefLine[perpendicular=through O](B,C)
+		\tkzGetPoint{a}
+		\tkzInterLL(B,C)(O,a)
+		\tkzGetPoint{Z}
+		\tkzDrawSegments(A,D A,B B,C C,D O,D O,C Q,D Q,C)
+		\tkzDrawSegments[dashed](O,X O,Y O,Z)
+		\tkzMarkRightAngles[orange, fill opacity=0.2, fill=orange](O,X,D O,Y,C O,Z,B)
+		\tkzMarkSegments[mark=|](O,X O,Y O,Z)
+		\tkzCompass[thick, dotted, delta=6](A,Q)
+		\tkzCompass[thick, dotted, delta=8](B,C)
+		\tkzMarkAngles[green, mark=false, size=0.4](B,A,D)
+		\tkzFillAngles[fill=green, opacity=0.2, size=0.4](B,A,D)
+		\tkzLabelAngles[green,dist=0.6](B,A,D){$\alpha$}
+		\tkzMarkAngles[blue, mark=false, size=0.4](D,Q,A)
+		\tkzFillAngles[fill=blue, opacity=0.2, size=0.4](D,Q,A)
+		\tkzLabelAngles[blue,dist=0.8](D,Q,A){$90\drg-\dfrac{\alpha}{2}$}
+		\tkzDrawPoints(A,B,C,D,Q,O,X,Y,Z)
+		\tkzAutoLabelPoints[center=O](A,B,C,D,X,Y,Z)
+		\tkzLabelPoints[below](Q,O)
+	\end{tikzpicture}
+\end{figure}
+
+\underline{Checking \& Evaluation:} 
+এখন check করা যাক $DOQC$ বৃত্তীয় কি না। আমরা already $\angle DQA=90\drg-\dfrac{\alpha}{2}$ জানি তাহলে যদি দেখানো যায় $\angle DCQ=90\drg-\dfrac{\alpha}{2}$ তাহলেই $DOQC$ বৃত্তীয় তা প্রমাণ হয় যায়। 
+
+আগে আমরা জেনেছি $\angle DCB=180\drg-\alpha$ এবং $OYCZ$ বৃত্তীয়। আর যেহেতু $OYCZ$ এর সন্নিহিত বাহুগুলো সমান তাই $\angle YCO=\angle OCZ=\dfrac{180\drg-\alpha}{2}=90\drg-\dfrac{\alpha}{2}$ অর্থাৎ $DOQC$ বৃত্তীয়। 
+
+\underline{Walking Backwards:} যেহেতু $AD+BC=AD$ প্রমাণ করতে বলছে আর $AD=AQ$ তাই $BC=BQ \implies \angle QCB=\angle BQC$ প্রমাণ করলেই সমাধান শেষ। 
+
+যেহেতু $\angle ADC=180\drg-\beta$ এবং $OXDY$ বৃত্তীয় যার সন্নিহিত বাহুদ্বয় সমান তাই $\angle ADO=\dfrac{180\drg-\beta}{2}=90\drg-\dfrac{\beta}{2}$. তাহলে ত্রিভুজ $\Delta ADO$ এর $\angle DOA=180\drg-\alpha-90\drg+\dfrac{\beta}{2}=90\drg-\alpha+\dfrac{\beta}{2}$. আবার $DOQC$ বৃত্তীয় তাই \ref{cyexangle} থেকে বলা যায় $\angle DOA=\angle DCQ=90\drg-\alpha+\dfrac{\beta}{2}$ তাহলে, 
+\[\angle QCB=\angle DCB-\angle DCQ=180\drg-\alpha-90\drg+\alpha-\dfrac{\beta}{2}=90\drg-\dfrac{\beta}{2}\]
+
+আবার $\angle CQB=180\drg-\beta-90\drg+\dfrac{\beta}{2}=90\drg-\dfrac{\beta}{2}=\angle QCB$ অর্থাৎ $BQ=BC$
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.8]
+		\tkzDefPoint(0,0){O_1}
+		\tkzDefPoint(-0.05,-0.43412){O}
+		\tkzDefPoint(110:2.5){D}
+		\tkzDefPoint(90:2.5){x}
+		\tkzDefPoint(190:2.5){A}
+		\tkzDefPoint(-10:2.5){B}
+		\tkzInterLC(A,B)(A,D)
+		\tkzGetPoints{a}{Q}
+		%\tkzDrawCircle(O_1,A)
+		\tkzCompass[dotted, delta=110](O_1,x)
+		\tkzInterCC(O_1,A)(B,Q)
+		\tkzGetPoints{C}{b}
+		\tkzDefLine[perpendicular=through O](A,D)
+		\tkzGetPoint{a}
+		\tkzInterLL(A,D)(O,a)
+		\tkzGetPoint{X}
+		\tkzDefLine[perpendicular=through O](D,C)
+		\tkzGetPoint{a}
+		\tkzInterLL(D,C)(O,a)
+		\tkzGetPoint{Y}
+		\tkzDefLine[perpendicular=through O](B,C)
+		\tkzGetPoint{a}
+		\tkzInterLL(B,C)(O,a)
+		\tkzGetPoint{Z}
+		\tkzDrawSegments(A,D A,B B,C C,D O,D O,C Q,D Q,C)
+		\tkzDrawSegments[dashed](O,X O,Y)
+		\tkzMarkRightAngles[orange, fill opacity=0.2, fill=orange](O,X,D O,Y,C)
+		\tkzMarkSegments[mark=|](O,X O,Y)
+		\tkzMarkSegments[mark=||](A,D A,Q)
+		\tkzMarkSegments[mark=| | |](B,Q B,C)
+		\tkzCompass[thick, dotted, delta=6](A,Q)
+		\tkzCompass[thick, dotted, delta=8](B,C)
+		\tkzMarkAngles[green, mark=false, size=0.4](B,A,D)
+		\tkzFillAngles[fill=green, opacity=0.2, size=0.4](B,A,D)
+		\tkzLabelAngles[green,dist=0.6](B,A,D){$\alpha$}
+		\tkzMarkAngles[blue, mark=false, size=0.4](D,Q,A D,C,O)
+		\tkzFillAngles[fill=blue, opacity=0.2, size=0.4](D,Q,A D,C,O)
+		\tkzLabelAngles[blue,dist=0.8](D,Q,A D,C,O){$90\drg-\dfrac{\alpha}{2}$}
+		\tkzMarkAngles[purple, mark=false, size=0.4](Q,C,B B,Q,C)
+		\tkzFillAngles[fill=purple, opacity=0.2, size=0.4](Q,C,B B,Q,C)
+		\tkzLabelAngles[purple, dist=0.8](Q,C,B B,Q,C){$90\drg-\dfrac{\beta}{2}$}
+		\tkzDrawPoints(A,B,C,D,Q,O,X,Y,Z)
+		\tkzAutoLabelPoints[center=O](A,B,C,D,X,Y,Z)
+		\tkzLabelPoints[below](Q,O)
+	\end{tikzpicture}
+\end{figure}
+\begin{sltn}
+	ধরি $\angle BAD=\alpha$ এবং $\angle CBA=\beta$ আর 
+	$\overline{AB}$ এর উপর একটি বিন্দু $Q$ নেই যেন $AD=AQ$ হয়। তাহলে $\angle DQA=90\drg-\dfrac{\alpha}{2}$ 
+
+	আবার $ABCD$ বৃত্তীয় তাই $\angle DCB=180\drg-\alpha$ এবং $\angle OYC+\angle CZO=180\drg$ হওয়ায় $OYCZ$ বৃত্তীয়। আর $OY=OZ$ তাই $\angle DCO=90\drg-\dfrac{\alpha}{2}=\angle DQC$ অর্থাৎ $DOQC$ বৃত্তীয়। 
+
+	একই কারণে $OXDY$ বৃত্তীয় এবং $\angle ADO=90\drg-\dfrac{\beta}{2}$ তাহলে $\Delta ADO$ এর $\angle DOA=90\drg-\alpha+\dfrac{\beta}{2}$ তাহলে, 
+
+	\[\angle QCB=\angle DCB-\angle DCQ=\angle DCB-\angle DOA=180\drg-\alpha-90\drg+\alpha-\dfrac{\beta}{2}=90\drg-\dfrac{\beta}{2}\]
+	অর্থাৎ $\angle CQB=180\drg-\beta-90\drg+\dfrac{\beta}{2}=90\drg-\dfrac{\beta}{2}=\angle QCB\implies BQ=BC$
+
+	তাহলে $AD+BC=AQ+BQ=AB$
+\end{sltn}
+\newpage
+\section{উত্তর}
+\shipoutAnswer
+\newpage
+\section{References}
+\begin{enumerate}
+	\item \href{https://web.evanchen.cc/geombook.html}{Euclidean Geometry in Mathematical Olympiads (EGMO)}, by Evan Chan
+	\item \href{https://sites.google.com/site/imocanada/2011-winter-camp/Geometry.pdf?attredirects=0}{Geometry Fundamentals}, by David Arthur, Canada 2011 Winter Training.
+	\item \href{http://yufeizhao.com/olympiad/cyclic_quad.pdf}{Cyclic Quadrilaterals – The Big Picture}, by Yufei Zhao, Canadian 2009 Winter Training
+	\item \href{https://web.evanchen.cc/handouts/Directed-Angles/Directed-Angles.pdf}{How to Use Directed Angles}, by Evan Chan
+	\item \href{https://drive.google.com/drive/folders/0B8NfhxOmm_tpbW1zOENuWElCTWM}{জ্যামিতির সমস্যা যেভাবে ধরতে হয়}- আদীব হাসান
+	\item \href{https://matholympiad.org.bd}{Bangladesh Mathematical Olympiads} Website
+	\item \href{https://matholympiad.org.bd/forum/}{BdMO Online Forum}
+	\item \href{https://sites.google.com/site/imocanada/}{Canada IMO Training} Website
+	\item \href{https://artofproblemsolving.com/community}{Art of Prolem Solving} community
+	\item \href{https://brilliant.org/}{Brilliant} Website
+\end{enumerate}
+\end{document}

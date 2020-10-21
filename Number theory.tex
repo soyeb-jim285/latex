@@ -1,0 +1,1229 @@
+% !TEX program = xelatex
+\documentclass[a4paper,11pt]{article}
+%\setcounter{secnumdepth}{0}
+\usepackage{polyglossia}
+\usepackage{hyperref} 
+\usepackage{amsmath,yhmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\setchemfig{atom sep=4ex}
+\usepackage{xfrac}
+\usepackage{framed}
+\usetikzlibrary{arrows}
+\usepackage[alpine,misc]{ifsym}
+\usepackage{mathtools}
+\usepackage{tkz-euclide}
+\usepackage{sectsty}
+\usepackage[framemethod=TikZ]{mdframed}
+%\usepackage{exam}
+\usepackage[
+  top=1.5cm,
+  bottom=1.5cm,
+  left=2cm,
+  right=2cm,
+  headheight=17pt, % as per the warning by fancyhdr
+  includehead,includefoot,
+  heightrounded, % to avoid spurious underfull messages
+]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+%\usepackage{microtype} 
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{quotes,angles}
+\usepackage{chemformula}
+\usepackage{siunitx}
+\usepackage{pbox}
+\usepackage{pstricks-add}
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{multicol}
+\hypersetup{
+    colorlinks=true
+}
+\usepackage{amsthm,thmtools}
+%\theoremstyle{plain}
+\DeclareMathOperator{\lcm}{lcm}
+
+\pagestyle{fancy}
+\fancyheadoffset{0cm}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0pt}
+    \newgeometry{top=2cm}
+}
+
+\setmainlanguage[numerals=Bengali]{bengali}
+\setotherlanguage{english}
+\newfontfamily\englishfont{Times New Roman}
+\newfontfamily\bengalifont[Script=Bengali,BoldFont={Kalpurush},BoldFeatures={FakeBold=2.5},ItalicFont={Kalpurush}, ItalicFeatures={FakeSlant=0.3}]{Kalpurush}
+
+\newcommand{\dd}{\displaystyle}
+\newcommand{\tm}{\item}
+\newcommand{\drg}{^{\circ}}
+\renewcommand{\baselinestretch}{1.3} 
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{ao}{rgb}{0.0, 0.18, 0.39}
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+\definecolor{steelblue}{rgb}{0.27, 0.51, 0.71}
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
+\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\setlength\parindent{0pt}
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+\setlength{\tabcolsep}{0in}
+\usepackage{titlesec}
+\declaretheoremstyle[%
+headfont=\color{darkcyan},
+within=subsection]%
+{sample}
+
+\declaretheorem[name=Example, style=sample]{xmpl}
+\declaretheorem[name=Theorem, style=sample]{thrm}
+\declaretheorem[name=Proposition, style=sample]{prop}
+\declaretheorem[name=Problem, style=sample]{prob}
+\declaretheorem[name=Lemma, style=sample]{lma}
+\newenvironment{sltn}{\begin{proof}[\emph{\textcolor{darkcyan}{Solution.}}]} {\end{proof}} 
+\newenvironment{prf}{\begin{proof}[\emph{\textcolor{darkcyan}{Proof.}}]} {\end{proof}} 
+
+%\declaretheorem[name=Solution, style=sample]{sltn}
+
+%\declaretheorem[name=Sample Problem, style=sample]{mypb}
+
+%\chapterfont{\color{airforceblue}}  % sets colour of chapters
+\sectionfont{\LARGE \color{airforceblue}}  % sets colour of sections
+\subsectionfont{\Large \color{cyan}}  % sets colour of sections
+
+\newcounter{why}[section]
+\newenvironment{why}[1][]{%
+\stepcounter{why}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut কেন কেন কেন???};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut কেন কেন কেন???};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\newcounter{trick}[section]
+\newenvironment{trick}[1][]{%
+\stepcounter{trick}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=cyan!50]
+{\strut গণিত টোটকা};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=cyan!50]
+{\strut গণিত টোটকা};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=cyan!50,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\newcounter{stry}[section]
+\newenvironment{stry}[1][]{%
+\stepcounter{stry}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!50]
+{\strut গণিত গপ্পো};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=orange!50]
+{\strut গণিত গপ্পো};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=orange!50,%
+linewidth=2pt,topline=true,
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+\begin{mdframed}[]\relax%
+}{\end{mdframed}}
+
+\usepackage{ifthen}
+
+\usepackage{chngcntr}
+\usepackage{stackengine}
+
+\usepackage{tasks}
+\newlength{\longestlabel}
+\settowidth{\longestlabel}{\bfseries viii.}
+\settasks{counter-format={tsk[r].}, label-format={\bfseries}, label-width=\longestlabel,
+    item-indent=0pt, label-offset=2pt, column-sep={10pt}}
+
+\usepackage[lastexercise,answerdelayed]{exercise}
+\counterwithin{Exercise}{section}
+\counterwithin{Answer}{section}
+\renewcounter{Exercise}[section]
+\newcommand{\QuestionNB}{\arabic{Question}.\ }
+\renewcommand{\ExerciseName}{Practice Problems}
+\renewcommand{\ExerciseHeader}{\noindent\def\stackalignment{l}
+    \stackunder[0pt]{\colorbox{steelblue}{\textcolor{white}{{\Large\ExerciseHeaderNB\;\Large\ExerciseName}}}}{\textcolor{steelblue}{\rule{\linewidth}{2pt}}}\medskip}
+\renewcommand{\AnswerName}{Practice Problems}
+\renewcommand{\AnswerHeader}{
+    {\noindent{\textcolor{steelblue}{\Large\AnswerName\ \ExerciseHeaderNB, \Large page \pageref{\AnswerRef}}}}}
+\setlength{\QuestionIndent}{16pt}
+
+\makeatletter
+\DeclareRobustCommand{\mvdots}{%
+  \vcenter{%
+    \baselineskip4\p@\lineskiplimit\z@
+    \hbox{.}\hbox{.}\hbox{.}%
+  }%
+}
+\makeatother
+
+\begin{document}
+
+\begin{titlepage}
+
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+	
+	\center % Center everything on the page
+	
+	%----------------------------------------------------------------------------------------
+	%	HEADING SECTIONS
+	%----------------------------------------------------------------------------------------
+	
+	%----------------------------------------------------------------------------------------
+	%	TITLE SECTION
+	%----------------------------------------------------------------------------------------
+	
+	\HRule \\[0.4cm]
+	{ \huge \bfseries \textcolor{steelblue}{এক চিমটি গণিত}}\\
+	\LARGE \textcolor{bleudefrance}{সংখ্যাতত্ত্ব} % Title of your document
+	\HRule \\[1.5cm]
+	
+	%----------------------------------------------------------------------------------------
+	%	AUTHOR SECTION
+	%----------------------------------------------------------------------------------------
+	
+	% Your name
+	
+	% If you don't want a supervisor, uncomment the two lines below and remove the section above
+	\Large   \href{https://www.facebook.com/soyebpervez.jim/}{সোয়েব পারভেজ জীম}\\[3cm] % Your name
+	
+	%----------------------------------------------------------------------------------------
+	%	DATE SECTION
+	%----------------------------------------------------------------------------------------
+	
+	{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+	
+	%----------------------------------------------------------------------------------------
+	%	LOGO SECTION
+	%----------------------------------------------------------------------------------------
+	\vspace{6cm}
+	\begin{tikzpicture}[scale=0.35]
+		\coordinate (O) at (0,0);
+		\coordinate (A) at (3,0);
+		\coordinate (B) at (1.5,2.6);
+		\coordinate (C) at (0.58,4.2);
+		\coordinate (D) at (-1.58,0);
+		\coordinate (E) at (2.74,4.7);
+		\coordinate (F) at (-1.21,-2.1);
+		\coordinate (G) at (6.64,-2.1);
+		
+		\draw[thick, color=yellow!70!red] (D)--(C)--(B)--(E)--(G);
+		\tkzDrawPolygon[color=blue,fill=bleudefrance!70](O,A,B);
+		\draw (D)--(O);
+		\draw (G)--(F)--(O); 
+		
+		
+		\node[below, scale=0.8] at (2.71,-2.1){$\phi^2$};
+		\node[above,right, scale=0.8] at (2.25,1.3){$1$};
+		\node[above,left, scale= 0.8] at (-0.64,2.1){$\phi$};
+	\end{tikzpicture}
+	
+	
+	\Large \href{https://www.youtube.com/channel/UCi_c260M8xmL-RfpT5yp1OA?}{Mathademia}
+	
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Fill the rest of the page with whitespace
+	
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\addtocounter{page}{-1}
+
+\section{বিভাজ্যতাঃ ভাগাভাগি কাটাকাটি}
+
+\subsection{বিভাজ্যতার মৌলিক ধারনা}
+নাম শুনেই বুঝতে পারছ বিভাজ্যতায় মূলত কাজ করা হয় ভাগ করা নিয়ে। মূলত কোনো পূর্ণ সংখ্যা অন্য কোনো পূর্ণসংখ্যা দ্বারা ভাগ যায় কি না তা নিয়েই আলোচনা হয় বিভাজ্যতায়। গাণিতিকভাবে বলতে গেলে, যদি কোনো দুইটি পূর্ণ সংখ্যা $i,j \in \mathbb{Z}$ এবং $\dfrac{i}{j} \in \mathbb{Z}$ হয় তাহলে তাকে $j \mid i$ লিখা যায়। একে পড়া হয় \textit{$j \ divides \ i$} একই ভাবে যদি $\dfrac{i}{j} \notin \mathbb{Z}$ হয় তাহলে তাকে $j \nmid i$ লিখা হয়। যেমনঃ $\dfrac{-21}{3}=-7 \Longrightarrow 3 \mid -27$ আবার $\dfrac{22}{3} \notin \mathbb{Z} \Longrightarrow 3 \nmid 22$। আবার $n$ এর সর্বোচ্চ মানের জন্য $j^n \mid i$ হলে তাকে লিখা হয় $j^n \mid \mid i$ এবং একে পড়া হয় $j \ fully \ divides \ i$. যেমনঃ $2^2 \mid \mid 12$.\footnote{কেননা $2$ এর ঘাত $n>2$ থেকে বড় হলে $2^n \nmid 12$}
+
+যেহেতু $\dfrac{0}{z}=0 \in \mathbb{Z}$ তাই যেকোনো পূর্ণসংখ্যা $z$ এর জন্য $z \mid 0$. আবার $\dfrac{z}{\pm 1}=\pm z \in \mathbb{Z}$ তাই যেকোনো পূর্ণসংখ্যা $z$ এর জন্য $\pm 1 \mid z$
+
+বিভাজ্যতা নিয়ে কাজ করার সময় সবসময় মাথায় রাখা উচিত $j|i$ হবে কেবলমাত্র যদি $j$ এর সকল মৌলিক উৎপাদকের সেট $i$ এর সকল মৌলিক উৎপাদনের সেটের অংশ। অর্থাৎ $j$ এর সকল মৌলিক উৎপাদকের সেট $p$ এবং $i$ এর সকল মৌলিক উৎপাদক সেট $q$ হলে $p \subset q$। এটা যদিও একবারে বেসিক ব্যাপার তবে এটা Problem solving এর সময় মাথায় থাকলে অনেক সুবিধা হয়। এখন বিভাজ্যতার কিছু বৈশিষ্ট্য দেখা যাক। 
+
+\begin{prop} যদি $x,y$ এবং $z$ পূর্ণসংখ্যা হয়, তবে-
+	\begin{enumerate}[label=(\alph*),nosep]
+		\item $x \mid x$ \label{prop-d-03}। যেমনঃ $5 \mid 5$
+		\item যদি $x\mid y$ এবং $y \mid z$ হয় তাহলে $x\mid z$. যেমনঃ $3\mid 6$ এবং $6\mid 12$ তাই $3 \mid 12$
+		\item যদি $x\mid y$ এবং $y \neq 0$ তাহলে $|x| \leq |y|$. যেমনঃ $6\mid -36\implies |6| \leq |-36|$
+		\item যদি $x\mid y$ এবং $x\mid z$ হয় তবে $x\mid \alpha y + \beta z$ যেখানে $\{\alpha , \beta \} \in \mathbb{Z} $ \label{prop-d-02}. যেমনঃ $2\mid 4, 2\mid 6 \implies 2 \mid 4\times 3\pm 6\times 2$
+		\item যদি $x\mid y$ এবং $x\mid y \pm z$ হয় তবে $x\mid z$. যেমনঃ $4\mid 12, 4 \mid 12 \pm 8 \implies 4 \mid 8$
+		\item যদি $x\mid y$ এবং $y\mid x$ হয় তবে $|x|=|y|$. যেমনঃ $4\mid -4, -4\mid 4 \implies |4|=|-4|$
+		\item যদি $x\mid y$ এবং $y \neq 0$ তাহলে $\dfrac{y}{x}\mid y$ \label{prop-d-01}. যেমনঃ $2\mid 12\implies \dfrac{12}{2}=6 \mid 12$
+		\item $z \neq 0$ এর জন্য $x\mid y$ হবে যদি এবং কেবল যদি $xz\mid yz$ হয়। যেমনঃ $2\mid -6 \implies 2\times 4 \mid -6\times 4$
+	\end{enumerate}
+\end{prop}
+
+এগুলোর প্রমাণ অনেক সহজ তাই সবগুলোর প্রমাণ এখানে দেওয়া হল না। কেবলমাত্র \ref{prop-d-01} এর প্রমাণ করা যাক-
+
+দেওয়া আছে $x|y$ তাহলে ধরা যাক, $\dfrac{y}{x}=k\in \mathbb{Z} \Longrightarrow y=kx$
+
+আবার $\dfrac{y}{\dfrac{y}{x}}=\dfrac{kx}{k}=x\in \mathbb{Z} \Longrightarrow k=\dfrac{y}{x}|y$\\
+
+\begin{trick}
+	বিভাজ্যতা বিষয়কে সমস্যায় থাকা সংখ্যাগুলোকে তাদের মৌলিক উৎপাদকের ঘাত আকারে(যেমনঃ $504=2^3\times 3^2\times 7$) লিখা অনেক সময়ই প্রচন্ড সুবিধাজনক। 
+	
+	আর সবসময় চেষ্টা করতে হবে variable কমানোর, যত variable কমানো যায় তত সহজে উত্তর বের করা যাবে। যেমনঃ Example \ref{xmpl-1} ও Example \ref{xmpl-3} এ $n$ সরানো হয়েছে।  
+	
+	যদি কোনো প্রশ্ন সমাধানে $a\mid b$ এর ক্ষেত্রে দেখো $|b| < |a|$ তাহলে অবশ্যই $b=0$
+\end{trick}
+
+এখন এই বৈশিষ্ট্যগুলোকে কাজে লাগিয়ে কিছু Example solve করা যাক। 
+
+\begin{xmpl}
+	$100-200$ এর মাঝে এমন কয়টি স্বাভাবিক সংখ্যা আছে যারা $8$ দ্বারা বিভাজ্য। 
+\end{xmpl}
+\begin{sltn}
+	$100$ এর চেয়ে ছোট $8$ দ্বারা বিভাজ্য সংখ্যা আছে $\floor*{\dfrac{100-1}{8}}=12$ টি। 
+	
+	$200$ এর চেয়ে ছোট $8$ দ্বারা বিভাজ্য সংখ্যা আছে $\floor*{\dfrac{200-1}{8}}=24$
+	
+	তাহলে $100-200$ এর মাঝে $8$ দ্বারা বিভাজ্য সংখ্যা আছে $24-12=12$ টি। 
+\end{sltn}
+অর্থাৎ যদি $i$ থেকে $j$ এর মাঝে($i$ ও $j$ বাদে) $n$ দ্বারা বিভাজ্য সংখ্যা থাকবে $\floor*{\dfrac{j-1}{n}}-\floor*{\dfrac{i-1}{n}}$
+\begin{xmpl}
+	\label{xmpl-1}
+	
+	এমন সকল স্বাভাবিক সংখ্যা $d$ এর যোগফল বের কর যাতে $n+4$ ও $n+34$ সংখ্যা দুইটি $d$ দ্বারা নিঃশেষে বিভাজ্য হয়। 
+\end{xmpl}
+
+\begin{sltn}
+	এখানে, $d|n+4$ ও $d|n+34$ হতে হবে। এখন Proposition \ref{prop-d-02} বৈশিষ্ট্যটা ব্যবহার করে লিখা যায়, 
+	\begin{align*}
+		d            & |n+34-n-4 \\
+		\therefore d & |30
+	\end{align*}
+	অর্থাৎ $d$ হবে $30$ এর সকল উৎপাদক। $30$ এর উৎপাদকগুলো হল $1,2,3,5,6,10,15,30$
+	
+	তাহলে $\dd \sum d = 1+2+3+5+6+10+15+30=72$
+\end{sltn}
+
+\begin{xmpl}
+	$2019$ এর ছোট এমন কতগুলো স্বাভাবিক পূর্ণ বর্গসংখ্যা আছে যারা $12$ দ্বারা নিঃশেষে বিভাজ্য?(BdMO regional 2019)
+\end{xmpl}
+
+\begin{sltn}
+	সংখ্যাগুলোর মূলত $3$ টা বৈশিষ্ট্য থাকতে হবে। যথাঃ $2019$ এর ছোট হতে হবে, $12$ দ্বারা বিভাজ্য হতে হবে এবং পূর্ণবর্গসংখ্যা হতে হবে। ধরা যাক সংখ্যাটি $k^2$ এখন $12=3\times 2^2|k^2$ হবে। 
+	
+	অর্থাৎ $k^2$কে মৌলিক উৎপাদকে বিশ্লেষণ করলে $2^2\times 3 \times \cdots $ হবে তবে $k^2$ ত বর্গসংখ্যা তাই মৌলিকউৎপাদক গুলো জোড় সংখ্যায় থাকতে হবে। অর্থাৎ $3$ অন্তত দুইটা থাকতেই হবে। তাই বলা যায় $2^2\times 3^2=36|k^2$; তাহলে $36$কে সর্বোচ্চ $\floor*{\dfrac{2019}{36}}=56$ দ্বারা গুণ করলে সংখ্যাটা $2019$ এর ছোট থাকে। 
+	তবে $36$ কে তো আর যেকোনো সংখ্যা দ্বারা গুণ করলেই তা পূর্ণবর্গসংখ্যা হবে না, গুণ করতে হবে বর্গসংখ্যা দিয়ে। তাহলে $56$ পর্যন্ত পূর্ণবর্গসংখ্যা আছে $\floor*{\sqrt{56}}=7$ অর্থাৎ এমন $7$টি বর্গসংখ্যা আছে যাদেরকে $36$ দ্বারা গুণ করলে গুণফল $2019$ চেয়ে ছোট স্বাভাবিক বর্গসংখ্যা হবে। তাহলে আমাদের উত্তর হল $7$টি। 
+\end{sltn}
+
+\begin{why}
+	\begin{enumerate}[nosep]
+		\item $12$ দ্বারা বিভাজ্য ও বর্গসংখ্যা হওয়ায় $36$ এর সাথে কত গুণ করা যায় তা বের করা হয়েছে।
+		\item $2019$ এর চেয়ে ছোট হতে হবে তাই সর্বোচ্চ $56$ দ্বারা গুণ করা যাবে।
+		\item সংখ্যাটি বর্গ হওয়ায় $36$ এর সাথে কেবল বর্গসংখ্যা গুণ করা যাবে।
+	\end{enumerate}
+\end{why}
+অর্থাৎ $i$ থেকে $j$ এর মাঝে($i$ এবং $j$ বাদে) $n={p_1}^{\alpha_1}\times{p_2}^{\alpha_2}\cdots $(যেখানে $p_k$ হল মৌলিক সংখ্যা) দ্বারা বিভাজ্য পূর্ণ $m$ ঘাতের সংখ্যা থাকবে 
+\[\floor*{\sqrt[m]{\dfrac{j-1}{{p_1}^{m\ceil*{\dfrac{\alpha_1}{m}}}\times {p_2}^{m\ceil*{\dfrac{\alpha_2}{m}}}\times \cdots}}}-\floor*{\sqrt[m]{\dfrac{i-1}{{p_1}^{m\ceil*{\dfrac{\alpha_1}{m}}}\times {p_2}^{m\ceil*{\dfrac{\alpha_2}{m}}}\times \cdots}}}\]
+\begin{xmpl}
+	\label{xmpl-3}
+	যেকোনো স্বাভাবিক সংখ্যা $n$ এর জন্য প্রমাণ কর $\dfrac{14n+3}{21n+4}$ ভগ্নাংশটি আরো লঘিষ্ঠ আকারে লিখা সম্ভব নয়। (IMO 1959/1)
+\end{xmpl}
+\begin{sltn}
+	প্রশ্নটা নিয়ে কিছুটা ভাবা যাক। ভগ্নাংশটি কখন লঘিষ্ঠ হবে? যদি লব ও হরের সাধারণ উৎপাদক কেবলমাত্র $1$ হয় তাহলেই ত? তাহলে আমরা যদি দেখাতে পারি লব ও হরের সাধারণ উৎপাদক হল কেবল মাত্র $1$ তাহলেই ত আমাদের সমাধান শেষ!!!
+	
+	ধরি, কোনো পূর্ণসংখ্যা $g$ হল লব ও হরের সাধারন উৎপাদক, তাহলে $g|14n+3$ এবং $21n+4$ এখন আমাদের ইচ্ছা হল বিভাজ্যতা থেকে $n$ বিশিষ্ট পদকে সরিয়ে ফেলা। তাহলে Proposition \ref{prop-d-02} ব্যবহার করে লিখা যায়- 
+	\begin{alignat*}{2}
+		         & g &  & | 3(14n+3)-2(21n+4) \\
+		\implies & g &  & | 42n+9-42n-8       \\
+		\implies & g &  & | 1
+	\end{alignat*}
+	
+	অর্থাৎ $g$ এর একমাত্র মান $1$। তাহলে লব ও হরের সাধারণ উৎপাদক হল কেবলমাত্র $1$ এবং $\dfrac{14n+3}{21n+4}$ হল লঘিষ্ঠ আকার। 
+\end{sltn}
+\begin{stry}
+	এত সহজ প্রশ্ন দেখে হয়ত অনেকেই ভাবছো এত সহজ প্রশ্ন কিভাবে IMO তে দেওয়া হল!!! আসলে এই প্রশ্নটা হল প্রথম IMO এর প্রথম প্রশ্ন। তখন IMO প্রশ্ন বর্তমানের তুলনায় অনেক বেশি সহজ ছিলো। মূলত $2000$ সালের পর থেকে IMO প্রশ্ন বেশি কঠিন হতে থাকে। 
+\end{stry}
+\begin{xmpl}
+	এমন কতগুলো স্বাভাবিক সংখ্যা জোড় $(x,y)$ আছে যাতে $x^2+2y=xy$ সমীকরণকে সিদ্ধ করে।(BdMO regional 2018) 
+\end{xmpl}
+\begin{sltn}
+	প্রশ্নটা দেখে হয়ত মনে হচ্ছে এখানে বিভাজ্যতার ব্যবহার কিভাবে? সমীকরণকে কিছুটা পরিবর্তন করা যাক। 
+	\[x^2+2y=xy \implies x^2=y(x-2)\]
+	অর্থাৎ $x-2|x^2$
+	
+	এখন সাধারণ বিভাজ্যতার বৈশিষ্ট্যগুলো ব্যবহার করেই কিন্তু এটাকে solve করা যায়। Proposition \ref{prop-d-02} এবং Proposition \ref{prop-d-03} ব্যবহার করে পাই,
+	\begin{align*}
+		x-2          & |x-2        \\
+		x-2          & |x^2        \\
+		\implies x-2 & |x^2-x(x-2) \\
+		\implies x-2 & |x^2-x^2+2x \\
+		\implies x-2 & |2x         \\
+		\implies x-2 & |2x-2(x-2)  \\
+		\implies x-2 & |2x-2x+4    \\
+		\implies x-2 & |4
+	\end{align*}
+	যেহেতু $x-2>0$ হবে\footnote{কেননা $x-2$ ঋণাত্মক হলে $y$ ঋণাত্মক হবে।} এবং $4$ এর উৎপাদক $1,2,4$ তাই 
+	\begin{align*}
+		\begin{split}
+			x-2&=1\\
+			\implies x&=3
+		\end{split}
+		\qquad
+		\begin{split}
+			x-2&=2\\
+			\implies x&=4
+		\end{split}
+		\qquad \qquad \qquad \qquad \qquad 
+		\begin{split}
+			x-2&=4\\
+			\implies x&=6
+		\end{split}
+		\qquad
+	\end{align*}
+	যদি $x=3$ হয় তবে $y=\dfrac{3^2}{3-2}=9$
+	
+	যদি $x=4$ হয় তবে $y=\dfrac{4^2}{4-2}=8$
+	
+	যদি $x=6$ হয় তবে $y=\dfrac{6^2}{6-2}=9$
+	
+	অর্থাৎ স্বাভাবিক সংখ্যা জোড় পাওয়া যাবে $(x,y)=(3,9),(4,8),(6,9)$
+\end{sltn}
+\begin{thrm}[Division Algorithm]
+	সকল পূর্ণসংখ্যা $a,b$ এর জন্য একটি অনন্য জোড় $(q,r)$ পূর্ণসংখ্যা পাওয়া যাবে যাতে $b=aq+r$ এবং $0 \leq r < |a|$
+\end{thrm}
+\begin{xmpl}
+	\label{2-div-3n}
+	যেকোনো স্বাভাবিক সংখ্যা $n$ এর জন্য প্রমাণ কর $3^{2^{n}}+1$ সংখ্যাটি $2$ দ্বারা বিভাজ্য হলেও $4$ দ্বারা বিভাজ্য নয়। 
+\end{xmpl}
+\begin{sltn}
+	বুঝাই যাচ্ছে $3^{2^{n}}+1$ সংখ্যাটি জোড় অর্থাৎ $2$ দ্বারা বিভাজ্য। এখন $3^{2^n}=(3^2)^{2^{n-1}}=(8+1)^{2^{n-1}}$ এখন দ্বিপদী বিস্তৃতির সুত্র,
+	\[(x+y)^k=\sum_{i=0}^{k} {k \choose i} x^{k-i}y^i= x^k+{k \choose 1} x^{k-1}y+{k \choose 2} x^{k-2}y^2+\cdots + {k \choose {k-1}} xy^{k-1}+y^k\]
+	তে $x=8, y=1$ এবং $k=2^{n-1}$ বসিয়ে পাই, শেষের পদ($1$) বাদে সবগুলো পদই $8$ এর গুণিতক অর্থাৎ $4$ দ্বারা বিভাজ্য। তবে শেষে $1$ থাকায় বলা যায় $4 \nmid {(3^2)}^{2^{n-1}}\implies 4 \nmid {(3^2)}^{2^{n-1}}+1={3^2}^{n}+1$ অর্থাৎ $2$ দ্বারা বিভাজ্য হলেও $4$ দ্বারা নয়। 
+\end{sltn}
+\begin{lma}
+	\label{binomial}
+	সকল স্বাভাবিক সংখ্যা $n$ এর জন্য $a-b \mid a^n-b^n$
+\end{lma}
+\begin{prf}
+	শুধুমাত্র $a^n-b^n$ কে উৎপাদকে বিশ্লেষণ করলেই পাওয়া যায়, 
+	\begin{align*}
+		(a-b)\sum_{k=0}^{n-1} a^kb^{n-1-k} & = \sum_{k=0}^{n-1} a^{k+1}b^{n-1-k}-\sum_{k=0}^{n-1} a^kb^{n-k}  \\
+		                                   & =a^n+\sum_{k=1}^{n-1} a^kb^{n-k}-\sum_{k=1}^{n-1} a^kb^{n-k}-b^n \\
+		                                   & =a^n-b^n
+	\end{align*}
+	অর্থাৎ $a-b \mid a^n-b^n$
+\end{prf}
+এই Lemma টা বিশেষভাবে কার্যকরী। মূলত দ্বিপদী বিস্তৃতি সম্পর্কিত বেশিরভাগ সমস্যা সমাধানে এটা ব্যবহৃত হয়। 
+
+
+এখন কিছুটা কঠিন Example এর দিকে নজর দেওয়া যাক। 
+\begin{xmpl}
+	এমন সকল স্বাভাবিক সংখ্যা $(a,b)$ বের কর যাতে,
+	\[ab^2+b+7 | a^2b+a+b\]
+	হয়। (IMO 1998/4)
+\end{xmpl}
+এটার সল্যুশন দেওয়ার আগে, সল্যুশনটা পাওয়ার জন্য আমাদের approch কি হতে পারে তা দেখা যাক।
+\[ab^2+b+7 | a^2b+a+b\]
+প্রথমেই চোখে পড়ছে এখানে variable এর পরিমাণ বেশি এবং variable এর form ও আলাদা ($a^2b, ab^2$)। তাই প্রথমেই চেষ্টা করা দরকার variable গুলো কোনোভাবে কমানো যায় কি না। কিন্তু আবার variable কমানোর জন্য আমরা যে Proposition \ref{prop-d-02} ব্যবহার করি তার জন্য কিন্তু আমাদের দুইটি বিভাজ্যতার প্রয়োজন। তবে এখানে ত দেওয়া মাত্র একটি, তাহলে উপায়? আচ্ছা আমরা কিন্তু Proposition \ref{prop-d-03} ব্যবহার করে আরেকটি বিভাজ্যতা লিখে ফেলতে পারি। তাহলে, 
+\begin{align*}
+	ab^2+b+7 & \mid ab^2+b+7 \\
+	ab^2+b+7 & \mid a^2b+a+b
+\end{align*}
+এখন তাহলে Proposition \ref{prop-d-02} ব্যবহার করে, 
+\begin{alignat*}{2}
+	         & ab^2+b+7 &  & \mid a(ab^2+b+7)-b(a^2b+a+b)    \\
+	\implies & ab^2+b+7 &  & \mid a^2b^2+ab+7a-a^2b^2-ab-b^2 \\
+	\implies & ab^2+b+7 &  & \mid 7a-b^2
+\end{alignat*}
+মজার ব্যাপার লক্ষ কর যদি $b>2$ হয় তাহলে কিন্তু $|7a-b^2|<|ab^2+b+7|$ হয়। অর্থাৎ $b>2$ এর জন্য বিভাজ্যতা সত্যি হবে কেবল যদি $7a-b^2=0$ হয়।\footnote{কেননা $0$ যেকোনো সংখ্যা দ্বারা বিভাজ্য।} এখন কিন্তু আমাদের প্রশ্নটা মোটামোটি সহজ হয়েই গেল। আমাদের কেবল তিনটা কেস কাজ করতে হবে $b=1$, $b=2$ এবং $7a-b^2=0$। এখন মূল solution এ আসা যাক। 
+\begin{sltn}
+	এখানে, 
+	\begin{alignat*}{2}
+		         & ab^2+b+7 &  & | a(ab^2+b+7)-b(a^2b+a+b) \\
+		\implies & ab^2+b+7 &  & | 7a-b^2
+	\end{alignat*}
+	এখন $b=1$ হলে, 
+	\begin{alignat*}{2}
+		         & a+8 &  & | 7a-1       \\
+		\implies & a+8 &  & | 7a+56-7a+1 \\
+		\implies & a+8 &  & | 57
+	\end{alignat*}
+	যেহেতু $a+8>3$ এবং $57=3\times 19=1\times 57$ তাহলে,
+	\begin{align*}
+		a+8=19 & \implies a=11 \\
+		a+8=57 & \implies a=49
+	\end{align*}
+	আবার $b=2$ হলে,
+	\begin{alignat*}{2}
+		         & 4a+9 &  & | 7a-4          \\
+		\implies & 4a+9 &  & | 28a+63-28a+16 \\
+		\implies & 4a+9 &  & | 79
+	\end{alignat*}
+	এখানে $79$ হল মৌলিক সংখ্যা আবার যেহেতু $4a+9=79\implies a=\dfrac{70}{4} \not \in \mathbb{Z}$ সেহেতু $b=2$ এর জন্য কোনো সমাধান নেই। 
+	
+	এখন $b>2$ হলে $|7a-b^2|<|ab^2+b+7|$ হয় অর্থাৎ $7a-b^2=0\implies 7a=b^2 \implies 7|b$ তাহলে $k \in \mathbb{Z}$ এর জন্য $b=7k$ হবে এবং $a=\dfrac{49k^2}{7}=7k^2$ হবে।
+	
+	তাহলে $(a,b)$ এর সকল সমাধান দাড়ালো $(a,b)=(11,1),(49,1),(7k^2,7k)$
+\end{sltn}
+\begin{xmpl}
+	প্রমাণ কর যেকোনো পূর্ণ সংখ্যা $n \geq 2$ এবং $k$ এর জন্য $(n-1)^2 \mid n^k-1$ যদি এবং কেবল যদি $n-1 \mid k$ হয়। 
+\end{xmpl}
+সমাধানের intuation নিয়ে একটু ভাবা যাক। 
+
+খেয়াল কর বিভাজ্যতার ডানের $n^k-1$ পদটি Lemma \ref{binomial} এর মত দেখতে তাই না? সেটাই ব্যবহার করা যাক। Lemma \ref{binomial} থেকে বলা যায় $n-1 \mid n^k-1$; 
+
+তাহলে প্রশ্নটা সমাধান করতে আমাদের দেখাতে হবে $n-1 \mid \dfrac{n^k-1}{n-1}$ আবার আমরা জানি, $\dfrac{n^k-1}{n-1}=n^0+n^1+n^2+\cdots+n^{k-1}$ অর্থাৎ আমাদের দেখাতে $n-1 \mid n^0+n^1+n^2+\cdots+n^{k-1}$ যদি ও কেবল যদি $n-1\mid k$ হয়। 
+
+এখন $n^0+n^1+n^2+\cdots+n^{k-1}$ কে ভাগ করেই দেখা যাক ভাগ যায় কি না, 
+\renewcommand\arraystretch{1.2}
+\begin{alignat*}{6}
+	n-1 \big) & n^{k-1}+ &  & n^{k-2}  &  & +\cdots+n^2+     &  & n+1                    &  & \big(n^{k-2}+2^{k-3}+\cdots+(k-2)n+(n-1) \\
+	          & n^{k-1}- &  & n^{k-2}  &  &                  &  &                                                                      \\[-2.5ex]
+	\cline{2-9}
+	          &          &  & 2n^{k-2} &  & +n^{k-3}+\cdots+ &  & n+1                    &  &                                          \\
+	          &          &  & 2n^{k-2} &  & -2n^{k-3}        &  &                        &  &                                          \\[-2.5ex]
+	\cline{4-9}
+	          &          &  &          &  &                  &  & \vdots                 &  &                                          \\[-2.5ex]
+	\cline{5-9}
+	          &          &  &          &  & (k-2)n^2+        &  & n+1                    &  &                                          \\
+	          &          &  &          &  & (k-2)n^2-        &  & (k-2)n                 &  &                                          \\[-2.5ex]
+	\cline{5-9}
+	          &          &  &          &  &                  &  & (k-1)n+1               &  &                                          \\
+	          &          &  &          &  &                  &  & (k-1)n-(k-1)           &  &                                          \\[-2.5ex]
+	\cline{7-9}
+	          &          &  &          &  &                  &  & \qquad \qquad \qquad k &  & 
+\end{alignat*}
+
+এখন বুঝাই যাচ্ছে যদি $n-1 \mid k$ হয় তবে $n-1 \mid n^{k-1}+n^{k-2}+\cdots+n+1$
+
+আর তাহলেই \[n-1 \mid n^0+n^1+\cdots+n^k \iff n-1 \mid \dfrac{n^k-1}{n-1} \iff (n-1)^2 \mid n^k-1\]
+
+এখন formal solution করা যাক। 
+\begin{sltn}
+	Lemma \ref{binomial} থেকে $n-1 \mid n^k-1$ তাহলে, 
+	\begin{align*}
+		     & (n-1)^2 \mid n^k-1                                                                  \\
+		\iff & n-1 \mid \dfrac{n^k-1}{n-1}                                                         \\
+		\iff & n-1 \mid n^0+n^1+n^2+\cdots+n^k                                                     \\
+		\iff & n-1 \mid (n-1)\left(n^{k-2}+2n^{k-3}+3n^{k-4}+\cdots+(k-1)n^0+\dfrac{k}{n-1}\right) \\
+		\iff & n-1 \mid k
+	\end{align*}
+\end{sltn}
+\begin{Exercise}
+	\label{xr-1}
+	\begin{prob}
+		এমন সকল স্বাভাবিক সংখ্যা $d$ বের কর যাতে $n^2+1$ এবং $(n+1)^2+1$ উভয়ই $d$ দ্বারা বিভাজ্য হয়।  
+	\end{prob}
+	\begin{prob}
+		সবচেয়ে বড় স্বাভাবিক সংখ্যা $n$ বের কর যাতে $\dfrac{n^3+10}{n+10}$ একটি পূর্ণসংখ্যা হয়। (AIME 1986)
+	\end{prob}
+	\begin{prob}
+		$22\cdots 2200\cdots 00$ সংখ্যাটি কি বর্গসংখ্যা হতে পারে? 
+	\end{prob}
+	\begin{prob}
+		$x$ এবং $x+135$ উভয়ই পূর্ণবর্গসংখ্যা হলে $x$ এর কয়টি মান হতে পারে? 
+	\end{prob}
+	\begin{prob}
+		প্রমাণ কর $641|2^{32}+1$
+	\end{prob}
+	\begin{prob}
+		যদি $n$ একটি বিজোড় সংখ্যা হয় তবে $8|n^2-1$
+	\end{prob}
+	\begin{prob}
+		$3,5$ এবং $11$ দ্বারা বিভাজ্য $7$ অঙ্কের পূর্ণবর্গসংখ্যাগুলোর যোগফল বের কর।  
+	\end{prob}
+	\begin{prob}
+		প্রমাণ কর সকল বেজোড় স্বাভাবিক সংখ্যার জন্য $n^2|1^3+2^3+\cdots+n^3$
+	\end{prob}
+	\begin{prob}
+		এমন সকল স্বাভাবিক সংখ্যা $n$ বের কর যাতে $1000^n-1 \mid 1978^n-1$
+	\end{prob}
+	\begin{prob}
+		সকল পূর্ণসংখ্যা সমাধান বের কর যাতে 
+		\[\dfrac{1}{x}+\dfrac{1}{y}=\dfrac{1}{z}\]
+	\end{prob}
+	\begin{prob}
+		প্রমাণ কর সকল স্বাভাবিক সংখ্যা $n>1$ এর জন্য
+		\[1+\dfrac{1}{2}+\dfrac{1}{3}+\cdots+\dfrac{1}{n}\]
+		এর মান কখনো পূর্ণসংখ্যা হতে পারে না। 
+	\end{prob}
+	\begin{prob}
+		প্রমাণ কর যদি $a^m-1 \mid a^n-1$ হলে $m \mid n$
+	\end{prob}
+	\begin{prob}
+		\label{xr1.1}
+		যদি $1-\dfrac{1}{2}+\dfrac{1}{3}-\dfrac{1}{4}+\cdots+\dfrac{1}{1319}=\dfrac{a}{b}$ হলে প্রমাণ কর যে $1979|a$ যেখানে $\gcd(a,b)=1$(IMO 1979/1)
+	\end{prob}
+	\begin{prob}
+		যদি $a$ এবং $b$ উভয়ই স্বাভাবিক সংখ্যা এবং $a \mid b^2, b^2 \mid a^3, a^3 \mid b^4, \cdots$ । প্রমাণ কর $a=b$
+	\end{prob}
+	\begin{prob}
+		এমন সকল স্বাভাবিক সংখ্যা $(a,b)$ এর মান বের কর যাতে $7^a-3^b|a^4+b^2$ হয়। (IMO 2007 shortlist/N1)
+	\end{prob}
+	
+	
+	
+\end{Exercise}
+\begin{Answer}[ref={xr-1}]
+	\begin{sltn}
+		\ref{xr1.1}: এখানে, 
+		\begin{align*}
+			\frac{a}{b} & =\left(1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\cdots+\frac{1}{1318}+\frac{1}{1319}\right) - 2\left(\frac{1}{2}+\frac{1}{4}+\frac{1}{6}+\cdots+\frac{1}{1318}\right) \\
+			            & = \left(1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+\cdots+\frac{1}{1318}+\frac{1}{1319}\right) - \left(\frac{1}{1}+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{659}\right)  \\
+			            & = \frac{1}{660}+\frac{1}{661}+\frac{1}{662}+\cdots+\frac{1}{1318}+\frac{1}{1319}                                                                                   \\
+			            & = \left( \frac{1}{660} + \frac{1}{1319}\right) + \cdots + \left(\frac{1}{989} + \frac{1}{990}\right)                                                               \\
+			            & = \frac {1979}{660.1319} + \frac {1979}{661.1318} + \cdots + \frac{1979}{989.990}
+		\end{align*}
+		ধরি $\left(\dfrac {1}{660.1319} + \dfrac {1}{661.1318} + \cdots + \dfrac{1}{989.990} \right)=\dfrac{a'}{b'}$ তাহলে $\dfrac{a}{b}=1979\dfrac{a'}{b'}\implies ab'=1979a'b$
+		
+		লক্ষ কর এখানে $b'$ হল $660$ থেকে $1319$ পর্যন্ত সংখ্যার গুণফল এবং তারা সবাই $1979$(এটি মৌলিক সংখ্যা) এর সহমৌলিক। তাই $1979 \nmid b'$ অর্থাৎ $1979|a$
+	\end{sltn}
+\end{Answer}
+\newpage
+\subsection{বিভাজ্যতার শর্ত}
+বিভাজ্যতার শর্তগুলো দিয়ে আমরা ভাগ না করেই সহজেই বুঝতে পারি কোনো সংখ্যা অন্য কোনো সংখ্যা দ্বারা বিভাজ্য কিনা। এখানে অনেকগুলো গুরুত্বপূর্ণ সংখ্যার বিভাজ্যতার শর্ত নিচে দেওয়া হল-  
+
+\underline{$2^n$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $2^n$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির শেষ $n$ টি অঙ্ক $2^n$ দ্বারা বিভাজ্য হয়। যেমনঃ $245824$ সংখ্যাটি $2^2=4$ দ্বারা বিভাজ্য কেননা $24$ সংখ্যাটি $4$ দ্বারা বিভাজ্য। 
+
+\underline{$3$ ও $9$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $3$ বা $9$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির অঙ্কগুলোর যোগফল যথাক্রমে $3$ বা $9$ দ্বারা বিভাজ্য হয়। যেমনঃ $539763$ সংখ্যাটি $3$ দ্বারা বিভাজ্য কেননা $5+3+9+7+6+3=33$ সংখ্যাটি $3$ দ্বারা বিভাজ্য। 
+
+\underline{$5^n$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $5^n$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির শেষ $n$ টি অঙ্ক $5^n$ দ্বারা বিভাজ্য হয়। যেমনঃ $4564475$ সংখ্যাটি $5^2=25$ দ্বারা বিভাজ্য কেননা $75$ সংখ্যাটি $25$ দ্বারা বিভাজ্য। 
+
+\underline{$7$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $7$ দ্বারা বিভাজ্য হবে যদি 
+\begin{enumerate}[label=(\alph*),noitemsep]
+	\item সংখ্যাটির এককের অঙ্ককের দ্বিগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যা থেকে বিয়োগ করলে বিয়োগ করলে, বিয়োগফল যদি $7$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{bleudefrance}{44}\textcolor{red!60}{8}$ সংখ্যাটির এককের স্থানীয় অঙ্ককের দ্বিগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যা থেকে বিয়োগ করলে বিয়োগ করলে বিয়োগফল $\textcolor{bleudefrance}{44}-\textcolor{red!60}{8}\times 2=28$ যা $7$ দ্বারা বিভাজ্য। অর্থাৎ $448$ সংখ্যাটি $7$ দ্বারা বিভাজ্য।
+	\item সংখ্যাটির ডান দিক থেকে তিনটি করে অঙ্ক নিয়ে গঠিত সংখ্যার জোড় ও বিজোড় অবস্থানের বিয়োগফল যদি $7$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{green}{66}\textcolor{blue!70}{371}\textcolor{red!60}{683}$ সংখ্যাটির ক্ষেত্রে $\textcolor{green}{66}-\textcolor{blue!70}{371}+\textcolor{red!60}{683}=378$ যা $7$ দ্বারা বিভাজ্য। অর্থাৎ $66371683$ সংখ্যাটি $7$ দ্বারা বিভাজ্য।
+\end{enumerate}
+
+\underline{$11$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $11$ দ্বারা বিভাজ্য হবে যদি
+\begin{enumerate}[label=(\alph*),noitemsep]
+	\item  সংখ্যাটির জোড় এবং বিজোড় স্থানীয় অঙ্কগুলোর যোগফলের পার্থক্য যদি $11$ দ্বারা বিভাজ্য হয়। যেমনঃ $75493$ সংখ্যাটির জোড় এবং বিজোড় স্থানীয় অঙ্কগুলোর যোগফলের পার্থক্য $(5+9)-(7+4+3)=0$ যা $11$ দ্বারা বিভাজ্য অর্থাৎ $75493$ সংখ্যাটি $11$ দ্বারা বিভাজ্য।
+	\item সংখ্যাটির ডান দিক থেকে তিনটি করে অঙ্ক নিয়ে গঠিত সংখ্যার জোড় ও বিজোড় অবস্থানের বিয়োগফল যদি $11$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{green}{7}\textcolor{blue!70}{676}\textcolor{red!60}{273}$ সংখ্যাটির ক্ষেত্রে $\textcolor{green}{7}-\textcolor{blue!70}{676}+\textcolor{red!60}{273}=-396$ যা $11$ দ্বারা বিভাজ্য। অর্থাৎ $7676273$ সংখ্যাটি $11$ দ্বারা বিভাজ্য।
+\end{enumerate}
+
+\underline{$13$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $13$ দ্বারা বিভাজ্য হবে যদি 
+\begin{enumerate}[label=(\alph*),noitemsep]
+	\item সংখ্যাটির এককের অঙ্ককের চারগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $13$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{bleudefrance}{10}\textcolor{red!60}{4}$ সংখ্যাটির এককের স্থানীয় অঙ্ককের চারগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $\textcolor{bleudefrance}{10}+\textcolor{red!60}{4}\times 4=10+16=26$ যা $13$ দ্বারা বিভাজ্য। অর্থাৎ $104$ সংখ্যাটি $13$ দ্বারা বিভাজ্য।
+	\item সংখ্যাটির ডান দিক থেকে তিনটি করে অঙ্ক নিয়ে গঠিত সংখ্যার জোড় ও বিজোড় অবস্থানের বিয়োগফল যদি $13$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{green}{2}\textcolor{blue!70}{021}\textcolor{red!60}{474}$ সংখ্যাটির ক্ষেত্রে $\textcolor{green}{2}-\textcolor{blue!70}{021}+\textcolor{red!60}{474}=455$ যা $13$ দ্বারা বিভাজ্য। অর্থাৎ $2021474$ সংখ্যাটি $13$ দ্বারা বিভাজ্য।
+\end{enumerate}
+\underline{$17$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $17$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির এককের অঙ্কের পাঁচগুণকে, এককের অঙ্ক বাদে গঠিত সংখ্যা থেকে বিয়োগ করলে বিয়োগফল $17$ দ্বারা বিভাজ্য হলে। যেমনঃ যেমনঃ $\textcolor{bleudefrance}{98}\textcolor{red!60}{6}$ সংখ্যাটির এককের স্থানীয় অঙ্ককের পাঁচগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $\textcolor{bleudefrance}{98}-\textcolor{red!60}{6}\times 5=98-30=68$ যা $17$ দ্বারা বিভাজ্য। অর্থাৎ $986$ সংখ্যাটি $17$ দ্বারা বিভাজ্য।
+
+\underline{$19$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $19$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির এককের অঙ্ককের দ্বিগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $19$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{bleudefrance}{87}\textcolor{red!60}{4}$ সংখ্যাটির এককের স্থানীয় অঙ্ককের দ্বিগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $\textcolor{bleudefrance}{87}+\textcolor{red!60}{4}\times 2=87+8=95$ যা $19$ দ্বারা বিভাজ্য। অর্থাৎ $874$ সংখ্যাটি $19$ দ্বারা বিভাজ্য।
+
+\underline{$29$ এর ক্ষেত্রেঃ} কোনো সংখ্যা $29$ দ্বারা বিভাজ্য হবে যদি সংখ্যাটির এককের অঙ্ককের তিনগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $29$ দ্বারা বিভাজ্য হয়। যেমনঃ $\textcolor{bleudefrance}{78}\textcolor{red!60}{3}$ সংখ্যাটির এককের স্থানীয় অঙ্ককের দ্বিগুণকে এককের অঙ্ক বাদে গঠিত সংখ্যার সাথে যোগ করলে যোগফল $\textcolor{bleudefrance}{78}+\textcolor{red!60}{3}\times 3=78+9=87$ যা $29$ দ্বারা বিভাজ্য। অর্থাৎ $783$ সংখ্যাটি $29$ দ্বারা বিভাজ্য।
+
+এখন কিছু Example দেখা যাক। 
+
+\begin{xmpl}
+	শুধুমাত্র $0,1$ এই দুইটি অঙ্ক ব্যবহার করে কয়টি $6$ অঙ্কের সংখ্যা তৈরী করা যাবে যাতে সংখ্যাটি $55$ দ্বারা বিভাজ্য হয়। (BdMO regional 2020)
+\end{xmpl}
+\begin{sltn}
+	সংখ্যাটি যেহেতু $55$ দ্বারা বিভাজ্য তাই অবশ্যই তা $5$ এবং $11$ দ্বারা বিভাজ্য হতে হবে। যেহেতু সংখ্যাটি $5$ দ্বারা বিভাজ্য তাই এককের স্থানে অবশ্যই $0$ হতে হবে। আবার প্রথমে স্থানে $1$ বসবে। এখন যেহেতু $11$ দ্বারা বিভাজ্য তাই সংখ্যাটির জোড় ও বিজোড় স্থানীয় অঙ্কের পার্থক্য $11$ দ্বারা বিভাজ্য হতে হবে। আবার সংখ্যাটি কেবল মাত্র $0,1$ দ্বারা তৈরী হওয়ায় জোড় ও বিজোড় স্থানীয় অঙ্কের পার্থক্য অবশ্যই $0$ হবে।\footnote{$11$ এর অন্য গুণিতক হতে গেলে অন্তত $11$টি $1$ লাগত।} অর্থাৎ জোড় স্থানে যতগুলো $1$ বসবে বিজোড় স্থানেও ঠিক ততটি $1$ বসবে। এখন,
+	
+	\underline{সংখ্যাটিতে $2$ টি $1$ থাকলেঃ} যদি দুইটা $1$ থাকে তবে জোড় স্থানে $1$ বসতে পারে $1$ ভাবে(কেবলমাত্র প্রথমে বা ৬ষ্ঠ স্থানে) এবং বিজোড় স্থানে বসতে পারে $2$ ভাবে(৩য় এবং ৫ম স্থানে)। তাহলে এমন মোট সংখ্যা হতে পারে $1\times 2=2$টি। 
+	
+	\underline{সংখ্যাটিতে $4$ টি $1$ থাকলেঃ} যদি চারটি $1$ থাকে তবে জোড় থানে $1$ বসতে পারে $2$ ভাবে(একটি ৬ষ্ঠ থানে এবং বাকিটি ২য় বা ৪র্থ স্থানে) এবং বিজোড় স্থানে বসতে পারে ${}^{2}C_{2}=1$ ভাবে। তাহলে সংখ্যা হতে পারে $2\times 1=2$ ভাবে। 
+	
+	তাহলে ছয় অঙ্ক বিশিষ্ট এমন মোট সংখ্যা হল $2+2=4$টি। 
+\end{sltn}
+\begin{why}
+	\begin{enumerate}[label=\arabic*., nosep]
+		\item সংখ্যাটি $6$ অঙ্কের হওয়ায় সর্ববামে(৬ষ্ঠ স্থানে) অবশ্যই $1$ হতে হবে।
+		\item সংখ্যাটি $5$ দ্বারা বিভাজ্য তাই সংখ্যাটির একক স্থানে $0$ হবে।
+		\item সংখ্যাটি $11$ দ্বারা বিভাজ্য তাই জোড় ও বিজোড় স্থানের অঙ্কগুলোর পার্থক্য $0$ হবে।
+		\item যেহেতু জোড় ও বিজোড় স্থানের অঙ্কগুলোর পার্থক্য $0$ হবে তাই জোড় ও বিজোড় স্থানে মোট $1$ সংখ্যা সমান হবে।
+		\item জোড় ও বিজোড় স্থানে মোট $1$ সংখ্যা সমান হওয়ায় $1$ অবশ্যই জোড় সংখ্যক থাকবে।
+	\end{enumerate}
+\end{why}
+\begin{Exercise}
+	\label{xr-2}
+	\begin{prob}
+		$1,3,5,6,7$ এবং $9$ সংখ্যাগুলো দ্বারা ছয় অঙ্কের এমন কয়টি সংখ্যা তৈরী করা যাবে যাতে সংখ্যাগুলো $11$ দ্বারা বিভাজ্য হয়? (BdMO regional 2018)
+	\end{prob}
+	\begin{prob}
+		কোনো একটি ছয় অঙ্কের সংখ্যার ১ম ও ৪র্থ অঙ্ক সমান, ২য় এবং ৫ম অঙ্ক সমান এবং ৩য় এবং ৬ষ্ঠ অঙ্ক সমান। প্রমাণ কর সংখ্যাটি $7,11,13$ দ্বারা বিভাজ্য। 
+	\end{prob}
+	\begin{prob}
+		$1,2,3,4$ এবং $5$ অংকগুলো একবার ব্যবহার করে একটি সংখ্যা $\overline{PQRST}$ তৈরী করা হল। যেখানে $\overline{PQR}$ সংখ্যাটি $4$ দ্বারা বিভাজ্য, $\overline{QRS}$ সংখ্যাটি $5$ দ্বারা বিভাজ্য এবং $\overline{RST}$ সংখ্যাটি $3$ দ্বারা বিভাজ্য। এখন $P$ এর মান বের কর।(AMC 8 2016/24)
+	\end{prob}
+	\begin{prob}
+		\label{xr2.1}
+		$19!=1216T510040M832H00$ যেখানে $T,M,H$ হল অজানা অঙ্ক এখন $T+M+H$ এর মান নির্ণয় কর। (AMC 10B 2019/14)
+	\end{prob}
+\end{Exercise}
+\begin{Answer}[ref={xr-2}]
+	\begin{sltn} \ref{xr2.1}:
+		যেহেতু $19!$ তাই শেষে অবশ্যই তিনটি $0$ থাকবে, কেননা $19$ পর্যন্ত তিনটি সংখ্যা $5$ দ্বারা বিভাজ্য। তাহলে $H=0$। আবার $19!$ সংখ্যাটি $9$ দ্বারা বিভাজ্য তাই $9|33+T+M$ অর্থাৎ $T+M=3$ বা $T+M=12$। আবার $19!$ সংখ্যাটি $11$ দ্বারা বিভাজ্য তাই $11|(T-M)-7$ অর্থাৎ $T-M=7$ বা $T-M=-4$ হতে হবে। এখন case check করলেই পাওয়া যাবে $T+M=12$ অর্থাৎ $T+M+H=12$
+	\end{sltn}
+\end{Answer}
+\newpage
+\subsection{মৌলিক ও যৌগিক সংখ্যা}
+মৌলিক সংখ্যা সম্পর্কে আমরা কম বেশি সবাই পরিচিত। মূলত যদি কোনো স্বাভাবিক সংখ্যার $1$ এবং ঐ সংখ্যা বাদে অন্য কোনো উৎপাদক না থাকে তাহলে তাকে মৌলিক সংখ্যা বলে। গাণিতিকভাবে বলতে গেলে, কোনো সংখ্যা $p \in \mathbb{N}$ মৌলিক হবে যদি এমন কোনো স্বাভাবিক সংখ্যা $d>1$ এবং $d \neq p$ না থাকে যাতে $d \mid p$ হয়। সংজ্ঞটাকে কিন্তু অন্য ভাবেও বলা যায়, যদি কোনো স্বাভাবিক সংখ্যার উৎপাদক সংখ্যা $\tau(p)= 2$ হয় তবে তাকে মৌলিক সংখ্যা বলে।\footnote{কোনো সংখ্যার উৎপাদক সংখ্যাকে প্রকাশ করতে $\tau$ ফাংশন ব্যবহৃত হয়।} আবার যে সকল স্বাভাবিক সংখ্যা কোনো মৌলিক সংখ্যার গুণিতক তাদের যৌগিক সংখ্যা বলে। গাণিতিকভাবে কোনো সংখ্যা $c \in \mathbb{N}$ হবে যদি কোনো মৌলিক সংখ্যা $p$ পাওয়া যায় যাতে $p \mid c$.
+
+যদি দুইটি সংখ্যার গ.সা.গু $1$ হয় তাহলে তাদের একে অপরের সহমৌলিক হবে। গাণিতিকভাবে দুইটি স্বাভাবিক সংখ্যা $(a,b)$ সহমৌলিক হবে যদি $\gcd(a,b)=1$ হয়। 
+
+\begin{stry}
+	প্রশ্নঃ $1$ কি মৌলিক সংখ্যা নাকি যৌগিক নাকি অন্য কিছু?
+	
+	উত্তরঃ $1$ আসলে মৌলিক সংখ্যাও না যৌগিক সংখ্যাও না। মৌলিক সংখ্যা হতে গেলে সংখ্যাটিকে অবশ্যই $1$ হয়ে বড় হতে হবে। আর যৌগিক হতে গেলে অবশ্যই তাকে কোনো মৌলিক সংখ্যার গুণিতক হতে হবে। যার একটিও $1$ নয়, তাই $1$ মৌলিকও না যৌগিকও না। $1$ মৌলিক না হওয়ায় সবচেয়ে বড় সুবিধা যা পাওয়া যায় তা হল  "\hyperref[fta]{$The \ Fundamental \ Theorem  \ of \ Arithmetic$}"  
+\end{stry}
+যদি কোনো মৌলিক সংখ্যা $p$ হয় তবে,
+\begin{enumerate}[label=(\alph*),noitemsep]
+	\item $p$ এর উৎপাদক সংখ্যা $2$ টি।
+	\item যদি $p \mid ab$ হয় তবে $p \mid a$ অথবা $p \mid b$
+	\item যদি $p \mid a_1a_2\cdots a_n$ হয় এবং $\{a_1,a_2,\cdots, a_n \}$ মৌলিক হয় তবে এমন একটি $1 \leq i \leq n$ পাওয়া যাবে যাতে $p=a_i$
+	\item যদি $p \mid a^k$ হয় তবে $p \mid a$
+	\item কোনো সংখ্যা $n$ মৌলিক কিনা জানার জন্য $\sqrt{n}$ পর্যন্ত উৎপাদক আছে কিনা চেক করাই যথেষ্ট।
+	\item যদি $p  \nmid a$ এবং $a \neq 1$ হয় তবে $\gcd(p,a)=1$ এবং $\lcm(p,a)=p\times a$
+	\item $Bertrand's \ Postukate:$ সকল স্বাভাবিক সংখ্যা $n$ এর জন্য একটি মৌলিক সংখ্যা $p$ বিদ্যমান যাতে $n \leq p \leq 2n$
+\end{enumerate}
+
+\begin{xmpl}
+	এমন সকল মৌলিক সংখ্যা $p$ এবং $q$ নির্ণয় কর যাতে $x^2-px+q=0$ সমীকরণের দুইটি ভিন্ন পূর্ণসংখ্যিক মূল থাকে। 
+\end{xmpl}
+\begin{sltn}
+	ধরি সমীকরণটির দুইটি মূল $x_1>x_2$। তাহলে $x^2-px+q=(x-x_1)(x-x_2)=x^2-x(x_1+x_2)+x_1x_2$ এখন সহগ সমীকৃত করে পাওয়া যায় $p=x_1+x_2$ এবং $q=x_1x_2$ তবে $q$ তো মৌলিক সংখ্যা, অর্থাৎ $x_2=1$ এবং $p=q+1$। তাহলে $p$ এবং $q$ হল ক্রমিক মৌলিক সংখ্যা এবং কেবল মাত্র ক্রমিক মৌলিক সংখ্যা $2$ ও $3$। অর্থাৎ $p=3$ এবং $q=2$
+\end{sltn}
+\begin{xmpl}
+	যদি $a,b,c$ মৌলিক সংখ্যা এবং $abc=11(a+b+c)$। $a,b,c$ এর মান নির্ণয় কর। (BdMO regional)
+\end{xmpl}
+\begin{sltn}
+	যেহেতু $11 \mid abc$ এবং $11,a,b,c$ সবাই মৌলিক তাই এদের মাঝে অন্তত একটি $11$ এর সমান হবে। ধরে নেই $c=11$ তাহলে সমীকরণটি দাড়ালো, 
+	\begin{align*}
+		         & 11ab= 11(a+b+11) \\
+		\implies & ab=  a+b+11      \\
+		\implies & ab-a-b-1= 12     \\
+		\implies & (a-1)(b-1)= 12
+	\end{align*}
+	যেহেতু $12=1\times 12=2\times 6=3\times 4$ অর্থাৎ $(a,b)=(2,13),(3,7)$ বা $(4,5)$। যেহেতু $a$ মৌলিক তাই $a \neq 4$। 
+	
+	অর্থাৎ $(a,b)=(2,13),(3,7)$
+\end{sltn}
+\begin{xmpl}
+	\label{prime-6k}
+	প্রমাণ কর যেকোনো মৌলিক সংখ্যা $p>3$ কে $6k \pm 1$ আকারে লিখা যায়। 
+\end{xmpl}
+\begin{sltn}
+	যেকোনো স্বাভাবিক সংখ্যাকে $6k,6k\pm 1, 6k \pm 2, 6k+3$ আকারে লিখা যায়। এখন, 
+	
+	$6k$ সংখ্যাটি $6$ দ্বারা বিভাজ্য তাই তা কখনো মৌলিক হতে পারে না। 
+	
+	$6k \pm 2$ সংখ্যাটি $2$ দ্বারা বিভাজ্য তাই তা কখনো মৌলিক হতে পারে না। 
+	
+	$6k+3$ সংখ্যাটি $3$ দ্বারা বিভাজ্য তাই তা কখনো মৌলিক হতে পারে না। 
+	
+	অর্থাৎ সকল মৌলিক সংখ্যা অবশ্যই $6k \pm 1$ আকারে হবে।  
+\end{sltn}
+\begin{thrm}
+	মৌলিক সংখ্যার সংখ্যা অসীম। 
+\end{thrm}
+\begin{prf}[Euclide]
+	এই প্রমাণটা আমরা contridiction এর সাহায্যে করব। 
+	
+	ধরি মৌলিক সংখ্যার সংখ্যা সসীম এবং সবচেয়ে বড় মৌলিক সংখ্যা $p_n$। এখন নতুন একটি সংখ্যা $P$ তৈরী করি যাতে তা সকল মৌলিক সংখ্যার গুনফল থেকে $1$ বেশি। অর্থাৎ $P=p_1p_2\cdots p_n+1$ এখন $P$ যদি মৌলিক হয় তবে $P>p_m$ হবে অর্থাৎ $P$ হল যৌগিক। আবার তাহলে $P$ এর একটা মৌলিক উৎপাদক $p_k>1$ আছে যেন $p_1 \leq p_k \leq p_n$ হয়। অর্থাৎ $p_k|P \implies p_k|p_1 p_2 \cdots p_n+1 \implies p_k|1$ যা হওয়া সম্ভব নয়। অর্থাৎ মৌলিক সংখ্যার সংখ্যা অসীম।  
+\end{prf}
+\begin{stry}
+	Theorem টির অনেকগুলো প্রমাণ থাকলেও সর্বপ্রথম প্রমাণটি করেন ইউক্লিড প্রায় খ্রিষ্টপূর্ব $300$ সালে তার Elements বইয়ে। 
+\end{stry}
+\begin{thrm}[The Fundamental Theorem of Arithmetic]
+	\label{fta}
+	$1$ এর চেয়ে বড় যেকোনো পূর্ণসংখ্যার মৌলিক উৎপাদকের সেট অনন্য হবে। 
+\end{thrm}
+\begin{xmpl}
+	$n$ এর সর্বোচ্চ মান বের কর যাতে $2^n \mid 3^{1024}-1$ হয়। 
+\end{xmpl}
+\begin{sltn}
+	লক্ষ কর $1024=2^{10}$ এখন $x^2-y^2=(x+y)(x-y)$ এই সূত্র ব্যবহার করে পাই, 
+	\begin{align*}
+		3^{2^{10}}-1 & =(3^{2^{9}}+1)(3^{2^{9}}-1)                                                   \\
+		             & =(3^{2^{9}}+1)(3^{2^{8}}+1)(3^{2^{8}}-1)                                      \\
+		             & \qquad \qquad \qquad \qquad \vdots                                            \\
+		             & =(3^{2^{9}}+1)(3^{2^{8}}+1)(3^{2^{7}}+1)\cdots(3^{2^{1}}+1)(3^{2^{0}}+1)(3-1)
+	\end{align*}
+	এখন Example \ref{2-div-3n} থেকে আমরা জানি $2||3^k+1$ অর্থাৎ এখানে $n=9+2+1=12$($3^{2^9}+1$ থেকে $3^{2^1}+1$ পর্যন্ত $9$ টি, $3+1=4$ এর ক্ষেত্রে $2$ টি এবং $3-1=2$ এর ক্ষেত্রে $1$ টি। )
+\end{sltn}
+\begin{thrm}
+	কোনো পূর্ণসংখ্যা $m$ এর জন্য এমন কোনো বহুপদী $p(x)$ পাওয়া যাবে না যাতে সকল পূর্ণসংখ্যা $n \geq m$ এর জন্য $p(n)$ একটি মৌলিক সংখ্যা হয়। 
+\end{thrm}
+\begin{xmpl}
+	এমন সকল মৌলিক সংখ্যা বের কর যাদের বর্গকে দুইটি ধনাত্মক ঘনের যোগফল আকারে লিখা যায়।(BdMO 2019 National/1)
+\end{xmpl}
+\begin{sltn}
+	ধরি এখানে $a^3+b^3=p^2$ যেখানে $a,b \in \mathbb{N}$ এবং $p$ হল যেকোনো মৌলিক সংখ্যা। কিছু মান চেক করলেই বুঝা যায় $p$ এর একমাত্র মান হল $3$ এখন আমাদের প্রমাণ করতে হবে $p$ এর অন্য কোনো মান হতে পারে না।
+	
+	$p^2=a^3+b^3=(a+b)(a^2-ab+b^2)$ তাহলে এখানে দুইটি case হতে পারে। \textbf{case 01:} $a+b=p^2$ এবং $a^2-ab+b^2=1$ \textbf{case 02:} $a+b=p$ এবং $a^2-ab+b^2=p$ এখন এই দুই কেস নিয়ে কাজ করা যাক। 
+	
+	\underline{Case 01:} যদি $a^2-ab+b^2=1$ হয় তবে \href{https://brilliant.org/wiki/applying-the-arithmetic-mean-geometric-mean/}{AM-GM} ব্যবহার করে বলা যায়
+	\[a^2+b^2-ab \geq a^2+b^2-\dfrac{a^2+b^2}{2} \geq \dfrac{a^2+b^2}{2}\]
+	এখন যেহেতু $(a,b)=(1,1)$ এর জন্য কোনো সমাধান নেই তাই বলা যায় $a^2+b^2-ab>1$ হবে। ফলে এই শর্তে কোনো মৌলিক সংখ্যা $p$ পাওয়া যাবে না। 
+	
+	\underline{Case 02:} যদি $a+b=p$ এবং $a^2-ab+b^2=p$ হয় তাহলে $a+b=a^2-ab+b^2$ হবে, তবে Case 01 থেকে $a^2-ab+b^2\geq \dfrac{a^2+b^2}{2}$ এবং যদি $a+b>4$ হয় তবে সর্বদা $a^2-ab+b^2 >a+b$ হবে এখন $a+b$ এর মান ${2,3}$ চেক করে সমাধান পাওয়া যায় একমাত্র একটি $p=3$
+\end{sltn}
+\begin{prop}[Legendre's Function]
+	\label{Legendre's Function}
+	যদি কোনো মৌলিক সংখ্যা $p$ এর জন্য $p^n|k!$ হয় তবে $n$ এর সর্বোচ্চ মান
+	\[\max(n)=\sum_{i \geq 1} \floor*{\dfrac{k}{p^i}}=\floor*{\dfrac{k}{p}}+\floor*{\dfrac{k}{p^2}}+\floor*{\dfrac{k}{p^3}}+\cdots\]
+\end{prop}
+\begin{xmpl}
+	$4^a$ দ্বারা $1000!$ নিঃশেষে বিভাজ্য হলে $a$ এর মান নির্ণয় কর। (BdMO regional 2019)
+\end{xmpl}
+\begin{sltn}
+	$4^a=2^{2a}$ এখন \hyperref[Legendre's Function]{Legendre's Function} ব্যবহার করে পাই, 
+	\begin{alignat*}{2}
+		                 & 2a &  & = \floor*{\dfrac{1000}{2}}+\floor*{\dfrac{1000}{2^2}}+\floor*{\dfrac{1000}{2^3}}+\floor*{\dfrac{1000}{2^4}}+\floor*{\dfrac{1000}{2^5}}+\floor*{\dfrac{1000}{2^6}}+\floor*{\dfrac{1000}{2^7}}+\floor*{\dfrac{1000}{2^8}}+\floor*{\dfrac{1000}{2^9}} \\
+		                 &    &  & = 500+250+125+62+31+15+7+3+1                                                                                                                                                                                                                       \\
+		                 &    &  & = 994                                                                                                                                                                                                                                              \\
+		\therefore    \  & n  &  & =497
+	\end{alignat*}
+\end{sltn}
+\begin{xmpl}
+	$113!$ সংখ্যাটির শেষে কতটি $0$ আছে? 
+\end{xmpl}
+\begin{sltn}
+	কোনো সংখ্যার $k$ এর ক্ষেত্রে $10^n \mid \mid k$ হলে, $k$ এর শেষে $n$ টি $0$ থাকবে। আবার $10=2\times 5$ এবং $113!$ এর উৎপাদকে বিশ্লেষণে অবশ্যই $2$ এর ঘাত বেশি হবে এবং $5$ এর কম। তাই $5$ এর যত ঘাত ততগুলোই $10$ তৈরী করা সম্ভব। তাহলে \hyperref{Legebdre's Function}{Legebdre's Function} ব্যবহার করে পাই $5$ এর সর্বোচ্চ ঘাত $n$ এর মান, 
+	\begin{alignat*}{2}
+		 & n &  & = \floor*{\dfrac{113}{5}}+\floor*{\dfrac{113}{5^2}}+\floor*{\dfrac{113}{5^3}} \\
+		 &   &  & = 22+4+0                                                                      \\
+		 &   &  & = 26
+	\end{alignat*}
+	অর্থাৎ $5^{26}\mid \mid 113!\implies 10^{26}\mid \mid 113!$ তাহলে $113!$ এর শেষে $0$ আছে $26$ টি। 
+\end{sltn}
+\begin{xmpl}
+	যদি $2^i+1$ একটি মৌলিক সংখ্যা হয় তাহলে প্রমাণ কর $i=2^k$। 
+\end{xmpl}
+\begin{sltn}
+	যদি $i \neq 2^k$ না হয় তবে $i$ এর একটি বিজোড় মৌলিক উৎপাদক $s$ আছে, ধরে নেই $i=sr$ এখন Lemma \ref{binomial} এ $a=2^r, b=-1$ এবং $n=s$ নিলে, 
+	\begin{align*}
+		         & 2^r-(-1) \mid (2^r)^s-(-1)^s \\
+		\implies & 2^r+1 \mid 2^{sr}+1          \\
+		\implies & 2^r+1 \mid 2^{i}+1
+	\end{align*}
+	অর্থাৎ $i \neq 2^k$ হলে $2^i+1$ কখনো মৌলিক হতে পারে না। তাহলে $2^i+1$ মৌলিক হলে অবশ্যই $i=2^k$ হলে। 
+\end{sltn}
+\begin{stry}
+	$2^{2^n}+1$ যদি একটি মৌলিক সংখ্যা হয় তাহলে তাকে Fermat number বলে। $n$ তম Fermat number হবে $F_n=2^{2^n}+1$। এখন পর্যন্ত জানা সর্বোচ্চ Fermat number হল $F_4=2^{2^4}+1=2^{16}+1=65,537$। $1752$ সালে আয়লার $F_5$ মৌলিক নয় তা প্রমাণ করেন। 
+\end{stry}
+\begin{lma}[Sophie Germain Identity]
+	\label{sgi}
+	\[ a^4+4b^4=(a^2 + 2ab + 2b^2)(a^2 − 2ab + 2b^2)\]
+\end{lma}
+\begin{prf}
+	$a^4+4b^4$ কে উৎপাদকে বিশ্লেষণ করলে, 
+	\begin{align*}
+		  & a^4+4b^4                                  \\
+		= & (a^2)^2 + 2·a^2·2b^2 + (2b^2)^2 − 4a^2b^2 \\
+		= & (a^2 + 2b^2)^2 − (2ab)^2                  \\
+		= & (a^2 + 2ab + 2b^2)(a^2 − 2ab + 2b^2)
+	\end{align*}
+\end{prf}
+\begin{xmpl}
+	প্রমাণ কর, $n >1$ এর জন্য $n^4+4^n$ একটি যৌগিক সংখ্যা। (IMO 1964/1)
+\end{xmpl}
+\begin{sltn}
+	যদি $n$ জোড় হয় তাহলে $n^4+4^n$ জোড় অর্থাৎ যৌগিক সংখ্যা। এখন $n,1$ এর চেয়ে বড় বেজোড় সংখ্যা, ধরি $n=2k+1$ তাহলে, 
+	\[n^4+4^{2k+1}=n^4+4.(2^k)^4\]
+	এখন Lemma \ref{sgi} থেকে বলা যায় $n^4+4.(2^k)^4$ একটি যৌগিক সংখ্যা। 
+\end{sltn}
+\begin{Exercise}
+	\label{xr-3}
+	\begin{prob}
+		এমন সকল মৌলিক সংখ্যা $p$ এর মান নির্ণয় কর যাতে $17p+1$ একটি মৌলিক সংখ্যা হয়। 
+	\end{prob}
+	\begin{prob}
+		\label{sump}
+		দুইটি মৌলিক সংখ্যার যোগফল $85$ হলে মৌলিক সংখ্যাগুলোর গুণফল নির্ণয় কর। 
+	\end{prob}
+	\begin{prob}
+		দুইটি স্বাভাবিক সংখ্যা $(a,b)$ এর যোগফল একটি মৌলিক সংখ্যা হলে, $a,b$ এর গ.সা.গু নির্ণয় কর। 
+	\end{prob}
+	\begin{prob}
+		$n \in \mathbb{N}$ এর সর্বোচ্চ মান বের কর যাতে $n$ টি ক্রমিক সংখ্যা একে অপরের সহমৌলিক। 
+	\end{prob}
+	\begin{prob}
+		\label{Prime6}
+		কোনো মৌলিক সংখ্যা $p$ এর জন্য প্রমাণ কর $24 \mid p^2-1$
+	\end{prob}
+	\begin{prob}
+		দুইটি মৌলিক সংখ্যা $p,q$ যেন $p=2q+1$ প্রমাণ কর $6 \mid p-q$(\emph{Sophie Germain Prime})
+	\end{prob}
+	\begin{prob}
+		এমন সকল $n\in \mathbb{N}$ বের কর যাতে $n^5+n^4+1$ একটি মৌলিক হয়।  
+	\end{prob}
+	\begin{prob}
+		একটি মৌলিকর সেটকে $good$ বলা হবে যদি সেটটির সব সংখ্যায় মোটে  $1$ থেকে $9$ পর্যন্ত অংকগুলো একবার করে আছে। যেমনঃ $\{ 7,43,421,659 \}$ এখন কোনো $good$ সেটের সর্বনিম্ন যোগফল কত? (AMC 12A 2002/17)
+	\end{prob}
+	\begin{prob}
+		$1,2,3,4,5,6,7$ এবং $9$ অঙ্কগুলো ব্যবহার করে $4$টি $2$ ডিজিটের মৌলিক সংখ্যা তৈরী করা হল। মৌলিক সংখ্যাগুলোর যোগফল কর? (AMC 12A 2002/15)
+	\end{prob}
+	\begin{prob}
+		সামি $3$ টি কার্ডে উভয় পাশে একটি করে মোট $6$টি সংখ্যা লিখল। সে কার্ডগুলো টেবিলে রাখল যাতে শুধুমাত্র একপাশের সংখ্যাগুলো দেখা যায়।(নিচে চিত্রে) অপরপাশের তিনটি সংখ্যাই মৌলিক এবং প্রতিটি কার্ডের দুইটি সংখ্যার যোগফল সমান, তাহলে মৌলিক সংখ্যাগুলোর গুণফল বের কর। (AMC 8 2006/25)
+		\begin{center}
+			\begin{tikzpicture}
+				\tkzDefPoint(0,0){A}
+				\tkzDefPoint(2,0){B}
+				\tkzDefPoint(2,3){C}
+				\tkzDefPoint(0,3){D}
+				
+				\tkzDrawPolygon(A,B,C,D)
+				\node at (1,1.5){$44$};
+				
+				\tkzDefPoint(3,0){A}
+				\tkzDefPoint(5,0){B}
+				\tkzDefPoint(5,3){C}
+				\tkzDefPoint(3,3){D}
+				
+				\tkzDrawPolygon(A,B,C,D)
+				\node at (4,1.5){$59$};
+				
+				\tkzDefPoint(6,0){A}
+				\tkzDefPoint(8,0){B}
+				\tkzDefPoint(8,3){C}
+				\tkzDefPoint(6,3){D}
+				
+				\tkzDrawPolygon(A,B,C,D)
+				\node at (7,1.5){$38$};
+			\end{tikzpicture}
+		\end{center}
+	\end{prob}
+	\begin{prob}
+		$x$ একট অঋণাত্মক পূর্ণসংখ্যা এবং $y,z$ তিনটি মৌলিক সংখ্যা যেন $34x+51y=6z$ হয়। তাহলে $x+y\times z$ এর মান নির্ণয় কর। (BdMO regional) 
+	\end{prob}
+	\begin{prob}
+		কোনো একটি মৌলিক সংখ্যা $p$ এর জন্য $16p-1$ একটি পূর্ণঘন সংখ্যা, তাহলে $p$ এর মান নির্ণয় কর।(AIME I 2015/3)
+	\end{prob}
+	\begin{prob}
+		এমন সকল সংখ্যা $n$ এর মান নির্ণয় কর যেন $2^{n+1}-n^2$ একটি মৌলিক সংখ্যা।  
+	\end{prob}
+	\begin{prob}
+		যদি $2^n-1$ একটি মৌলিক সংখ্যা হয় প্রমাণ কর $n$ একটি মৌলিক সংখ্যা। 
+	\end{prob}
+	\begin{prob}
+		$20$টি ক্রমিক যৌগিক সংখ্যা নির্ণয় কর।  
+	\end{prob}
+	\begin{prob}
+		$20$টি ক্রমিক সংখ্যা নির্ণয় কর যাতে তাদের কোনোটি কোনো মৌলিক সংখ্যার ঘাত আকারে লিখা না যায়।
+	\end{prob}
+\end{Exercise}
+\begin{Answer}[ref={xr-3}]
+	\begin{sltn} \ref{sump}: যেহেতু $85$ একটি বেজোড় সংখ্যা তাই অবশ্যই মৌলিক সংখ্যাগুলোর মাঝে একটি জোড় হতে হবে। আর একমাত্র জোড় মৌলিক সংখ্যা হল $2$। অর্থাৎ অন্য মৌলিক সংখ্যাটি হবে $85-2=83$
+	\end{sltn}
+	\begin{sltn} \ref{Prime6}:
+		Example \ref{prime-6k} থেকে আমরা জানি যেকোনো মৌলিক সংখ্যাকে $6k \pm 1$ আকারে লিখা যায়। তাহলে, 
+		\[p^2-1=(6k \pm 1)^2-1=36k^2 \pm 12k+1-1=12k(3k\pm 1)\]
+		এখন $k$ জোড় বা বেজোড় যাই হোক না কেন $k(3k \pm 1)$ হল জোড়। অর্থাৎ $2 \mid k(3k \pm 1) \implies 24 \mid 12k(3k \pm 1) \implies 24 \mid p^2-1$
+	\end{sltn}
+\end{Answer}
+\newpage 
+\subsection{গ.সা.গু এবং ল.সা.গু}
+\underline{গ.সা.গুঃ} দুইটি সংখ্যার সবচেয়ে বড় সাধারণ উৎপাদকে গ.সা.গু বলে। গাণিতিকভাবে যদি কোনো স্বাভাবিক সংখ্যা $k$ এর উৎপাদকের সেট $D_k$ হয় তবে দুইটি স্বাভাবিক সংখ্যা $m$ এবং $n$ এর গ.সা.গু হবে $D_m \cap D_n$ সেটটির সবচেয়ে বড় উপাদান এবং গ.সা.গু কে $\gcd(m,n) $ বা $(m,n)$ হিসেবে প্রকাশ করা হয়। 
+
+\underline{ল.সা.গুঃ} দুইটি সংখ্যার সর্বনিম্ন সাধারণ গুণিতকে ল.সা.গু বলে। গাণিতিকভাবে কোনো স্বাভাবিক সংখ্যা $k$ এর গুণিতকের সেট $M_k$ হয় তাহলে দুইটি স্বাভাবিক সংখ্যা $m$ এবং $n$ এর ল.সা.গু হবে $M_m \cap M_n$ সেটটির সবচেয়ে ছোট উপাদান এবং ল.সা.গুকে $\lcm(m,n)$ বা $[m,n]$ আকারে প্রকাশ করা হয়। 
+
+এখন গ.সা.গু এবং ল.সা.গু এর কিছু বৈশিষ্ট্য দেখা যাক। 
+
+\begin{prop}
+	\label{prop-gcd}
+	যদি দুইটি স্বাভাবিক সংখ্যা $m$ এবং $n$ এবং $p$ একটি মৌলিক সংখ্যা হয় তবে, 
+	\begin{enumerate}[label=(\roman*),nosep]
+		\item $\gcd(p,m)=p$ বা $\gcd(p,m)=1$ এবং $\lcm(p,m)=m$ বা $\lcm(p,m)=pm$ হবে।
+		\item যদি $\gcd(m,n)=g$ হয় এবং $m=gm',n=gn'$ তাহলে $\gcd(m',n')=1$
+		\item $\gcd(m,n) \mid \lcm(m,n)$ অর্থাৎ $\lcm(m,n) \geq \gcd(m,n)$
+		\item যদি $g' \mid m, g' \mid n$ হয় তবে $g' \mid \gcd(m,n)$ হবে।
+		\item যদি $m \mid l'$ এবং $n \mid l'$ হয় তবে $\lcm(m,n) \mid l'$
+		\item যদি $\gcd(m,k)=1$ হয় তাহলে $\gcd(m,nk)=\gcd(m,n)$ \label{gcd_mk}
+		\item যদি $a_i, N \in \mathbb{N}$ এবং $a_1, a_2, \cdots, a_n \mid N$ হয় তবে $\lcm(a_1, a_2, \dots, a_n) \mid N$
+		\item যদি $a_i, N \in \mathbb{N}$ এবং $a_1, a_2, \cdots, a_n \mid N$ হয় যেখানে $a_1, a_2, \cdots, a_n$ পরস্পর সহমৌলিক তবে
+		      \[a_1a_2\cdots a_n \mid N\]
+		\item যদি $m=nq+r$ হয় তবে $\gcd(m,n)=\gcd(n,r)$ \label{Euclidean Algorithm}
+		\item যদি $k \in \mathbb{N}$ হয় তবে $\gcd(mk,nk)=k\times \gcd(m,n)$ এবং $k\times \lcm(m,n)=\lcm(km,kn)$
+		\item যদি $\gcd(m,n)=g$ এবং $\lcm(m,n)=l$ হয় তবে $m\times n=g\times l$
+		\item যদি $\gcd(m,n)=1$ হয় তবে $\gcd(m^k, n^k)=1$ হবে।
+		\item যদি $d\mid \gcd(m,n)$ হয় তাহলে
+		      \[\gcd \left( \dfrac{m}{d}, \dfrac{c}{d}\right)=\dfrac{\gcd(m,n)}{d}\]
+	\end{enumerate}
+\end{prop}
+\begin{xmpl}
+	প্রমাণ কর,
+	\[\gcd(a,bc)=\gcd(a,\gcd(a,b)\cdot c)\]
+\end{xmpl}
+\begin{sltn}
+	ধরি $\gcd(a,b)=g$ এবং $a=ga';b=gb'$ যেখানে $\gcd(a',b')=1$ তাহলে, 
+	\[\gcd(a,bc)=\gcd(ga',gb'c)=g\times \gcd(a',b'c) \]
+	এখন Proposition \ref{prop-gcd} \ref{gcd_mk} ব্যবহার করে বলতে পারি, 
+	\[\gcd(a,bc)=g\times \gcd(a',b)\]
+	আবার ডানপক্ষে $\gcd(a,\gcd(a,b)\cdot c)=\gcd(ga',gc)=g\times \gcd(a',c)$
+	অর্থাৎ $\gcd(a,bc)=\gcd(a,\gcd(a,b)\cdot c)$
+\end{sltn}
+\begin{xmpl}
+	দুইটি সহমৌলিক সংখ্যা $a$ এবং $b$ এর ক্ষেত্রে প্রমাণ কর $\gcd(a-b, a^2-ab+b^2)=1$ বা $3$
+\end{xmpl}
+\begin{sltn}
+	ধরি $g=\gcd(a-b, a^2-ab+b^2)$ অর্থাৎ $g \mid a-b $ এবং $g \mid a^2-ab+b^2$। তাহলে, 
+	\begin{align*}
+		g          & \mid a-b                \\
+		g          & \mid a^2-ab+b^2         \\
+		\implies g & \mid (a-b)^2-a^2+ab-b^2 \\
+		\implies g & \mid 3ab                \\
+		\implies g & \mid 3a(a-b)+3ab        \\
+		\implies g & \mid 3a^2-3ab+3ab       \\
+		\implies g & \mid 3a^2
+	\end{align*}
+	একইভাবে $g \mid 3b^2$ তাহলে $g \mid \gcd(3a^2,3b^2) \implies g \mid 3\times \gcd(a^2,b^2)$ এখন যেহেতু $(a,b)=1$ তাই বলা যায় $g \mid 3\times \gcd(a,b) \implies g \mid 3$ এখন $3$ একটি মৌলিক সংখ্যা যা উৎপাদক কেবল $1$ এবং $3$ তাই $g=1$ বা $3$
+\end{sltn}
+\begin{xmpl}
+	এমন কয়টি স্বাভাবিক সংখ্যার ত্রয়ী $(a,b,c)$ পাওয়া যাবে যাতে $\lcm(a,b)=1000,\lcm(b,c)=2000$ এবং $\lcm(c,a)=2000$ হয়।(AIME 1987)  
+\end{xmpl}
+\begin{sltn}
+	যেহেতু $1000$ এবং $2000$ উভয়ই $2^m5^n$ আকারে আছে তাই $a,b,c$ ও একই ধরনের হবে। ধরি, 
+	\begin{align*}
+		a=2^{m_1}5^{n_1} \qquad \qquad
+		b=2^{m_2}5^{n_2} \qquad \qquad
+		c=2^{m_3}5^{n_3}
+	\end{align*}
+	যেহেতু $1000=2^3\times 5^3$ এবং $2000=2^4\times 5^3$ তাই 
+	\begin{align*}
+		\max(m_1,m_2)=3 \qquad
+		\max(m_2,m_3)=4 \qquad
+		\max(m_3,m_1)=4 \\
+		\max(n_1,n_2)=3 \qquad
+		\max(n_2,n_3)=3 \qquad
+		\max(n_3,n_1)=3 
+	\end{align*}
+	এখান থেকে বুঝা যাচ্ছে $m_1,m_2$ ও $m_3$ এর মাঝে $m_3=4$ হতে হবে এবং $m_2$ ও $m_1$ এর মাঝে একটিকে $3$ হতে হবে এবং বাকিটি হবে $0,1,2,3$ এর মাঝে যেকোনো সংখ্যা। অর্থাৎ $(m_1,m_2,m_3)$ এর ত্রয়ী হতে পারে, 
+	\[{}^{3}P_3 \times {}^{1}P_{1} \times  {}^{1}P_{1} + {}^{1}P_{1}\times {}^{3}P_3 \times {}^{1}P_1+{}^{1}P_1\times {}^{1}P_1\times {}^{1}P_3=3\times 1\times 1+1\times 3\times 1+1\times 1\times 1=7\]
+	যথাঃ $(m_1,m_2,m_3)=(0,3,4),(1,3,4),(2,3,4),(3,0,4),(3,1,4),(3,2,4),(3,3,4)$
+	
+	আবার একইভাবে $n_1,n_2$ এবং $n_3$ এর মাঝে যেকোনো দুইটি হবে $3$ এবং বাকিটি $0,1,2,3$ এর মাঝে যেকোনো একটি সংখ্যা হবে। অর্থাৎ $(n_1,n_2,n_3)$ এর ত্রয়ী হতে পারে, 
+	\[{}^3 C_{2}\times {}^1P_{1}\times {}^3P_{3}+{}^1P_{1}\times{}^1P_{1}\times{}^1P_{1}=3\times 1\times 3+1\times 1\times 1=10 \]
+	যথাঃ $(n_1,n_2,n_3)=(3,3,0),(3,3,1),(3,3,2),(3,0,3),(3,1,3),(3,2,3),(0,3,3),(1,3,3),(2,3,3),(3,3,3)$
+	
+	অর্থাৎ $(a,b,c)$ এর ত্রয়ী পাওয়া যাবে $7\times 10=70$ টি। 
+\end{sltn}
+\begin{xmpl}
+	$M$ এবং $N$ দুইটি ধনাত্মক পূর্ণসংখ্যা যাতে $M \neq N$। $M$ এবং $N$ এর ল.সা.গু $M^2-N^2+MN$ দেখাও যে $MN$ একটি ঘন সংখ্যা।(BdMO national 2019)
+\end{xmpl}
+\begin{sltn}
+	ধরি $\gcd(M,N)=g$ এবং $M=gm'; N=gn'$ তাহলে,
+	\begin{alignat*}{2}
+		         & \lcm(M,N) &  & =M^2-N^2+MN              \\
+		\implies & gm'n'     &  & =g^2m'^2-g^2n'^2+g^2m'n' \\
+		\implies & m'n'      &  & =gm'^2-gn'^2+gm'n'
+	\end{alignat*}
+	অর্থাৎ $g|m'n'$ আবার যেহেতু $\gcd(m',n')=1$ তাই $m'|gn'^2\implies m'|g; n'|gm'^2\implies n'|g \implies m'n'|g$
+	
+	অর্থাৎ $g=m'n'$ তাহলে $MN=g^2m'n'=g^3$ অর্থাৎ $MN$ একটি ঘন সংখ্যা। 
+\end{sltn}
+\textcolor{darkcyan}{Euclidean Algorithm:} কোনো দুইটি সংখ্যাকে মৌলিক উৎপাদকে বিশ্লেষণ না করে এই Algorithm ব্যবহার করে গ.সা.গু নির্ণয় করা যায়। এটা আসলে Proposition \ref{prop-gcd} \ref{Euclidean Algorithm} এবং Division Algorithm এর রিপিটেড ব্যবহার। যদি দুইটি স্বাভাবিক সংখ্যা $m,n$ এর গ.সা.গু নির্ণয়ের ক্ষেত্রে, 
+\begin{align*}
+	m =       & nq_1+r_1 \qquad 1 \leq r_1 \leq n             \\
+	n =       & r_1q_2+r_2 \qquad 1 \leq r_2 \leq r_1         \\
+	          & \vdots                                        \\
+	r_{k-2} = & r_{k-1}q_k+r_k \qquad 1 \leq r_k \leq r_{k-1} \\
+	r_{k-1} = & r_{k}q_{k+1}+r_{k+1} \qquad r_{k+1} =0
+\end{align*}
+এই চেইনটি সসীম কেননা $n>r_1>r_2>\cdots>r_k$ এবং $r_i \in \mathbb{N}$ হওয়ায় $r_i$ এর সর্বনিম্ন মান আছে। 
+
+এই চেইনটির সর্বশেষ অশূণ্য ভাগশেষ $r_k$ এই $m,n$ এর গ.সা.গু কেননা, 
+\[\gcd(m,n)=\gcd(n,r_1)=\gcd(r_1,r_2)=\cdots = \gcd(r_{k-1},r_k)=r_k\]
+একটা উদাহরণ দেওয়া যাক। ধর দুইটি সংখ্যা $26,56$ এর গ.সা.গু বের করতে হবে। তাহলে, 
+\begin{align*}
+	56 & =26\times 2+4 \\
+	26 & =4\times 6+2  \\
+	4  & =2\times 2
+\end{align*}
+অর্থাৎ তাহলে $26,56$ এর গ.সা.গু হবে $2$। 
+\begin{xmpl}
+	যেকোনো স্বাভাবিক সংখ্যা $n$ এর জন্য প্রমাণ কর $\dfrac{14n+3}{21n+4}$ ভগ্নাংশটি আরো লঘিষ্ঠ আকারে লিখা সম্ভব নয়। (IMO 1959/1)
+\end{xmpl}
+যদিও এই প্রশ্নের সমাধান আগে করা হয়েছে এখানে Euclidean Algorithm ব্যবহার করে করা হল- 
+\begin{sltn}
+	আমাদের দেখাতে $21n+4,14n+3$ এর গ.সা.গু $1$
+	\begin{align*}
+		  & \gcd(21n+4,14n+3)        \\
+		= & \gcd(14n+3,21n+4-14n-3)  \\
+		= & \gcd(14n+3,7n+1)         \\
+		= & \gcd(7n+1,14n+3-2(7n+1)) \\
+		= & \gcd(7n+1,14n+3-14n-2)   \\
+		= & \gcd(7n+1,1)             \\
+		= & 1
+	\end{align*}
+	অর্থাৎ $21n+4,14n+3$ এর গ.সা.গু $1$ এবং $\dfrac{14n+3}{21n+4}$ হল লঘিষ্ঠ আকার। 
+\end{sltn}
+\begin{thrm}
+	\label{eugcd}
+	$a,b,m$ এবং $n$ স্বাভাবিক সংখ্যা হলে 
+	\[\gcd(a^m-b^m,a^n-b^n)=a^{\gcd(m,n)}-b^{\gcd(m,n)}\]
+\end{thrm}
+\begin{prf}
+	আমরা Euclidean Algorithm দিয়ে এটা প্রমাণ করব। 
+	
+	যদি $m=n$ হয় তবে $\gcd(a^m-b^m,a^m-b^m)=a^{\gcd(m,m)}-b^{\gcd(m,m)}=a^m-b^m$ অর্থাৎ থিওরেমটি খাটে। 
+	
+	ধরে নেই $m >n$ এবং $m=nq+r$ তাহলে $a^m-b^m=a^{nq+r}-b^{nq+r}=a^r(a^{nq}-b^{nq})+b^{nq}(a^r-b^r)$ আবার যেহেতু Lemma \ref{binomial} থেকে $a^n-b^n \mid a^{nq}-b^{nq}$ অর্থাৎ 
+	\[\gcd(a^m-b^m,a^n-b^n)=\gcd(a^n-b^n,a^r-b^r)\]
+	এভাবে চালাতে থাকলে Euclidean Algorithm থেকে পাওয়া যাবে, 
+	\[\gcd(a^m-b^m,a^n-b^n)=\gcd(a^n-b^n,a^r-b^r)=\cdots=a^{\gcd(m,n)}-b^{\gcd(m,n)}\]
+\end{prf}
+\begin{xmpl}
+	প্রমাণ কর $i,j,x$ স্বাভাবিক সংখ্যা হলে প্রমাণ কর $\gcd(x^i-1,x^j-1)=x^{\gcd(i,j)}-1$
+\end{xmpl}
+\begin{sltn}
+	Theorem \ref{eugcd} তে $a=x, b=1, m=i, n=j$ বসালেই পাওয়া যাবে $\gcd(x^i-1,x^j-1)=x^{\gcd(i,j)}-1$
+\end{sltn}
+\begin{thrm}[Bézout's identity]
+	যেকেনো স্বাভাবিক সংখ্যা $m,n$ এর জন্য এমন এক জোড় পূর্ণসংখ্যা $(x,y)$ পাওয়া যাবে যেন  
+	\[mx+ny=\gcd(m,n)\]
+\end{thrm}
+\begin{prf}
+	Euclidean Algorithm থেকে, 
+	\begin{align*}
+		r_1 & =m-nq_1              \\
+		r_2 & =n-r_1q_2            \\
+		    & =n-mq_2+nq_1q_2      \\
+		    & =m(-q_2)+n(1+q_1q_2) \\
+		    & \qquad \vdots
+	\end{align*}
+	অর্থাৎ $r_i=m\alpha_i+n\beta_i$ আকার থাকবে সব সময় এবং যেহেতু একটি ভাগশেষ $r_k$-ই হবে $m,n$ এর গ.সা.গু তাই সে ক্ষেত্রেও $r_k=\alpha_km+\beta_kn$। অর্থাৎ $\alpha_k=x, \beta_k=y$ নিলে \[mx+ny=\gcd(m,n)\]
+\end{prf}
+এই থিওরেম থেকে বলা যায় $ax+by=c$ এই সমীকরণের সমাধান পাওয়া যাবে যদি এবং কেবল যদি $\gcd(x,y) \mid c$। এই ধরনের সমীকরণকে linear diophantine equation(অন্য কোর্সে detailed আলোচনা করা হবে। ) বলে। চল একটা diophantine equation সমাধান করা যাক। 
+\begin{xmpl}
+	একটি পূর্ণসংখ্যা সমাধান জোড় $(x,y)$ বের কর যাতে
+	\[2014x+4021y=1\]
+\end{xmpl}
+\begin{sltn}
+	Euclidean Algorithm থেকে 
+	\begin{align*}
+		4021 & =2014\times 1+2007 \\
+		2014 & =2007\times 1 +7   \\
+		2007 & =7\times 286 +5    \\
+		7    & =5\times 1 +2      \\
+		5    & =2\times 2+1
+	\end{align*}
+	এখন এই চেইনটির উল্টাভাবে আগালেই আমরা আমাদের সমাধান পাব, 
+	\begin{align*}
+		1 & =5-2\times 2                        \\
+		  & =5-(7-5)\times 2                    \\
+		  & =5\times 3-7\times 2                \\
+		  & =3(2007-7\times 286)-7\times 2      \\
+		  & =3\times 2007-7\times 860           \\
+		  & =2007\times 3-(2014-2007)\times 860 \\
+		  & =4021\times 863-2014\times 1723
+	\end{align*}
+	অর্থাৎ $x=-1423$ এবং $y=863$
+\end{sltn}
+এখানে প্রশ্নে যেহেতু একটি সমাধান চাওয়া হয়েছে তাই শুধুমাত্র একটা সমাধান জোড় বের করা হয়েছে। তবে $(x,y)$ অসীম পরিমান সমাধান আছে। $ax+by=c$ সমীকরণের যেকোনো পূর্ণসংখ্যা সমাধান $x_0,y_0$ হলে সমীকরণটির সাধারণ সমাধান হবে 
+\[(x,y)=\left(\dfrac{c}{\gcd(a,b)}x_0-\dfrac{b}{\gcd(a,b)}, \dfrac{c}{\gcd(a,b)}y_0+\dfrac{a}{\gcd(a,b)}\right)\]
+Diophantine Equation নিয়ে পরবর্তী কোর্সে আরো detaile এ আলোচনা করা হবে। 
+
+\begin{Exercise}
+	\label{gcd}
+	\begin{prob}
+		$\gcd(x^2-x+1,x^2+x+1)$ এর মান নির্ণয় কর। 
+	\end{prob}
+	\begin{prob}
+		যদি $\gcd(a,b)+\lcm(a,b)=a+b$ হয় তবে প্রমাণ কর $a,b$ এর মাঝে যেকোনো একটি অপরটি দ্বারা বিভাজ্য। 
+	\end{prob}
+	\begin{prob}
+		$12345954321$ এবং $12345654321$ সংখ্যা দুইটির গ.সা.গু নির্ণয় কর। 
+	\end{prob}
+	\begin{prob}
+		যদি $a,b,c$ তিনটি স্বাভাবিক সংখ্যা হলে প্রমাণ কর,
+		\[\dfrac{\gcd(a,b,c)^2}{\gcd(a,b)\gcd(b,c)\gcd(c,a)}=\dfrac{\lcm(a,b,c)^2}{\lcm(a,b)\lcm(b,c)\lcm(c,a)}\]
+	\end{prob}
+	\begin{prob}
+		যদি $a$ এবং $b$ পরস্পর সহমৌলিক হয় এবং $p$ একটি মৌলিক সংখ্যা হলে প্রমাণ কর, 
+		\[\gcd \left(a+b,\dfrac{a^p+b^p}{a+b} \right)=1 \text{ বা } p\]
+	\end{prob}
+	\begin{prob}
+		যদি $a,b,c$ স্বাভাবিক সংখ্যা হয় রবে প্রমাণ কর $a \mid bc$ হবে যদি এবং কেবল যদি $\dfrac{a}{\gcd(a,b)} \mid c$
+	\end{prob}
+	\begin{prob}
+		একটি ধারা $101,104,109,116,\cdots$ ধারাটির $n$ তম পদ $a_n=100+n^2$ যেখানে $n \in \mathbb{N}$. এখন $d_n$ যদি $a_n$ এবং $a_{n+1}$ এর গ.সা.গু হয় তবে $d_n$ এর সর্বোচ্চ মান কর?(AIME 1985/13)
+	\end{prob}
+	\begin{prob}
+		দুইটি স্বাভাবিক সংখ্যা $x,y$ যেন, 
+		\begin{align*}
+			\log_{10}(x)+2\log_{10}(\gcd(x,y)) & =60  \\
+			\log_{10}(y)+2\log_{10}(\lcm(x,y)) & =570
+		\end{align*}
+		যদি $m$ এবং $n$ যথাক্রমে $x$ এবং $y$ এর মৌলিক উৎপাদকের সংখ্যা(অভিন্ন হতে হবে তা নয়) হয় তবে $3m+2n$ এর মান নির্ণয় কর।(AIME I 2019/7)
+	\end{prob}
+	\begin{prob}
+		এমন কয়টি স্বাভাবিক সংখ্যা জোড় $(a,b)$ পাওয়া যাবে যাতে 
+		\[ab+63=20\times \lcm(a,b)+12\times \gcd(a,b)\]
+		হয়। (AMC 10B 2018/23)
+	\end{prob}
+	\begin{prob}
+		কোনো স্বাভাবিক সংখ্যা $n$ এর জন্য $\gcd(n!+1,(n+1)!)$ এর মান নির্ণয় কর। 
+	\end{prob}
+	\begin{prob}
+		যদি $a$ এবং $b$ দুইটি ভিন্ন স্বাভাবিক সংখ্যা হয় যেন $ab(a+b) \mid a^2+ab+b^2$. প্রমাণ কর $|a-b|> \sqrt[3]{ab}$
+	\end{prob}
+	\begin{prob}
+		\label{xr1.2}
+		যদি 
+		\[\dfrac{a+1}{b}+\dfrac{b+1}{a}\]
+		একটি স্বাভাবিক সংখ্যা হয় তাহলে প্রমাণ কর $a+b \geq \gcd(a,b)^2$(SMO 1996)
+	\end{prob}
+	
+\end{Exercise}
+\begin{Answer}[ref={gcd}]
+	\begin{sltn}
+		\ref{xr1.2}: ধরি $\gcd(a,b)=g$ এবং $a=ga',b=gb'$ যেখানে $a',b'$ সহমৌলিক। এখন, 
+		\[\dfrac{a+1}{b}+\dfrac{b+1}{a}=\dfrac{a^2+b^2+a+b}{ab}\]
+		অর্থাৎ $ab\mid a^2+b^2+a+b$ আবার যেহেতু $g^2\mid ab; g^2\mid a^2; g^2\mid b^2$ তাই, 
+		\begin{alignat*}{2}
+			         & g^2 &  & \mid ab \mid a^2+b^2+a+b \\
+			\implies & g^2 &  & \mid a+b                 \\
+			\implies & g^2 &  & \leq a+b 
+		\end{alignat*}
+	\end{sltn}
+\end{Answer}
+\newpage
+\section{উত্তর}
+\shipoutAnswer
+\end{document}
